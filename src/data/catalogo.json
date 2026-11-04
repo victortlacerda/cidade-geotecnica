@@ -1,0 +1,707 @@
+[
+ {
+  "id": "A",
+  "nome": "Túneis",
+  "obras": [
+   {
+    "id": "A1",
+    "nome": "Túnel TBM (tuneladora)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Cabeça de corte girando, aduelas, correia de bota-fora",
+    "corte": "Frente, escudo, anéis, solo e lençol",
+    "p": 1
+   },
+   {
+    "id": "A2",
+    "nome": "Túnel NATM",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Escavação em avanço, concreto projetado, cambotas",
+    "corte": "Seções de avanço, revestimento primário",
+    "p": 1
+   },
+   {
+    "id": "A5",
+    "nome": "Emboque / portal em encosta",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Contenção do portal, escavação inicial",
+    "corte": "Maciço e cobertura sobre o túnel",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "B",
+  "nome": "Fundação direta",
+  "obras": [
+   {
+    "id": "B1",
+    "nome": "Sapata isolada",
+    "origem": "✅",
+    "contexto": "casa / prédio",
+    "ideia": "Forma, armação, betoneira",
+    "corte": "Sapata, pilar, bulbo de tensões",
+    "p": 2
+   },
+   {
+    "id": "B2",
+    "nome": "Sapata corrida",
+    "origem": "✅",
+    "contexto": "casa",
+    "ideia": "Vala, armação, concretagem",
+    "corte": "Faixa contínua sob paredes",
+    "p": 1
+   },
+   {
+    "id": "B3",
+    "nome": "Sapata de divisa (viga de equilíbrio)",
+    "origem": "✅",
+    "contexto": "casa / prédio",
+    "ideia": "Obra junto ao muro do vizinho",
+    "corte": "Sapata excêntrica + viga alavanca",
+    "p": 2
+   },
+   {
+    "id": "B4",
+    "nome": "Radier",
+    "origem": "✅",
+    "contexto": "casa / prédio",
+    "ideia": "Compactação, armação, concretagem da laje",
+    "corte": "Laje sobre o solo, camada de brita",
+    "p": 1
+   },
+   {
+    "id": "B5",
+    "nome": "Sapata associada",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Armação de sapata para dois pilares",
+    "corte": "Sapata comum, pilares próximos",
+    "p": 2
+   },
+   {
+    "id": "B6",
+    "nome": "Melhoria do solo sob fundação rasa",
+    "origem": "💡✔",
+    "contexto": "casa",
+    "ideia": "Troca de solo, colchão de brita, compactação",
+    "corte": "Camadas substituídas",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "C",
+  "nome": "Fundação profunda",
+  "obras": [
+   {
+    "id": "C1",
+    "nome": "Estaca broca (manual)",
+    "origem": "✅ (confirmar)",
+    "contexto": "casa",
+    "ideia": "Trado manual ou perfuratriz leve, concretagem",
+    "corte": "Estacas e blocos em solo",
+    "p": 2
+   },
+   {
+    "id": "C2",
+    "nome": "Tubulão a céu aberto",
+    "origem": "✅",
+    "contexto": "casa / prédio",
+    "ideia": "Escavação, camisa, alargamento da base",
+    "corte": "Fuste, base alargada, camada resistente",
+    "p": 2
+   },
+   {
+    "id": "C3",
+    "nome": "Estaca escavada com trado mecanizado",
+    "origem": "✅",
+    "contexto": "casa grande / prédio",
+    "ideia": "Perfuratriz com trado, concretagem com tremonha",
+    "corte": "Estaca escavada sem fluido",
+    "p": 2
+   },
+   {
+    "id": "C4",
+    "nome": "Estaca hélice contínua",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Perfuratriz com hélice, bomba de concreto, armadura descendo",
+    "corte": "Concretagem durante a retirada da hélice",
+    "p": 1
+   },
+   {
+    "id": "C5",
+    "nome": "Estaca ômega",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Ferramenta de deslocamento girando, sem retirar solo",
+    "corte": "Solo empurrado para os lados",
+    "p": 3
+   },
+   {
+    "id": "C6",
+    "nome": "Estaca pré-moldada de concreto (cravada)",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Bate-estaca, emendas",
+    "corte": "Penetração até a nega",
+    "p": 2
+   },
+   {
+    "id": "C7",
+    "nome": "Estaca metálica",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Cravação de perfis, solda de emenda",
+    "corte": "Perfil no solo, ponta em solo duro ou rocha",
+    "p": 2
+   },
+   {
+    "id": "C8",
+    "nome": "Estaca de trilho metálico",
+    "origem": "✅",
+    "contexto": "casa / reforço",
+    "ideia": "Cravação de trilhos reaproveitados com martelo leve",
+    "corte": "Trilho na camada resistente",
+    "p": 3
+   },
+   {
+    "id": "C9",
+    "nome": "Estaca helicoidal",
+    "origem": "✅",
+    "contexto": "casa leve / estruturas leves",
+    "ideia": "Máquina girando a estaca como um parafuso",
+    "corte": "Hélices no solo",
+    "p": 3
+   },
+   {
+    "id": "C10",
+    "nome": "Estaca raiz",
+    "origem": "✅",
+    "contexto": "prédio / reforço",
+    "ideia": "Perfuratriz com revestimento, injeção",
+    "corte": "Estaca em solo e rocha",
+    "p": 3
+   },
+   {
+    "id": "C11",
+    "nome": "Estaca Strauss",
+    "origem": "✅",
+    "contexto": "casa / pequeno porte",
+    "ideia": "Tripé com piteira e revestimento",
+    "corte": "Estaca com tubo recuperável",
+    "p": 3
+   },
+   {
+    "id": "C12",
+    "nome": "Estaca Franki",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Pilão e tubo cravado, base alargada",
+    "corte": "Bulbo de base",
+    "p": 3
+   },
+   {
+    "id": "C13",
+    "nome": "Estaca escavada / barrete / estacão",
+    "origem": "💡✔",
+    "contexto": "prédio alto",
+    "ideia": "Clamshell, lama bentonítica",
+    "corte": "Estaca profunda",
+    "p": 3
+   },
+   {
+    "id": "C14",
+    "nome": "Bloco de coroamento",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Arrasamento das estacas, armação e concretagem do bloco",
+    "corte": "Estacas ligadas ao bloco e ao pilar",
+    "p": 2
+   },
+   {
+    "id": "C15",
+    "nome": "Radier estaqueado",
+    "origem": "✅",
+    "contexto": "prédio",
+    "ideia": "Estacas + radier",
+    "corte": "Interação radier-estacas",
+    "p": 3
+   },
+   {
+    "id": "C17",
+    "nome": "Ponte com fundação em rio",
+    "origem": "💡✔",
+    "contexto": "ponte",
+    "ideia": "Ponte sobre o rio com a fundação sendo executada na água (o tipo de fundação é o mais adequado ao caso, definido no corte)",
+    "corte": "Fundação no leito do rio",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "D",
+  "nome": "Escavações e contenções",
+  "obras": [
+   {
+    "id": "D1",
+    "nome": "Escavação urbana com cortina de estacas",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Escavadeira, caminhões, trânsito ao redor",
+    "corte": "Estacas, solo, edifícios vizinhos",
+    "p": 1
+   },
+   {
+    "id": "D2",
+    "nome": "Cortina de estacas secantes",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Estacas alternadas (primárias e secundárias) e escavação revelando a parede",
+    "corte": "Estacas que se interceptam, parede estanque",
+    "p": 2
+   },
+   {
+    "id": "D3",
+    "nome": "Cortina de estacas tangentes",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Estacas lado a lado e escavação",
+    "corte": "Estacas encostadas, frestas entre elas",
+    "p": 2
+   },
+   {
+    "id": "D4",
+    "nome": "Cortina em balanço",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Escavação rasa com cortina sem apoio",
+    "corte": "Embutimento da cortina e empuxo",
+    "p": 2
+   },
+   {
+    "id": "D5",
+    "nome": "Cortina atirantada",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Perfuração e protensão de tirantes",
+    "corte": "Tirantes ancorados no solo",
+    "p": 1
+   },
+   {
+    "id": "D6",
+    "nome": "Parede diafragma",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Clamshell, lama, gaiola de armação",
+    "corte": "Painéis e lençol freático",
+    "p": 2
+   },
+   {
+    "id": "D7",
+    "nome": "Solo grampeado",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Perfuração, grampos, concreto projetado",
+    "corte": "Face e grampos",
+    "p": 2
+   },
+   {
+    "id": "D8",
+    "nome": "Muro de arrimo por gravidade",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Execução do muro e reaterro",
+    "corte": "Peso próprio, empuxo, dreno",
+    "p": 2
+   },
+   {
+    "id": "D9",
+    "nome": "Muro de arrimo de bloco cheio",
+    "origem": "✅ (confirmar o termo)",
+    "contexto": "",
+    "ideia": "Assentamento dos blocos, graute, reaterro",
+    "corte": "Alvenaria de blocos cheios e dreno",
+    "p": 3
+   },
+   {
+    "id": "D10",
+    "nome": "Muro de arrimo por flexão",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Armação em L, forma, concretagem, reaterro compactado",
+    "corte": "Laje de base, cortina, dreno",
+    "p": 2
+   },
+   {
+    "id": "D11",
+    "nome": "Muro de gabião",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Montagem das gaiolas, enchimento com pedras",
+    "corte": "Gaiolas empilhadas, geotêxtil, dreno",
+    "p": 2
+   },
+   {
+    "id": "D12",
+    "nome": "Estaca prancha",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Vibrocravação",
+    "corte": "Perfis encaixados",
+    "p": 3
+   },
+   {
+    "id": "D14",
+    "nome": "Vala urbana escorada (redes de água e esgoto)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Escoramento, assentamento de tubo, trânsito desviado",
+    "corte": "Vala e escoras",
+    "p": 2
+   },
+   {
+    "id": "D15",
+    "nome": "Rebaixamento do lençol freático",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Ponteiras, bombas, descarga",
+    "corte": "Cone de rebaixamento",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "E",
+  "nome": "Vias e pavimentos",
+  "obras": [
+   {
+    "id": "E1",
+    "nome": "Pavimento asfáltico (flexível)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Motoniveladora, rolo, espalhadora, caminhões",
+    "corte": "Subleito, sub-base, base, revestimento",
+    "p": 1
+   },
+   {
+    "id": "E2",
+    "nome": "Pavimento de concreto (rígido)",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Pavimentadora de formas deslizantes, juntas",
+    "corte": "Placas sobre sub-base",
+    "p": 2
+   },
+   {
+    "id": "E4",
+    "nome": "Estrada com corte e aterro",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Terraplenagem, trator, caminhões",
+    "corte": "Greide e taludes",
+    "p": 2
+   },
+   {
+    "id": "E5",
+    "nome": "Reforço de pavimentos",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Fresagem, recapeamento, rolo",
+    "corte": "Camada nova sobre a existente",
+    "p": 2
+   },
+   {
+    "id": "E6",
+    "nome": "Geossintéticos em pavimentos",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Instalação de geogrelha ou geotêxtil sob a base",
+    "corte": "Geossintético entre camadas",
+    "p": 2
+   },
+   {
+    "id": "E7",
+    "nome": "Drenagem viária (bueiros, galerias)",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Vala, tubos, reaterro",
+    "corte": "Rede enterrada",
+    "p": 3
+   },
+   {
+    "id": "E8",
+    "nome": "Estabilização / reforço de subleito",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Misturador, cal ou cimento",
+    "corte": "Camada tratada",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "F",
+  "nome": "Obras de terra e encostas",
+  "obras": [
+   {
+    "id": "F1",
+    "nome": "Estabilidade de taludes e encostas (fenômeno)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Chuva, infiltração e movimento de massa; depois grampeamento e drenos",
+    "corte": "Superfície de ruptura e fator de segurança",
+    "p": 2
+   },
+   {
+    "id": "F2",
+    "nome": "Cortes em solo e rocha",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Escavadeira, trator, caminhões; bancadas e bermas",
+    "corte": "Talude de corte, camadas",
+    "p": 2
+   },
+   {
+    "id": "F3",
+    "nome": "Aterros",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Lançamento, espalhamento e compactação por camadas",
+    "corte": "Camadas e controle",
+    "p": 2
+   },
+   {
+    "id": "F4",
+    "nome": "Aterros sobre solos moles",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Instalação de drenos verticais, sobrecarga, recalques ao longo do tempo",
+    "corte": "Adensamento e recalques",
+    "p": 2
+   },
+   {
+    "id": "F5",
+    "nome": "Compactação de solos",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Rolos (liso, pé de carneiro, vibratório), controle de umidade e densidade",
+    "corte": "Camadas, índice de vazios e curva de compactação",
+    "p": 1
+   },
+   {
+    "id": "F6",
+    "nome": "Solos colapsíveis (fenômeno)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Vazamento ou chuva molhando o solo e a casa assentando de repente",
+    "corte": "Solo poroso, entrada de água, colapso",
+    "p": 3
+   },
+   {
+    "id": "F7",
+    "nome": "Solos expansivos (fenômeno)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Umedecimento e secagem, laje e paredes levantando e trincando",
+    "corte": "Argila expansiva e zona ativa",
+    "p": 3
+   },
+   {
+    "id": "F9",
+    "nome": "Drenagem em obras de terra",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Valetas, drenos de brita e geotêxtil, drenos horizontais",
+    "corte": "Caminho da água no maciço",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "G",
+  "nome": "Investigação e ensaios",
+  "obras": [
+   {
+    "id": "G1",
+    "nome": "Sondagem SPT",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Equipe com tripé e martelo",
+    "corte": "Perfil de sondagem e NSPT",
+    "p": 2
+   },
+   {
+    "id": "G2",
+    "nome": "Sondagem rotativa",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Sonda rotativa, testemunhos de rocha",
+    "corte": "Perfil de rocha e RQD",
+    "p": 3
+   },
+   {
+    "id": "G3",
+    "nome": "Ensaio CPT",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Cravação hidráulica da ponteira",
+    "corte": "Curvas de resistência",
+    "p": 3
+   },
+   {
+    "id": "G4",
+    "nome": "Ensaio CPTU (piezocone)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Cravação com medida de poropressão",
+    "corte": "Resistência e poropressão por profundidade",
+    "p": 3
+   },
+   {
+    "id": "G5",
+    "nome": "Vane test (ensaio de palheta)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Palheta girando em argila mole",
+    "corte": "Resistência não drenada da argila",
+    "p": 3
+   },
+   {
+    "id": "G6",
+    "nome": "Ensaio de placa",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Placa carregada no fundo da cava",
+    "corte": "Bulbo de tensões",
+    "p": 3
+   },
+   {
+    "id": "G7",
+    "nome": "Prova de carga estática (PCE)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Macaco hidráulico, reação, relógios",
+    "corte": "Curva carga x recalque",
+    "p": 3
+   },
+   {
+    "id": "G8",
+    "nome": "Ensaio dinâmico em estacas (PDA)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Martelo e sensores na estaca",
+    "corte": "Ondas de tensão na estaca",
+    "p": 3
+   },
+   {
+    "id": "G9",
+    "nome": "Ensaio de integridade (PIT)",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Martelo leve e sensor na cabeça da estaca",
+    "corte": "Onda refletida em defeitos",
+    "p": 3
+   },
+   {
+    "id": "G10",
+    "nome": "Monitoramento de recalques de fundações",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Topógrafo lendo marcos, gráfico crescendo",
+    "corte": "Recalque ao longo do tempo",
+    "p": 3
+   },
+   {
+    "id": "G11",
+    "nome": "Piezômetros",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Técnico lendo o nível d'água",
+    "corte": "Poropressão e nível d'água no maciço",
+    "p": 3
+   },
+   {
+    "id": "G12",
+    "nome": "Inclinômetros e instrumentação geral",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Técnico descendo a sonda no tubo",
+    "corte": "Deslocamentos no maciço",
+    "p": 3
+   },
+   {
+    "id": "G13",
+    "nome": "Laboratório de geotecnia (edifício-ícone)",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Só um prédio pequeno com a placa \"Laboratório\", sem animação de obra; o clique abre o repositório de ensaios de laboratório",
+    "corte": "Sem corte (ensaios de laboratório, não de campo)",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "H",
+  "nome": "Barragens e disposição de rejeitos",
+  "obras": [
+   {
+    "id": "H1",
+    "nome": "Barragem (de terra)",
+    "origem": "✅ (definir variantes)",
+    "contexto": "",
+    "ideia": "Compactação em camadas, filtros, vertedouro, enchimento do reservatório",
+    "corte": "Núcleo, espaldares, filtro, linha de percolação",
+    "p": 1
+   },
+   {
+    "id": "H2",
+    "nome": "Barragem de enrocamento",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Lançamento de enrocamento, face de concreto ou núcleo",
+    "corte": "Zonas de enrocamento e vedação",
+    "p": 3
+   },
+   {
+    "id": "H3",
+    "nome": "Barragem de rejeitos (alteamentos)",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Disposição de rejeito e alteamento a montante, a jusante e por linha de centro",
+    "corte": "Rejeito, drenagem interna e nível freático",
+    "p": 3
+   },
+   {
+    "id": "H4",
+    "nome": "Pilha de rejeitos",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Caminhões, trator, compactação em bancos, drenos",
+    "corte": "Bancadas, drenagem interna e fundação",
+    "p": 2
+   },
+   {
+    "id": "H5",
+    "nome": "Pilha de estéril",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Basculamento por caminhões, bancos",
+    "corte": "Bancos e fundação",
+    "p": 3
+   },
+   {
+    "id": "H6",
+    "nome": "Vertedouro e drenagem interna de barragens",
+    "origem": "💡✔",
+    "contexto": "",
+    "ideia": "Vertedouro em operação, filtros e drenos",
+    "corte": "Filtro, dreno de pé e fluxo",
+    "p": 3
+   }
+  ]
+ }
+]
