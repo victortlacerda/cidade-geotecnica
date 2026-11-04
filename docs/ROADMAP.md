@@ -186,10 +186,10 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 
 | Obra | Origem | Ideia da animação | Corte (subsolo) | P |
 |------|--------|-------------------|-----------------|---|
-| [ ] H1 Barragem (de terra) | ✅ (definir variantes) | Compactação em camadas, filtros, vertedouro, enchimento do reservatório | Núcleo, espaldares, filtro, linha de percolação | 1 |
+| [x] H1 Barragem (de terra) | ✅ (definir variantes) | Compactação em camadas, filtros, vertedouro, enchimento do reservatório | Núcleo, espaldares, filtro, linha de percolação | 1 |
 | [ ] H2 Barragem de enrocamento | 💡✔ | Lançamento de enrocamento, face de concreto ou núcleo | Zonas de enrocamento e vedação | 3 |
 | [ ] H3 Barragem de rejeitos (alteamentos) | 💡✔ | Disposição de rejeito e alteamento a montante, a jusante e por linha de centro | Rejeito, drenagem interna e nível freático | 3 |
-| [ ] H4 Pilha de rejeitos | ✅ | Caminhões, trator, compactação em bancos, drenos | Bancadas, drenagem interna e fundação | 2 |
+| [x] H4 Pilha de rejeitos | ✅ | Caminhões, trator, compactação em bancos, drenos | Bancadas, drenagem interna e fundação | 2 |
 | [ ] H5 Pilha de estéril | 💡✔ | Basculamento por caminhões, bancos | Bancos e fundação | 3 |
 | [ ] H6 Vertedouro e drenagem interna de barragens | 💡✔ | Vertedouro em operação, filtros e drenos | Filtro, dreno de pé e fluxo | 3 |
 
@@ -481,6 +481,16 @@ Perguntas para você (responda "ok" se concordar):
 
 ---
 
+## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
+
+**Estado (v3.0): H1 e H4 animadas em corte.** Seção em x = 3 sobre o vale da zona; usa o mesmo motor de perfil da zona F.
+
+**H1 Barragem de terra zonada:** 1 Locação e projeto (estacas, altura 7 m, taludes 1:2,2 a montante e 1:2 a jusante, crista de 6 m) → 2 Fundação: escavação da trincheira de vedação (3 m) e preenchimento com solo argiloso → 3 Tapete e dreno de pé, filtro chaminé vertical → 4 Aterro em sete camadas de 1 m (núcleo argiloso, espaldares, rolo, ensaio) → 5 Proteção: enrocamento a montante, hidrossemeadura a jusante, crista e vertedouro → 6 Instrumentação (3 piezômetros) e enchimento do reservatório, com a linha de percolação (pontilhado azul, com fluxo) atravessando o núcleo, o filtro e o tapete até o dreno de pé.
+- Pendente de sua confirmação: dimensões (exageradas), tipo de núcleo e a ordem das etapas. Variantes (enrocamento, concreto) ficam para depois.
+
+**H4 Pilha de rejeitos filtrados:** 1 Locação e projeto (6,6 m em bancos de 2 m com bermas) → 2 Fundação limpa, colchão drenante e dreno de fundo central → 3 Seis camadas de 1 m: caminhão descarrega, trator espalha, rolo compacta (GC sobe de 88% a 100%), ensaio de densidade → 4 Canaletas de concreto nas bermas e hidrossemeadura → 5 Piezômetros, marcos topográficos e água limpa saindo do dreno de fundo.
+- Pendente de sua confirmação: altura e largura das bermas, tipo de rejeito (filtrado, não pasta ou úmido) e a ordem das etapas.
+
 ## 5. Decisões a tomar
 
 ### DEC1. Tecnologia 3D
@@ -707,7 +717,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [ ] Confirmar catálogo e fichas, modelar, animar, revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
-- [ ] Confirmar catálogo e fichas, modelar, animar, revisar
+- [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
+- [ ] Prioridade 3 (H2, H3, H5, H6), confirmar fichas e revisar
 
 ### Fase 9 — Cidade unificada
 - [ ] Juntar as zonas numa cidade só (ruas, trânsito ambiente, pedestres)
@@ -830,3 +841,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 25/10/2026 | v2.7: **E1 (pavimento asfáltico) animado em corte**, com caixa, subleito, sub-base, base, imprimação, binder e capa, e máquinas (motoniveladora, caminhão-pipa, distribuidor, vibroacabadora, rolo) | Aguardando suas correções das sequências B, C, D e E1; próximas: E2, E5, E6, E4 |
 | 02/11/2026 | v2.8: **E2 (pavimento rígido), E4 (corte e aterro), E5 (reforço com fresagem) e E6 (geossintéticos) animados em corte.** Zona E de prioridade 2 completa | Aguardando suas correções das sequências B, C, D e E; próximas: E7 e E8 (prioridade 3) ou Zona F |
 | 03/11/2026 | v2.9: **Zona F de prioridade 1 e 2 animada em corte: F5 (compactação com painel Proctor), F2 (cortes em solo e rocha, com detonação), F3 (aterros em camadas), F4 (aterro sobre solo mole com drenos verticais e gráfico de recalque) e F1 (estabilidade de encostas: chuva, ruptura circular e estabilização).** Motor de perfil comum às obras de terra; projeto passa a ter repositório no GitHub | Aguardando suas correções das sequências B, C, D, E e F; próximas: Zona G (G1) e Zona H (H1, H4) |
+| 04/11/2026 | v3.0: **Zona H: H1 (barragem de terra zonada, com percolação e enchimento do reservatório) e H4 (pilha de rejeitos em bancos compactados, com drenagem e monitoramento) animadas em corte** | Aguardando suas correções; próximas: G1 (sondagem SPT), depois prioridade 3 |
