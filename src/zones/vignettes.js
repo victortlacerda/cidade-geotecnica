@@ -224,6 +224,9 @@ export function buildZones(ctx) {
 
   // ===================================================== G — Investigação e ensaios
   {
+    const gg = new THREE.Group(); gg.name = 'g-inv'; ctx.add(gg);
+    const add = (o) => gg.add(o);
+    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, H(x, z) + dy, z); obj.rotation.y = ry; gg.add(obj); return obj; };
     // laboratório
     const lab = new THREE.Group();
     lab.add(box(13, 6.2, 9, 0xf4f1ea, 0, 3.1, 0), box(13.6, 0.5, 9.6, 0x6fa3c7, 0, 6.45, 0), box(2.6, 3.6, 0.3, 0x7ba7c4, -3, 1.8, 4.6), box(2.6, 3.6, 0.3, 0x7ba7c4, 3, 1.8, 4.6));

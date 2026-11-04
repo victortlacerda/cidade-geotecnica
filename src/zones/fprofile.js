@@ -17,9 +17,9 @@ export function createProfile(engine, section, cfg) {
   const geo = cfg.geo || { x1: X1F, xe: XEP, hole: HOLE_F };
   const X1 = geo.x1, XE = geo.xe, HOLE = geo.hole, XB = X1 - 0.05, XC = X1 - 0.02, XP = X1 - 0.045;
   const root = new THREE.Group(); root.visible = false;
-  const YB = cfg.yb ?? 0;
-  const ZS = Array.from({ length: NZ }, (_, i) => Z0 + i * DZ), ys = new Float32Array(NZ);
-  const surf = (z) => { const f = clamp01((z - Z0) / (Z1 - Z0)) * (NZ - 1), i = Math.min(NZ - 2, Math.floor(f)), q = f - i; return ys[i] * (1 - q) + ys[i + 1] * q; };
+  const YB = cfg.yb ?? 0, zo = cfg.zo || 0;   // zo: deslocamento do perfil em z (zona G fica em z > 0)
+  const ZS = Array.from({ length: NZ }, (_, i) => Z0 + zo + i * DZ), ys = new Float32Array(NZ);
+  const surf = (z) => { const f = clamp01((z - zo - Z0) / (Z1 - Z0)) * (NZ - 1), i = Math.min(NZ - 2, Math.floor(f)), q = f - i; return ys[i] * (1 - q) + ys[i + 1] * q; };
 
   const mkGeo = (nv) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(nv * 3), 3)); g.setAttribute('color', new THREE.BufferAttribute(new Float32Array(nv * 3), 3)); return g; };
   const vm = () => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true, side: THREE.DoubleSide });

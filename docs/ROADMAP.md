@@ -168,7 +168,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 
 | Obra | Origem | Ideia da animação | Corte (subsolo) | P |
 |------|--------|-------------------|-----------------|---|
-| [ ] G1 Sondagem SPT | ✅ | Equipe com tripé e martelo | Perfil de sondagem e NSPT | 2 |
+| [x] G1 Sondagem SPT | ✅ | Equipe com tripé e martelo | Perfil de sondagem e NSPT | 2 |
 | [ ] G2 Sondagem rotativa | 💡✔ | Sonda rotativa, testemunhos de rocha | Perfil de rocha e RQD | 3 |
 | [ ] G3 Ensaio CPT | ✅ | Cravação hidráulica da ponteira | Curvas de resistência | 3 |
 | [ ] G4 Ensaio CPTU (piezocone) | ✅ | Cravação com medida de poropressão | Resistência e poropressão por profundidade | 3 |
@@ -481,6 +481,13 @@ Perguntas para você (responda "ok" se concordar):
 
 ---
 
+## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
+
+**Estado (v3.1): G1 animada em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+
+**G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
+- Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
+
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
 **Estado (v3.0): H1 e H4 animadas em corte.** Seção em x = 3 sobre o vale da zona; usa o mesmo motor de perfil da zona F.
@@ -714,7 +721,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [ ] Confirmar fichas e revisar
 
 ### Fase 7 — Zona G (Investigação e ensaios)
-- [ ] Confirmar catálogo e fichas, modelar, animar, revisar
+- [x] G1 (sondagem SPT) animada em corte (v3.1)
+- [ ] Prioridade 3 (G2 a G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -842,3 +850,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 02/11/2026 | v2.8: **E2 (pavimento rígido), E4 (corte e aterro), E5 (reforço com fresagem) e E6 (geossintéticos) animados em corte.** Zona E de prioridade 2 completa | Aguardando suas correções das sequências B, C, D e E; próximas: E7 e E8 (prioridade 3) ou Zona F |
 | 03/11/2026 | v2.9: **Zona F de prioridade 1 e 2 animada em corte: F5 (compactação com painel Proctor), F2 (cortes em solo e rocha, com detonação), F3 (aterros em camadas), F4 (aterro sobre solo mole com drenos verticais e gráfico de recalque) e F1 (estabilidade de encostas: chuva, ruptura circular e estabilização).** Motor de perfil comum às obras de terra; projeto passa a ter repositório no GitHub | Aguardando suas correções das sequências B, C, D, E e F; próximas: Zona G (G1) e Zona H (H1, H4) |
 | 04/11/2026 | v3.0: **Zona H: H1 (barragem de terra zonada, com percolação e enchimento do reservatório) e H4 (pilha de rejeitos em bancos compactados, com drenagem e monitoramento) animadas em corte** | Aguardando suas correções; próximas: G1 (sondagem SPT), depois prioridade 3 |
+| 04/11/2026 | v3.1: **G1 (sondagem SPT) animada em corte**, com tripé, martelo, contagem de golpes por trecho, gráfico e tabela de NSPT, amostras e nível d'água | Aguardando suas correções; próximas: prioridade 3 das zonas C, D, E, F, G e H |
