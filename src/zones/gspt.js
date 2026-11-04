@@ -39,7 +39,7 @@ const CLAY = [true, true, false, false, false, true, false];
 const cons = (clay, N) => (clay ? (N <= 2 ? 'muito mole' : N <= 5 ? 'mole' : N <= 10 ? 'média' : N <= 19 ? 'rija' : 'dura') : (N <= 4 ? 'fofa' : N <= 8 ? 'pouco compacta' : N <= 18 ? 'medianamente compacta' : N <= 40 ? 'compacta' : 'muito compacta'));
 const nColor = (N) => { const a = new THREE.Color(0x6fbf73), b = new THREE.Color(0xf2b705), c = new THREE.Color(0xd8332a); return N < 20 ? a.lerp(b, N / 20) : b.lerp(c, Math.min(1, (N - 20) / 30)); };
 
-function textPanel(w, h, cw, ch, x, y, z) {
+export function textPanel(w, h, cw, ch, x, y, z) {
   const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch; const g = cv.getContext('2d'); const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
   const m = new THREE.MeshBasicMaterial({ map: tx, transparent: true, depthWrite: false, side: THREE.DoubleSide }); m.userData.noClip = true;
   const geo = new THREE.PlaneGeometry(w, h); geo.rotateY(-Math.PI / 2);
