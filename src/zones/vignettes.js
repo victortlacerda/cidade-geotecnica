@@ -78,6 +78,9 @@ export function buildZones(ctx) {
 
   // ===================================================== H — Barragens e rejeitos
   {
+    const hg = new THREE.Group(); hg.name = 'h-dam'; ctx.add(hg);
+    const add = (o) => hg.add(o);
+    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, H(x, z) + dy, z); obj.rotation.y = ry; hg.add(obj); return obj; };
     // barragem de terra (seção trapezoidal com bermas)
     const prof = new THREE.Shape();
     const pts = [[16, -0.5], [11.5, 2.7], [9, 2.7], [4.6, 5.4], [2.6, 5.4], [1.5, DAM.crest], [-1.5, DAM.crest], [-15.5, -0.5]];

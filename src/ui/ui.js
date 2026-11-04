@@ -17,6 +17,8 @@ import { D2, D3, D2_STEPS, D2_LABELS, D2_STEP_STARTS, D3_STEPS, D3_LABELS, D3_ST
 import { D4, D4_STEPS, D4_LABELS, D4_STEP_STARTS, D4_CAM, D4_MCAM } from '../zones/d4.js';
 import { DW, DW_CAM, DW_MCAM, D8_STEPS, D10_STEPS, D11_STEPS, D8_LABELS, D10_LABELS, D11_LABELS, DW_STEP_STARTS } from '../zones/dwall.js';
 import { E_BOX, E_CAM, E_MCAM, E_SPECS } from '../zones/eroad.js';
+import { H4, H4_CAM, H4_MCAM, H4_STEPS, H4_STARTS, H4_LABELS } from '../zones/hpile.js';
+import { H1, H1_CAM, H1_MCAM, H1_STEPS, H1_STARTS, H1_LABELS } from '../zones/hdam.js';
 import { F1, F1_CAM, F1_MCAM, F1_STEPS, F1_STARTS, F1_LABELS } from '../zones/fslope.js';
 import { F3, F3_CAM, F3_MCAM, F3_STEPS, F3_STARTS, F3_LABELS, F4, F4_CAM, F4_MCAM, F4_STEPS, F4_STARTS, F4_LABELS } from '../zones/fembank.js';
 import { F2, F2_CAM, F2_MCAM, F2_STEPS, F2_STARTS, F2_LABELS } from '../zones/fcut.js';
@@ -56,6 +58,8 @@ const CORTE = {
   D11: { box: DW.box, cam: DW_CAM, steps: D11_STEPS, starts: DW_STEP_STARTS.D11, labels: D11_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Muro de gabião', tit: 'Etapas da obra', note: true, mcam: DW_MCAM },
   E2: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E2.steps, starts: E_SPECS.E2.starts, labels: E_SPECS.E2.labels, sub: 'Vista em corte · sequência da obra', nome: 'Pavimento de concreto (rígido)', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
   E5: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E5.steps, starts: E_SPECS.E5.starts, labels: E_SPECS.E5.labels, sub: 'Vista em corte · sequência da obra', nome: 'Reforço de pavimentos', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
+  H4: { box: H4.box, cam: H4_CAM, steps: H4_STEPS, starts: H4_STARTS, labels: H4_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Pilha de rejeitos', tit: 'Etapas da obra', note: true, mcam: H4_MCAM },
+  H1: { box: H1.box, cam: H1_CAM, steps: H1_STEPS, starts: H1_STARTS, labels: H1_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Barragem de terra', tit: 'Etapas da obra', note: true, mcam: H1_MCAM },
   F1: { box: F1.box, cam: F1_CAM, steps: F1_STEPS, starts: F1_STARTS, labels: F1_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Estabilidade de encostas', tit: 'Etapas da obra', note: true, mcam: F1_MCAM },
   F3: { box: F3.box, cam: F3_CAM, steps: F3_STEPS, starts: F3_STARTS, labels: F3_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Aterros', tit: 'Etapas da obra', note: true, mcam: F3_MCAM },
   F4: { box: F4.box, cam: F4_CAM, steps: F4_STEPS, starts: F4_STARTS, labels: F4_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Aterro sobre solo mole', tit: 'Etapas da obra', note: true, mcam: F4_MCAM },

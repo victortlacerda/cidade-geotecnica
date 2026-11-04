@@ -1,0 +1,21 @@
+import { chromium } from '/opt/npm-tools/node_modules/playwright/index.mjs';
+const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist','--enable-webgl'] });
+const p = await b.newPage({ viewport: { width: 390, height: 800 }, isMobile: true, hasTouch: true });
+const logs=[]; p.on('pageerror', e => logs.push('PAGEERROR: '+e.stack));
+await p.goto('http://localhost:4173/'); await p.waitForTimeout(2500);
+console.log(JSON.stringify(await p.evaluate(() => {
+  document.querySelector('.zl[aria-label^="Zona H"]').click();
+  document.querySelector('button.cut[data-w="H1"]').click();
+  const a = window.__app; const w=a.h1; w.state.paused=true; w.state.tc=148; return { active: w.state.active, road: a.engine.scene.getObjectByName('h-dam').visible };
+})));
+await p.waitForTimeout(6000);
+await p.screenshot({ path: '/tmp/e/m.png' });
+await p.evaluate(() => { const w=window.__app.h1; w.state.paused=false; w.state.tc=151.9; });
+await p.waitForTimeout(9000);
+console.log(JSON.stringify(await p.evaluate(()=>({tc:window.__app.h1.state.tc, hold:window.__app.h1.state.hold}))));
+await p.waitForTimeout(8000);
+console.log(JSON.stringify(await p.evaluate(()=>({tc:window.__app.h1.state.tc, hold:window.__app.h1.state.hold}))));
+await p.keyboard.press('Escape'); await p.waitForTimeout(1500);
+console.log(JSON.stringify(await p.evaluate(()=>({active:window.__app.h1.state.active, road:window.__app.engine.scene.getObjectByName('h-dam').visible, vis:window.__app.h1.group.visible}))));
+console.log(logs.join('\n')||'sem erros');
+await b.close();

@@ -123,7 +123,7 @@ export function createPeople(engine, spots) {
 // ---------- árvores ----------
 export function createTrees(positions0, seed = 3) {
   const R = rng(seed);
-  const positions = positions0.filter(([x, z]) => !(x > -47.5 && x < -5 && z > -59 && z < -5));   // morro da zona F: as obras de terra refazem o perfil do terreno
+  const positions = positions0.filter(([x, z]) => !(x > -47.5 && x < -5 && z > -59 && z < -5) && !(x > 2 && x < 51 && z > -59 && z < -5));   // morro da zona F: as obras de terra refazem o perfil do terreno
   const trunk = new THREE.CylinderGeometry(0.18, 0.26, 1.6, 6); trunk.translate(0, 0.8, 0);
   const crown = new THREE.IcosahedronGeometry(1.5, 0); crown.translate(0, 2.7, 0);
   const crown2 = new THREE.IcosahedronGeometry(1.05, 0); crown2.translate(0.2, 3.9, 0.1);
