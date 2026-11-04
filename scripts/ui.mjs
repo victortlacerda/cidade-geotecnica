@@ -1,0 +1,25 @@
+import { chromium } from '/opt/npm-tools/node_modules/playwright/index.mjs';
+const S = process.env.OUT;
+const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+const logs=[];
+async function open(w,h,scheme='light'){ const ctx=await b.newContext({viewport:{width:w,height:h},colorScheme:scheme,hasTouch:w<600}); const p=await ctx.newPage();
+ p.on('pageerror', e => logs.push(e.stack)); p.on('console', m => m.type()==='error' && !/TUNNEL/.test(m.text()) && logs.push(m.text()));
+ await p.goto('http://localhost:4173/'); await p.waitForTimeout(3000); return p; }
+const settle = (p)=>p.evaluate(()=>{const c=__app.controls; Object.assign(c.cur,c.goal);});
+let p = await open(1280,720);
+await p.click('.zl:nth-of-type(1)'); await p.waitForTimeout(500); await settle(p); await p.waitForTimeout(1800);
+await p.screenshot({path:`${S}/u_panel.png`});
+await p.keyboard.press('Escape'); await p.waitForTimeout(300);
+await p.click('#m-tour'); await p.waitForTimeout(400); await p.click('#t-next'); await settle(p); await p.waitForTimeout(1800);
+await p.screenshot({path:`${S}/u_tour.png`});
+await p.click('#m-ex'); await p.click('#b-night'); await p.evaluate(()=>{__app.dn.state.phase=1;__app.dn.state.target=1;}); await p.waitForTimeout(300);
+await p.evaluate(()=>{const c=__app.controls;c.flyTo(c.HOME);Object.assign(c.cur,c.goal);}); await p.waitForTimeout(2200);
+await p.screenshot({path:`${S}/u_night.png`});
+const info = await p.evaluate(()=>{const i=__app.engine.renderer.info; return {calls:i.render.calls,tris:i.render.triangles,geos:i.memory.geometries}});
+console.log(JSON.stringify(info));
+await p.context().close();
+p = await open(390,800,'dark');
+await p.click('.zl:nth-of-type(3)'); await p.waitForTimeout(500); await settle(p); await p.waitForTimeout(1800);
+await p.screenshot({path:`${S}/u_mobile.png`});
+console.log(logs.join('\n'));
+await b.close();

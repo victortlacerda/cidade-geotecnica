@@ -1,0 +1,13 @@
+import { chromium } from '/opt/npm-tools/node_modules/playwright/index.mjs';
+const S = process.env.OUT;
+const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+const p = await (await b.newContext({viewport:{width:1280,height:720}})).newPage();
+const logs=[]; p.on('pageerror', e => logs.push(e.stack));
+await p.goto('http://localhost:4173/'); await p.waitForTimeout(2500);
+await p.evaluate(()=>{__app.dn.state.phase=0.97; __app.dn.setNight(true);});
+await p.waitForTimeout(3500);
+await p.screenshot({path:`${S}/n_night.png`});
+await p.evaluate(()=>{const c=__app.controls;c.flyTo({tx:-27,ty:4,tz:-30,yaw:0.42,pitch:0.82,dist:105});Object.assign(c.cur,c.goal);__app.dn.state.phase=0.0;__app.dn.setNight(false);__app.dn.state.target=0.0;__app.dn.state.phase=0.01});
+await p.waitForTimeout(3000);
+await p.screenshot({path:`${S}/n_F.png`});
+console.log(logs.join('\n')); await b.close();

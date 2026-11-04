@@ -1,0 +1,17 @@
+import { chromium } from '/opt/npm-tools/node_modules/playwright/index.mjs';
+const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist','--enable-webgl'] });
+const logs=[]; 
+const p = await b.newPage({ viewport: { width: 390, height: 780 } });
+p.on('console', m => { if (!/TUNNEL|fonts/.test(m.text())) logs.push(m.type()+': '+m.text()); }); p.on('pageerror', e => logs.push('PAGEERROR: '+e.stack));
+await p.goto('http://localhost:4173/'); await p.waitForTimeout(2500);
+await p.evaluate(() => { document.querySelector('.zl[aria-label^="Zona B"]').click(); document.querySelector('button.cut[data-w="B1"]').click(); window.__app.b1.state.paused = true; window.__app.b1.state.tc = 36; });
+await p.waitForTimeout(6000); await p.screenshot({ path: '/tmp/zb_mob4.png' });
+await p.evaluate(() => { const s = window.__app.b1.state; s.paused = false; s.tc = 36.4; }); await p.waitForTimeout(8000);
+console.log('loop', await p.evaluate(() => { const s = window.__app.b1.state; return { tc: +s.tc.toFixed(2), hold: +s.hold.toFixed(2) }; }));
+await p.keyboard.press('Escape'); await p.waitForTimeout(800);
+console.log('esc', await p.evaluate(() => { const a = window.__app; return { b1: a.b1.state.active, holes: a.engine.scene.getObjectByName("b-isol").visible, sap: a.engine.scene.getObjectByName('b-sapata').visible }; }));
+await p.evaluate(() => { document.querySelector('.zl[aria-label^="Zona B"]').click(); }); await p.waitForTimeout(500);
+await p.evaluate(() => document.querySelector('button.cut[data-w="B2"]').click()); await p.waitForTimeout(2000);
+await p.evaluate(() => { window.__app.b2.state.paused = true; window.__app.b2.state.tc = 22; }); await p.waitForTimeout(6000); await p.screenshot({ path: '/tmp/zb_mob2.png' });
+console.log(logs.slice(0,10).join('\n') || 'sem erros');
+await b.close();

@@ -1,0 +1,18 @@
+import { chromium } from '/opt/npm-tools/node_modules/playwright/index.mjs';
+const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist','--enable-webgl'] });
+const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
+const logs=[]; p.on('console', m => { if (!/TUNNEL|fonts/.test(m.text())) logs.push(m.type()+': '+m.text()); }); p.on('pageerror', e => logs.push('PAGEERROR: '+e.stack));
+await p.goto('http://localhost:4173/'); await p.waitForTimeout(2500);
+await p.evaluate(() => { document.querySelector('.zl').click(); document.querySelector('button.cut[data-w="A5"]').click(); });
+const get = () => p.evaluate(() => { const a = window.__app; return { tc: +a.emb.state.tc.toFixed(2), hold: +a.emb.state.hold.toFixed(2), step: a.emb.state.step, natm: a.natm.state.active, note: a.emb.state.note }; });
+await p.evaluate(() => { window.__app.emb.state.tc = 64.5; }); await p.waitForTimeout(3000); console.log('fim', await get());
+await p.waitForTimeout(6000); console.log('depois', await get());
+await p.evaluate(() => { window.__app.emb.state.tc = 50; }); await p.waitForTimeout(2000); console.log('50', await get());
+await p.evaluate(() => { window.__app.emb.state.tc = 5; }); await p.waitForTimeout(2000); console.log('5', await get());
+await p.keyboard.press('Escape'); await p.waitForTimeout(800);
+console.log('esc', await p.evaluate(() => ({ emb: window.__app.emb.state.active, natm: window.__app.natm.state.active, cut: window.__app.section.active })));
+await p.evaluate(() => { document.querySelector('.zl').click(); }); await p.waitForTimeout(500);
+await p.evaluate(() => document.querySelector('button.cut[data-w="A2"]').click()); await p.waitForTimeout(2500);
+console.log('A2', await p.evaluate(() => ({ nC: window.__app.natm.state.nC, act: window.__app.natm.state.active })));
+console.log(logs.slice(0,10).join('\n') || 'sem erros');
+await b.close();
