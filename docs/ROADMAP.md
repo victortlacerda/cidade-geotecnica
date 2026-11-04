@@ -170,7 +170,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 |------|--------|-------------------|-----------------|---|
 | [x] G1 Sondagem SPT | ✅ | Equipe com tripé e martelo | Perfil de sondagem e NSPT | 2 |
 | [ ] G2 Sondagem rotativa | 💡✔ | Sonda rotativa, testemunhos de rocha | Perfil de rocha e RQD | 3 |
-| [ ] G3 Ensaio CPT | ✅ | Cravação hidráulica da ponteira | Curvas de resistência | 3 |
+| [x] G3 Ensaio CPT | ✅ | Cravação hidráulica da ponteira | Curvas de resistência | 3 |
 | [ ] G4 Ensaio CPTU (piezocone) | ✅ | Cravação com medida de poropressão | Resistência e poropressão por profundidade | 3 |
 | [ ] G5 Vane test (ensaio de palheta) | ✅ | Palheta girando em argila mole | Resistência não drenada da argila | 3 |
 | [ ] G6 Ensaio de placa | ✅ | Placa carregada no fundo da cava | Bulbo de tensões | 3 |
@@ -178,7 +178,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [ ] G8 Ensaio dinâmico em estacas (PDA) | ✅ | Martelo e sensores na estaca | Ondas de tensão na estaca | 3 |
 | [ ] G9 Ensaio de integridade (PIT) | ✅ | Martelo leve e sensor na cabeça da estaca | Onda refletida em defeitos | 3 |
 | [ ] G10 Monitoramento de recalques de fundações | ✅ | Topógrafo lendo marcos, gráfico crescendo | Recalque ao longo do tempo | 3 |
-| [ ] G11 Piezômetros | ✅ | Técnico lendo o nível d'água | Poropressão e nível d'água no maciço | 3 |
+| [x] G11 Piezômetros | ✅ | Técnico lendo o nível d'água | Poropressão e nível d'água no maciço | 3 |
 | [ ] G12 Inclinômetros e instrumentação geral | 💡✔ | Técnico descendo a sonda no tubo | Deslocamentos no maciço | 3 |
 | [ ] G13 Laboratório de geotecnia (edifício-ícone) | 💡✔ | Só um prédio pequeno com a placa "Laboratório", sem animação de obra; o clique abre o repositório de ensaios de laboratório | Sem corte (ensaios de laboratório, não de campo) | 3 |
 
@@ -483,10 +483,16 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.1): G1 animada em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.2): G1, G3 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
+
+**G3 Ensaio CPT:** 1 Caminhão cravador chega, é calçado com macacos e alinhado ao ponto → 2 Macaco hidráulico crava a ponteira a velocidade constante, rosqueando uma haste de 1 m a cada metro → 3 Gráficos contínuos crescendo junto com a ponteira: resistência de ponta qc (MPa) e razão de atrito Rf (%), com leitura numérica na legenda → 4 Rf separa argila (alto, laranja) de areia (baixo, amarelo), com as divisas das camadas marcadas → 5 Retirada das hastes e curvas prontas. Curvas sintéticas de exemplo, coerentes com as camadas da cidade.
+- Pendente: se prefere mostrar também fs separado e a interpretação por classes (Robertson), e se esta obra deve virar CPTU (G4) com poropressão.
+
+**G11 Piezômetro de tubo aberto:** 1 Locação e furo de 11 m → 2 Tubo de PVC com trecho filtrante, areia de filtro, selo de bentonita, aterro do furo e proteção na boca → 3 Água sobe no tubo; técnico mede o nível com sonda sonora (9,6 m) → 4 Um ano de leituras: gráfico de chuva mensal e de nível d'água (sobe na chuva, desce na seca, com atraso) → 5 Diagrama de poropressão u = γw·h abaixo do nível d'água.
+- Pendente: tipo de piezômetro (tubo aberto, pneumático ou corda vibrante) e se quer a leitura automática com datalogger.
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -722,7 +728,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 
 ### Fase 7 — Zona G (Investigação e ensaios)
 - [x] G1 (sondagem SPT) animada em corte (v3.1)
-- [ ] Prioridade 3 (G2 a G13), confirmar fichas e revisar
+- [x] G3 (CPT) e G11 (piezômetro) animados em corte (v3.2)
+- [ ] Prioridade 3 restante (G2, G4 a G10, G12, G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -851,3 +858,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 03/11/2026 | v2.9: **Zona F de prioridade 1 e 2 animada em corte: F5 (compactação com painel Proctor), F2 (cortes em solo e rocha, com detonação), F3 (aterros em camadas), F4 (aterro sobre solo mole com drenos verticais e gráfico de recalque) e F1 (estabilidade de encostas: chuva, ruptura circular e estabilização).** Motor de perfil comum às obras de terra; projeto passa a ter repositório no GitHub | Aguardando suas correções das sequências B, C, D, E e F; próximas: Zona G (G1) e Zona H (H1, H4) |
 | 04/11/2026 | v3.0: **Zona H: H1 (barragem de terra zonada, com percolação e enchimento do reservatório) e H4 (pilha de rejeitos em bancos compactados, com drenagem e monitoramento) animadas em corte** | Aguardando suas correções; próximas: G1 (sondagem SPT), depois prioridade 3 |
 | 04/11/2026 | v3.1: **G1 (sondagem SPT) animada em corte**, com tripé, martelo, contagem de golpes por trecho, gráfico e tabela de NSPT, amostras e nível d'água | Aguardando suas correções; próximas: prioridade 3 das zonas C, D, E, F, G e H |
+| 04/11/2026 | v3.2: **G3 (ensaio CPT, com curvas de qc e Rf) e G11 (piezômetro, com gráfico de chuva e nível d'água e diagrama de poropressão) animados em corte** | Aguardando suas correções; próximas: G2, G4 a G10 e demais prioridades 3 |
