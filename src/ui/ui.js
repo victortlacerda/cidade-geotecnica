@@ -17,6 +17,7 @@ import { D2, D3, D2_STEPS, D2_LABELS, D2_STEP_STARTS, D3_STEPS, D3_LABELS, D3_ST
 import { D4, D4_STEPS, D4_LABELS, D4_STEP_STARTS, D4_CAM, D4_MCAM } from '../zones/d4.js';
 import { DW, DW_CAM, DW_MCAM, D8_STEPS, D10_STEPS, D11_STEPS, D8_LABELS, D10_LABELS, D11_LABELS, DW_STEP_STARTS } from '../zones/dwall.js';
 import { E_BOX, E_CAM, E_MCAM, E_SPECS } from '../zones/eroad.js';
+import { G5, G5_CAM, G5_MCAM, G5_STEPS, G5_STARTS, G5_LABELS } from '../zones/gvane.js';
 import { G11, G11_CAM, G11_MCAM, G11_STEPS, G11_STARTS, G11_LABELS } from '../zones/gpiezo.js';
 import { G3, G3_CAM, G3_MCAM, G3_STEPS, G3_STARTS, G3_LABELS } from '../zones/gcpt.js';
 import { G1, G1_CAM, G1_MCAM, G1_STEPS, G1_STARTS, G1_LABELS } from '../zones/gspt.js';
@@ -61,6 +62,7 @@ const CORTE = {
   D11: { box: DW.box, cam: DW_CAM, steps: D11_STEPS, starts: DW_STEP_STARTS.D11, labels: D11_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Muro de gabião', tit: 'Etapas da obra', note: true, mcam: DW_MCAM },
   E2: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E2.steps, starts: E_SPECS.E2.starts, labels: E_SPECS.E2.labels, sub: 'Vista em corte · sequência da obra', nome: 'Pavimento de concreto (rígido)', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
   E5: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E5.steps, starts: E_SPECS.E5.starts, labels: E_SPECS.E5.labels, sub: 'Vista em corte · sequência da obra', nome: 'Reforço de pavimentos', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
+  G5: { box: G5.box, cam: G5_CAM, steps: G5_STEPS, starts: G5_STARTS, labels: G5_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Vane test (palheta)', tit: 'Etapas do ensaio', note: true, mcam: G5_MCAM },
   G11: { box: G11.box, cam: G11_CAM, steps: G11_STEPS, starts: G11_STARTS, labels: G11_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Piezômetros', tit: 'Etapas da instalação', note: true, mcam: G11_MCAM },
   G3: { box: G3.box, cam: G3_CAM, steps: G3_STEPS, starts: G3_STARTS, labels: G3_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Ensaio CPT', tit: 'Etapas do ensaio', note: true, mcam: G3_MCAM },
   G1: { box: G1.box, cam: G1_CAM, steps: G1_STEPS, starts: G1_STARTS, labels: G1_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Sondagem SPT', tit: 'Etapas do ensaio', note: true, mcam: G1_MCAM },
