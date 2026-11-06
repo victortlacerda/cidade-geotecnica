@@ -24,6 +24,7 @@ import { G7, G7_CAM, G7_MCAM, G7_STEPS, G7_STARTS, G7_LABELS } from '../zones/gp
 import { G6, G6_CAM, G6_MCAM, G6_STEPS, G6_STARTS, G6_LABELS } from '../zones/gplate.js';
 import { G5, G5_CAM, G5_MCAM, G5_STEPS, G5_STARTS, G5_LABELS } from '../zones/gvane.js';
 import { G11, G11_CAM, G11_MCAM, G11_STEPS, G11_STARTS, G11_LABELS } from '../zones/gpiezo.js';
+import { G4, G4_CAM, G4_MCAM, G4_STEPS, G4_STARTS, G4_LABELS } from '../zones/gcptu.js';
 import { G3, G3_CAM, G3_MCAM, G3_STEPS, G3_STARTS, G3_LABELS } from '../zones/gcpt.js';
 import { G1, G1_CAM, G1_MCAM, G1_STEPS, G1_STARTS, G1_LABELS } from '../zones/gspt.js';
 import { H4, H4_CAM, H4_MCAM, H4_STEPS, H4_STARTS, H4_LABELS } from '../zones/hpile.js';
@@ -74,6 +75,7 @@ const CORTE = {
   G6: { box: G6.box, cam: G6_CAM, steps: G6_STEPS, starts: G6_STARTS, labels: G6_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Ensaio de placa', tit: 'Etapas do ensaio', note: true, mcam: G6_MCAM },
   G5: { box: G5.box, cam: G5_CAM, steps: G5_STEPS, starts: G5_STARTS, labels: G5_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Vane test (palheta)', tit: 'Etapas do ensaio', note: true, mcam: G5_MCAM },
   G11: { box: G11.box, cam: G11_CAM, steps: G11_STEPS, starts: G11_STARTS, labels: G11_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Piezômetros', tit: 'Etapas da instalação', note: true, mcam: G11_MCAM },
+  G4: { box: G4.box, cam: G4_CAM, steps: G4_STEPS, starts: G4_STARTS, labels: G4_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Ensaio CPTU (piezocone)', tit: 'Etapas do ensaio', note: true, mcam: G4_MCAM },
   G3: { box: G3.box, cam: G3_CAM, steps: G3_STEPS, starts: G3_STARTS, labels: G3_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Ensaio CPT', tit: 'Etapas do ensaio', note: true, mcam: G3_MCAM },
   G1: { box: G1.box, cam: G1_CAM, steps: G1_STEPS, starts: G1_STARTS, labels: G1_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Sondagem SPT', tit: 'Etapas do ensaio', note: true, mcam: G1_MCAM },
   H4: { box: H4.box, cam: H4_CAM, steps: H4_STEPS, starts: H4_STARTS, labels: H4_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Pilha de rejeitos', tit: 'Etapas da obra', note: true, mcam: H4_MCAM },
