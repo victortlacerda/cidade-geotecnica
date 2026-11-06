@@ -1,6 +1,6 @@
 # 🏗️ Cidade Geotécnica 3D — Roadmap e Planejamento
 
-> Nome provisório. Versão 3.14 · 06/11/2026
+> Nome provisório. Versão 3.15 · 06/11/2026
 > Status: **Fase 1b em andamento**, com 52 obras animadas em corte: Zona A (A1, A2, A5), B (B1 a B6), C (C1, C2, C3, C4, C6, C7, C13, C14), D (D1 a D8, D10, D11, D14), E (E1, E2, E4, E5, E6), F (F1 a F5), **G (G1 a G12)** e H (H1, H4). Falta você confirmar as sequências e os valores de exemplo.
 > Publicação: site em https://victortlacerda.github.io/cidade-geotecnica/, atualizado sozinho a cada envio para a `main` (GitHub Actions).
 
@@ -61,9 +61,9 @@ As oito zonas: **A Túneis · B Fundação direta · C Fundação profunda · D 
 - Cada **zona** tem também um **repositório geral** (ex.: referências de "fundação profunda" valem para todas as estacas).
 - **Casa x prédio deixou de ser zona e virou contexto.** Como as zonas agora são por tipo de fundação, a mesma obra pode aparecer com uma casa ou com um prédio em cima. A coluna **Contexto** mostra isso (DEC16).
 
-**Mapa da cidade (v3.14).** Do lado de cá do rio: na fileira de trás, **A ampliada** (cresceu para a direita, sem a rua entre as partes, com pátio de aduelas, um segundo poço e grua), **Zona E** (trecho de trás da avenida central, de 16 m, onde ficam as obras E1, E2, E4, E5 e E6, mais uma faixa ao lado com usina de asfalto e pátio de agregados) e **D ampliada** (dois lotes, platô com cortina atirantada e ensecadeira de estacas-prancha); na fileira da frente, B, **C deitada** (dois lotes contínuos, do lote original da C ao antigo lote de E, com um canteiro de fundações profundas: prédio em estrutura com grua, cravação de estacas, hélice contínua e tubulão) e G. A avenida central termina em T na rua do meio, para a C não ser cortada. Do outro lado do rio: F e H, **Zona I (Geotecnia ambiental)** no canto esquerdo, com o aterro sanitário ao lado da saída do túnel (os caminhões de lixo chegam pelo túnel), e **Zona J (área reservada)** no canto direito, na chegada da ponte.
+**Mapa da cidade (v3.14).** Do lado de cá do rio: na fileira de trás, **A ampliada** (cresceu para a direita, sem a rua entre as partes, com pátio de aduelas, um segundo poço e grua), **Zona E** (trecho de trás da avenida central, de 16 m, onde ficam as obras E1, E2, E4, E5 e E6, mais uma faixa ao lado com usina de asfalto e pátio de agregados) e **D ampliada** (dois lotes, platô com cortina atirantada e ensecadeira de estacas-prancha); na fileira da frente, B, **C deitada** (dois lotes contínuos, do lote original da C ao antigo lote de E, com um canteiro de fundações profundas: prédio em estrutura com grua, cravação de estacas, hélice contínua e tubulão) e G. A avenida central termina em T na rua do meio, para a C não ser cortada. Do outro lado do rio: F e H, **Zona I (Geotecnia ambiental)** no canto esquerdo, com o aterro sanitário ao lado da saída do túnel (os caminhões de lixo chegam pelo túnel), e **Zona J (Pontes e obras em rio)** no canto direito, na chegada da ponte: a própria ponte, uma **ensecadeira** de estacas-prancha no rio ao lado dela (água bombeada para fora, bloco de um novo pilar a seco, guindaste na margem) e um pátio de vigas pré-moldadas com pórtico.
+- Zona J, obras: **J1 Ponte com fundação em rio** (era a C17) e **J2 Ensecadeira**, as duas P1. Pendente: tipo de fundação dos pilares (tubulão a ar comprimido, estaca escavada com camisa ou estaca cravada), se a J1 mostra a ensecadeira como etapa, e outras obras para a zona (proteção de margens, dragagem).
 - Zona I, obras sugeridas (confirme): I1 Aterro sanitário (P1), I2 Remediação de área contaminada, I3 Poços de monitoramento da água subterrânea (P2), I4 Cobertura final e encerramento de aterro, I5 Tratamento de chorume (P3).
-- Pendente: o que entra na Zona J.
 
 **Mapa da cidade (v3.12).** Um rio corre atrás da cidade, ao longo de toda a borda do fundo. Do lado de cá ficam A, D (fundo) e B, C, E, G (frente); os antigos lotes de F e H viraram quarteirões de prédios e uma praça. Do outro lado do rio fica a **área afastada**, com as zonas **F** (encosta) e **H** (vale da barragem e pilha de rejeitos), mais mata e morros nos cantos. Dois acessos ligam as margens:
 - **Túnel** (Zona A): o NATM do emboque segue para o norte, passa por baixo da rua do fundo e do rio (traçado tracejado sobre a água e poços de ventilação nas margens) e sai num portal na face norte de uma colina, na área afastada, com acesso até a rua do fundo.
@@ -128,7 +128,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [x] C13 Estaca escavada / barrete / estacão | 💡✔ | prédio alto | Clamshell, lama bentonítica | Estaca profunda | 3 |
 | [x] C14 Bloco de coroamento | ✅ | prédio | Arrasamento das estacas, armação e concretagem do bloco | Estacas ligadas ao bloco e ao pilar | 2 |
 | [ ] C15 Radier estaqueado | ✅ | prédio | Estacas + radier | Interação radier-estacas | 3 |
-| [ ] C17 Ponte com fundação em rio | 💡✔ | ponte | Ponte sobre o rio com a fundação sendo executada na água (o tipo de fundação é o mais adequado ao caso, definido no corte) | Fundação no leito do rio | 3 |
+| ~~C17 Ponte com fundação em rio~~ | | | Movida para a Zona J como **J1** (v3.15); o ID C17 não é reaproveitado | | |
 
 **Zona D — Escavações e contenções**
 
@@ -917,3 +917,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 06/11/2026 | v3.12: **novo mapa**: rio atrás da cidade, **área afastada** do outro lado com as zonas F e H (todas as obras F1 a F5, H1 e H4 deslocadas e testadas em corte), **túnel** saindo da Zona A por baixo do rio até um portal na área afastada, e **ponte** perto da Zona D; antigos lotes de F e H viram quarteirão e praça | Aguardando sua avaliação do mapa; próxima: C17 na ponte, G13 ou as P3 da Zona H |
 | 06/11/2026 | v3.13: **C e D ampliadas** (quadras contínuas, ruas entre as metades removidas), **Zona E na avenida central** alargada (obras giradas para correr ao longo dela), antigo lote de E virou quarteirão, **Zona I (Geotecnia ambiental)** com aterro sanitário ao lado da saída do túnel e **Zona J (reservada)** na chegada da ponte | Aguardando: confirmar obras da Zona I e o que entra na J; próxima: I1 em corte ou C17 |
 | 06/11/2026 | v3.14: **C deitada** na fileira da frente (antigo lote de E), avenida central termina em T na rua do meio; **A ampliada** para a direita e **faixa da Zona E** com usina de asfalto no antigo lote de trás da C | Aguardando sua avaliação do mapa; próxima: I1 em corte ou C17 |
+| 06/11/2026 | v3.15: **Zona J = Pontes e obras em rio** (C17 virou J1, nova J2 Ensecadeira), ensecadeira no rio e pátio de vigas; na cava da D, escoras mais altas e escavadeiras compactas trabalhando por baixo delas | Próxima: J1/J2 ou I1 em corte |

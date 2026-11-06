@@ -35,7 +35,7 @@ Um rio corre atrás da cidade. Do outro lado fica uma área afastada com as zona
 | G | Investigação e ensaios | G1 SPT, G2 sondagem rotativa, G3 CPT, G4 CPTU, G5 vane, G6 placa, G7 prova de carga, G8 PDA, G9 PIT, G10 recalques, G11 piezômetros, G12 inclinômetro |
 | H | Barragens e rejeitos | H1 barragem de terra, H4 pilha de rejeitos |
 | I | Geotecnia ambiental | em breve (aterro sanitário modelado na cidade) |
-| J | Área reservada | a definir |
+| J | Pontes e obras em rio | em breve (ponte e ensecadeira modeladas no rio) |
 
 ![Zona D, escavações e contenções, com o catálogo de obras](docs/img/zona-d.jpg)
 

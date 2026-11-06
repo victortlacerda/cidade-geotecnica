@@ -54,8 +54,8 @@ export function buildCity(engine, dn) {
   const flat = () => true;
   // canto esquerdo: saída do túnel e aterro sanitário (Zona I) — mata só fora do aterro
   hill(-105, -60, -150, -98, 26, -0.5, (x, z) => !(Math.abs(x + 90) < 6 && z < -110) && !(Math.abs(x + 90) < 9 && z > -124 && z < -118) && !(x > -87 && z < -117));
-  // canto direito: área reservada (Zona J), na chegada da ponte
-  hill(60, 106, -150, -98, 30, -0.5, (x, z) => Math.abs(x - 81) > 7 || z < -104);
+  // canto direito: Zona J (ponte e obras em rio), com o pátio de vigas na frente do lote
+  hill(60, 106, -150, -98, 26, -0.5, (x, z) => (Math.abs(x - 81) > 7 || z < -104) && !(x < 82 && z > -124));
   for (let x = -108; x <= 108; x += 7) { if (Math.abs(x - 81) > 8 && Math.abs(x + 86) > 6) { pushT(x + R() * 2, RIVER.z1 + 2.6 + R()); pushT(x + R() * 2, RIVER.z0 - 2.6 - R()); } }
   void flat;
   const trees = createTrees(T.filter(([x, z]) => {

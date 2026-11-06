@@ -4,6 +4,8 @@
 export const REMOTE_DZ = -94;
 export const RIVER = { z0: -86, z1: -70, bed: -4.2, water: -1.3, bank: 3.5 };
 export const BRIDGE = { x: 81, z0: -62, z1: -94, deck: 1.4 };
+// ensecadeira no rio, ao lado da ponte (Zona J): recinto de estacas-prancha com o bloco de um novo pilar
+export const COFFER = { x0: 90, x1: 100, z0: -81, z1: -75 };
 export const TUNNEL = { x: -90, zIn: -27, zOut: -122 };
 export const WORLD = { w: 230, z0: -164, z1: 70, d: 234, bottom: -28 };
 export const isRemote = (id) => id[0] === 'F' || id[0] === 'H';
@@ -36,7 +38,8 @@ export const LOOP_MERGE = [{ x0: -109, x1: 0, z0: -62, z1: 0 }, { x0: -54, x1: 5
 export const ZONE_RECT = {
   A: A_LOT, B: L(-81, 32), C: U(L(-27, 32), L(27, 32)), D: U(L(27, -32), L(81, -32)),
   E: { x0: E_LOT.x0, x1: AVENUE_W / 2, z0: -58, z1: -6 }, G: L(81, 32),
-  F: L(-27, -126), H: L(27, -126), I: L(-81, -126), J: L(81, -126),
+  F: L(-27, -126), H: L(27, -126), I: L(-81, -126),
+  J: { x0: 58, x1: 104, z0: -152, z1: -62 },   // ponte, trecho do rio com a ensecadeira e o lote da margem de lá
 };
 export const PLOT = { w: 46, d: 52 };
 
@@ -100,7 +103,7 @@ export const ZONE_INFO = {
   G: { curta: 'Sondagens, ensaios de campo e laboratório que dizem o que existe debaixo da obra.' },
   H: { curta: 'Barragens e pilhas de rejeito: grandes maciços de terra, água e segurança.' },
   I: { curta: 'Geotecnia ambiental: aterro sanitário, proteção do solo e da água subterrânea e áreas contaminadas.' },
-  J: { curta: 'Área reservada para uma zona futura, na chegada da ponte.' },
+  J: { curta: 'Pontes e obras dentro d\'água: a fundação dos pilares no leito do rio e as ensecadeiras que permitem trabalhar a seco.' },
 };
 export const TOUR_ORDER = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 export const ZONE_LIST = [...TOUR_ORDER, 'J'];

@@ -230,15 +230,6 @@
     "ideia": "Estacas + radier",
     "corte": "Interação radier-estacas",
     "p": 3
-   },
-   {
-    "id": "C17",
-    "nome": "Ponte com fundação em rio",
-    "origem": "💡✔",
-    "contexto": "ponte",
-    "ideia": "Ponte sobre o rio com a fundação sendo executada na água (o tipo de fundação é o mais adequado ao caso, definido no corte)",
-    "corte": "Fundação no leito do rio",
-    "p": 3
    }
   ]
  },
@@ -757,7 +748,26 @@
  },
  {
   "id": "J",
-  "nome": "Área reservada",
-  "obras": []
+  "nome": "Pontes e obras em rio",
+  "obras": [
+   {
+    "id": "J1",
+    "nome": "Ponte com fundação em rio",
+    "origem": "✅",
+    "contexto": "ponte",
+    "ideia": "Ponte sobre o rio com a fundação sendo executada na água (o tipo de fundação é o mais adequado ao caso, definido no corte)",
+    "corte": "Fundação no leito do rio",
+    "p": 1
+   },
+   {
+    "id": "J2",
+    "nome": "Ensecadeira",
+    "origem": "✅",
+    "contexto": "",
+    "ideia": "Estacas-prancha cravadas no rio formando um recinto, água bombeada para fora e o bloco do pilar executado a seco",
+    "corte": "Recinto de estacas-prancha, nível d'água dentro e fora, fundo do rio e bloco",
+    "p": 1
+   }
+  ]
  }
 ]

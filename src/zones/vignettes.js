@@ -129,12 +129,13 @@ export function buildZones(ctx) {
     const rim = (w, d, x, z) => gd.add(box(w, wh, d, 0xb9b5ab, x, wy, z));
     rim(2 * hx + 2.8, wt, cx, cz - hz - 0.5); rim(2 * hx + 2.8, wt, cx, cz + hz + 0.5);
     rim(wt, 2 * hz + 1, cx - hx - 0.5, cz); rim(wt, 2 * hz + 1, cx + hx + 0.5, cz);
-    // escoramento
-    for (const y of [-1.6, -5]) for (const dz of [-6, 0, 6]) gd.add(box(2 * hx + 0.4, 0.55, 0.55, COL.orange, cx, y, cz + dz));
-    for (const y of [-1.6, -5]) for (const dx of [-8, 8]) gd.add(box(0.55, 0.55, 2 * hz + 0.4, COL.orange, cx + dx, y, cz));
+    // escoramento em dois níveis; o de baixo deixa 3,7 m livres para as escavadeiras trabalharem por baixo dele
+    for (const y of [-1.2, -4.0]) for (const dz of [-6, 0, 6]) gd.add(box(2 * hx + 0.4, 0.55, 0.55, COL.orange, cx, y, cz + dz));
+    for (const y of [-1.2, -4.0]) for (const dx of [-8, 8]) gd.add(box(0.55, 0.55, 2 * hz + 0.4, COL.orange, cx + dx, y, cz));
     const putD = (obj, x, z, ry = 0) => { obj.position.set(x, -PIT.depth, z); obj.rotation.y = ry; gd.add(obj); return obj; };
-    const ex = M.excavator(1.0); putD(ex.group, 74, -33, 0.3); upd((d, t) => ex.update(t));
-    const ex2 = M.excavator(0.8); putD(ex2.group, 86, -36, 3.2); upd((d, t) => ex2.update(t + 2));
+    // escavadeiras compactas, abaixo do nível de escoras (braço e cabine não passam de y = -5)
+    const ex = M.excavator(0.52); putD(ex.group, 76, -33, 0.3); upd((d, t) => ex.update(t));
+    const ex2 = M.excavator(0.48); putD(ex2.group, 87, -27, 3.2); upd((d, t) => ex2.update(t + 2));
     const tk = M.dumpTruck(); gd.add(tk);
     upd(follower(tk, [[87.5, -8 + 0.0, -25], [87.5, -8, -20], [87.5, 0, -8.6], [87.5, 0, -4], [87.5, 0, -8.6], [87.5, -8, -20]], 4.5, { loop: true, yOff: 0.35 }));
     const cr = M.towerCrane(26); put(cr.group, 63.5, -30); gd.add(cr.group); upd((d, t) => cr.update(t));
@@ -366,5 +367,14 @@ export function buildZones(ctx) {
     const ld = M.excavator(0.7); put(ld.group, -14, -22, 2.6); upd((d, t) => ld.update(t + 1.9));
     const tk = M.dumpTruck(0x34363b); add(tk); upd(follower(tk, [[-10.5, -14], [-10.5, -50], [-14, -50], [-14, -14]], 3.6));
     worker(-20, -42, -16, -42);
+  }
+
+  // ===================================================== J — pátio de vigas pré-moldadas da ponte (margem de lá)
+  {
+    for (let r = 0; r < 3; r++) for (let h = 0; h < 2; h++) add(box(14, 1.1, 0.7, 0xc9c4b8, 72, 0.55 + h * 1.15, -112 - r * 2.4));
+    for (let i = 0; i < 4; i++) add(box(0.6, 0.25, 8, 0x8a6a44, 66 + i * 4, 0.12, -114.4));
+    const gt = M.gantry(); gt.group.position.set(72, 0, -114); add(gt.group); upd((d, t) => gt.update(t + 1));
+    const tk = M.dumpTruck(0xe8b300); add(tk); upd(follower(tk, [[78, -100], [78, -106], [66, -106]], 2.6, { loop: false }));
+    worker(64, -120, 70, -120);
   }
 }
