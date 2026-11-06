@@ -19,7 +19,7 @@ export function createSection(engine) {
 
   // uniformes do furo da face
   // faixas "escavadas" da face: (zMin, zMax, yMin, yMax); desligada quando yMax <= yMin
-  const U = { uBand: { value: Array.from({ length: 6 }, () => new THREE.Vector4(0, 0, 0, 0)) } };
+  const U = { uBand: { value: Array.from({ length: 6 }, () => new THREE.Vector4(0, 0, 0, 0)) }, uBandX: { value: 0 } };   // uBandX = 1: face em z constante (faixas medidas em x)
   const faceMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, side: THREE.DoubleSide });
   faceMat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, U);
@@ -27,11 +27,12 @@ export function createSection(engine) {
       .replace('#include <common>', '#include <common>\nvarying vec3 vWP;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvWP = (modelMatrix * vec4(transformed, 1.0)).xyz;');
     sh.fragmentShader = sh.fragmentShader
-      .replace('#include <common>', '#include <common>\nvarying vec3 vWP;\nuniform vec4 uBand[6];')
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWP;\nuniform vec4 uBand[6];\nuniform float uBandX;')
       .replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
         for (int bi = 0; bi < 6; bi++) {
           vec4 bd = uBand[bi];
-          if (bd.w > bd.z && vWP.z > bd.x && vWP.z < bd.y && vWP.y > bd.z && vWP.y < bd.w) discard;
+          float bc = uBandX > 0.5 ? vWP.x : vWP.z;
+          if (bd.w > bd.z && bc > bd.x && bc < bd.y && vWP.y > bd.z && vWP.y < bd.w) discard;
         }`);
   };
   const wallMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, side: THREE.DoubleSide });
@@ -69,9 +70,18 @@ export function createSection(engine) {
       const mk = (pts, mat, fn) => { const m = new THREE.Mesh(strataWallGeometry(pts, fn || undefined), mat); m.receiveShadow = true; m.castShadow = false; root.add(m); return m; };
       // a parede de referência (com furo) fica em x1; o recorte vai até a borda do mundo
       const xa = Math.max(box.x0, -WORLD.w / 2), xb = Math.min(box.x1, WORLD.w / 2);
-      faceMesh = mk(sample(box.x1, box.z0, box.x1, box.z1, 0.25), faceMat, surf);
-      mk(sample(xa, box.z0, xb, box.z0), wallMat);
-      mk(sample(xa, box.z1, xb, box.z1), wallMat);
+      U.uBandX.value = box.face === 'z0' ? 1 : 0;
+      if (box.face === 'z0') {
+        // face em z = z0 (obras giradas, como a Zona E na avenida); o recorte vai de z0 até a frente do mundo
+        const za = box.z0, zb = Math.min(box.z1, WORLD.z1);
+        faceMesh = mk(sample(box.x0, za, box.x1, za, 0.25), faceMat, surf);
+        mk(sample(box.x0, za, box.x0, zb), wallMat);
+        mk(sample(box.x1, za, box.x1, zb), wallMat);
+      } else {
+        faceMesh = mk(sample(box.x1, box.z0, box.x1, box.z1, 0.25), faceMat, surf);
+        mk(sample(xa, box.z0, xb, box.z0), wallMat);
+        mk(sample(xa, box.z1, xb, box.z1), wallMat);
+      }
       root.visible = true;
     },
     // altura da superfície usada na parede da face (obras com terreno que muda); null = terreno final
@@ -79,7 +89,7 @@ export function createSection(engine) {
     rebuildFace() {
       if (!current || !faceMesh) return;
       faceMesh.geometry.dispose();
-      faceMesh.geometry = strataWallGeometry(sample(current.x1, current.z0, current.x1, current.z1, 0.25), surf || undefined);
+      faceMesh.geometry = current.face === 'z0' ? strataWallGeometry(sample(current.x0, current.z0, current.x1, current.z0, 0.25), surf || undefined) : strataWallGeometry(sample(current.x1, current.z0, current.x1, current.z1, 0.25), surf || undefined);
     },
     close() {
       surf = null;

@@ -59,6 +59,8 @@ function portalCut(x, z) {
 }
 
 export const PIT = { cx: 81, cz: -30, hx: 13, hz: 11, depth: 8 };
+// D ampliada (antigo lote de H): platô de 5 m no fundo do lote, contido por uma cortina atirantada em z = zf
+export const D_PLAT = { x0: 10, x1: 48, zf: -40, hp: 5 };
 export const DAM = { cx: 27, zc: -36, x0: 10, x1: 44, crest: 8, water: 6.3 };
 
 // Saída do túnel na área afastada: colina na margem norte, com o portal na face voltada para o fundo (z menor).
@@ -74,7 +76,7 @@ export function Hraw(x, z) {
   // área afastada: as zonas F e H foram deslocadas de REMOTE_DZ; o relevo delas é avaliado em zr
   const zr = z - REMOTE_DZ;
   // colina da saída do túnel (área afastada, à esquerda) e morros nos cantos
-  h += Math.min(bump(x, z, EXIT.x, EXIT.cz, 15, 12, 11), exitCut(x, z) + 0.0) + bump(x, z, -100, -140, 10, 9, 6) + bump(x, z, 97, -134, 11, 12, 8);
+  h += Math.min(bump(x, z, EXIT.x, EXIT.cz, 15, 12, 11), exitCut(x, z) + 0.0) + bump(x, z, -100, -140, 8, 8, 5) + bump(x, z, 97, -134, 11, 12, 8);
   // Zona F: encosta em bancadas
   h += terrace(bump(x, zr, -27, -38, 20, 20, 12.6), 2.4);
   // Zona H: vale da barragem
@@ -88,6 +90,8 @@ export function Hraw(x, z) {
     h += (rise + side) * m + back;
     z = zr + REMOTE_DZ;
   }
+  // platô da D ampliada (face vertical contida)
+  h += D_PLAT.hp * sstep(D_PLAT.x0 - 1.5, D_PLAT.x0, x) * (1 - sstep(D_PLAT.x1, D_PLAT.x1 + 1.5, x)) * sstep(D_PLAT.zf + 0.2, D_PLAT.zf - 0.6, z) * (1 - sstep(-55, -58, z));
   // rio atrás da cidade
   const f = riverF(z);
   if (f > 0) h = h * (1 - f) + RIVER.bed * f;
@@ -149,7 +153,7 @@ const HOLE_VS = (sh) => sh.replace('#include <common>', '#include <common>\nvary
 const HOLE_FS = (sh) => sh.replace('#include <common>', '#include <common>\nvarying vec3 vWPt;\nuniform vec4 uHole[6];')
   .replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
     for (int hi = 0; hi < 6; hi++) { vec4 hb = uHole[hi]; if (vWPt.x > hb.x && vWPt.x < hb.y && vWPt.z > hb.z && vWPt.z < hb.w) discard; }`);
-function withHoles(m, key) {
+export function withHoles(m, key) {
   m.onBeforeCompile = (sh) => { sh.uniforms.uHole = { value: holeAll }; sh.vertexShader = HOLE_VS(sh.vertexShader); sh.fragmentShader = HOLE_FS(sh.fragmentShader); };
   m.customProgramCacheKey = () => key;
   return m;

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import * as M from '../kit/machines.js';
 import { terrainHoles } from '../scene/terrain.js';
+import { E_XF, xfPt, xfRect } from '../config.js';
 import { ease, clamp01, win, mat, noclip, person, stream } from './fund.js';
 import { vplane, baseBox, bx, depthMat, strataQuad } from './dsite.js';
 
@@ -217,7 +218,10 @@ export function createRoad(engine, section, key) {
   const V = E_SPECS[key], T = V.T, DEXC = V.dexc ?? DEXC0;
   const { X1E, XE, ZC, ZW0, ZW1, WID, LEN } = V.geo || GEO_E, XP = X1E - 0.045, hideName = V.hide || 'e-road';
   const root = new THREE.Group(); root.visible = false;
-  const DZR = V.dz || 0; root.position.z = DZR;
+  // posição no mundo: obras da Zona E giram para a avenida central (E_XF); F5 só desloca para a área afastada (dz)
+  const XF = V.dz ? { rot: 0, ox: 0, oz: V.dz } : (V.xf || E_XF); root.rotation.y = XF.rot; root.position.set(XF.ox, 0, XF.oz);
+  const hole = (x0, x1, z0, z1) => { const [a, b, c, d] = xfRect(XF, x0, x1, z0, z1); terrainHoles[0].set(a, b, c, d); };
+  const band = (z0, z1, y0, y1) => { if (XF.rot) { const [a, b] = xfRect(XF, X1E, X1E, z0, z1); section.setBand(0, a, b, y0, y1); } else section.setBand(0, z0 + XF.oz, z1 + XF.oz, y0, y1); };
 
   // --- caixa do pavimento
   const U = { value: 0 }, wm = depthMat(U);
@@ -346,8 +350,8 @@ export function createRoad(engine, section, key) {
     // caixa
     const d = (V.repair || V.flat) ? DEXC : dAt(t), on = d > 0.02 && !V.flat; U.value = d;
     const mlen = V.mill ? win(t, V.mill[0], V.mill[1]) * LEN : 0;
-    if (V.flat) { terrainHoles[0].set(V.hole[0], V.hole[1], V.hole[2] + DZR, V.hole[3] + DZR); section.setBand(0, 0, 0, 0, 0); ground.visible = true; }
-    else if (on) { terrainHoles[0].set(X1E - 1, XE, ZW0 + DZR, ZW1 + DZR); section.setBand(0, ZW0 + DZR, ZW1 + DZR, -d, 0.05); } else { terrainHoles[0].set(0, 0, 0, 0); section.setBand(0, 0, 0, 0, 0); }
+    if (V.flat) { hole(V.hole[0], V.hole[1], V.hole[2], V.hole[3]); section.setBand(0, 0, 0, 0, 0); ground.visible = true; }
+    else if (on) { hole(X1E - 1, XE, ZW0, ZW1); band(ZW0, ZW1, -d, 0.05); } else { terrainHoles[0].set(0, 0, 0, 0); section.setBand(0, 0, 0, 0, 0); }
     cw.forEach((m) => { m.visible = on; });
     floor.visible = on; floor.position.set((X1E + XE) / 2, -d - 0.01, ZC); floorM.color.setHex(0x86683f).lerp(new THREE.Color(0x6a5033), ease(win(t, T.comp0[0], T.comp0[1]))); floorM.emissive.copy(floorM.color).multiplyScalar(0.25);
     const cu = ease(win(t, T.cones[0], T.cones[1])) * (1 - ease(win(t, V.conesOut[0], V.conesOut[1])));
@@ -508,7 +512,7 @@ export function createRoad(engine, section, key) {
     if (V.flat) { layers.forEach((L, i) => a['lay' + (i + 1)]?.set(XP, L.y0 + L.h * 0.5, ZC + (i === 1 ? -2.5 : 2.5))); if (panel) a.painel.set(V.panel.pos[0], V.panel.pos[1] + V.panel.h * 0.35, V.panel.pos[2]); }
     if (sheets[0]) a.geotex.set(XP, sheets[0].y + 0.03, ZC + 3.2); if (sheets[1]) a.geogrid.set(XP, sheets[1].y + 0.03, ZC - 3.2);
     if (slabL) { a.laje.set(XP, slabL.y0 + slabL.h * 0.5, ZC + 3.5); a.tie.set(XP, slabL.y0 + slabL.h * 0.5, ZC); a.junta.set(XP, slabL.y0 + slabL.h * 0.8, ZC); a.dowel.set(JX[1], slabL.y0 + slabL.h * 0.5, ZC - 2); a.serra.set(saw.position.x, saw.position.y + 1.6, saw.position.z); a.cura.set(cure.position.x, cure.position.y + 3.2, cure.position.z); a.betoneira.set(mtruck.position.x, mtruck.position.y + 4.2, mtruck.position.z); }
-    if (DZR) for (const k in a) a[k].z += DZR;
+    if (XF.rot || XF.ox || XF.oz) for (const k in a) { const [wx, wz] = xfPt(XF, a[k].x, a[k].z); a[k].x = wx; a[k].z = wz; }
     void label; void pOn; void dOn; void tkOn; void px; void py;
   }
   const byId = (id) => layers.find((l) => l.id === id);

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { ROADS, ROADS_REMOTE, rng } from '../config.js';
+import { ROADS, ROADS_REMOTE, LOOP_MERGE, rng } from '../config.js';
 import { H } from '../scene/terrain.js';
 
 // ---------- trânsito: laços ao redor de cada quadra, mão direita ----------
@@ -51,8 +51,13 @@ export function createTraffic(engine) {
   const loops = [];
   for (const RG of [ROADS, ROADS_REMOTE]) {
     const xs = RG.vx, zs = RG.hz;
-    for (let i = 0; i < xs.length - 1; i++) for (let j = 0; j < zs.length - 1; j++) loops.push(roundedLoop(xs[i], xs[i + 1], zs[j], zs[j + 1], 7, 1.9));
+    for (let i = 0; i < xs.length - 1; i++) for (let j = 0; j < zs.length - 1; j++) {
+      // quadras que foram juntadas (C e D ampliadas) ganham um laço só, em volta da quadra inteira
+      if (RG === ROADS && LOOP_MERGE.some((m) => xs[i] >= m.x0 && xs[i + 1] <= m.x1 && zs[j] >= m.z0 && zs[j + 1] <= m.z1)) continue;
+      loops.push(roundedLoop(xs[i], xs[i + 1], zs[j], zs[j + 1], 7, 1.9));
+    }
   }
+  for (const m of LOOP_MERGE) loops.push(roundedLoop(m.x0, m.x1, m.z0, m.z1, 7, 1.9));
   const R = rng(11);
   const palette = [0xe9a23b, 0x6fa3c7, 0xd9d4c8, 0xc86a5a, 0x7ea58a, 0xf0ede6, 0x4d5560, 0xb98fb3];
   const cars = [];

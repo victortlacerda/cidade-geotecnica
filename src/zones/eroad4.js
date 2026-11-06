@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import * as M from '../kit/machines.js';
 import { terrainHoles } from '../scene/terrain.js';
+import { E_XF, xfPt } from '../config.js';
 import { ease, clamp01, win, mat, noclip, person, stream } from './fund.js';
 import { baseBox } from './dsite.js';
 import { X1E, XE, LEN, E_BOX, makeGrader, makeTanker } from './eroad.js';
@@ -52,6 +53,7 @@ export function makeDozer() {
 
 export function createE4(engine, section) {
   const root = new THREE.Group(); root.visible = false;
+  root.rotation.y = E_XF.rot; root.position.set(E_XF.ox, 0, E_XF.oz);   // avenida central
   const ZS = Array.from({ length: NZ }, (_, i) => Z0 + i * DZ), ys = new Float32Array(NZ), Nc = new Float32Array(NZ);
   const XC = X1E - 0.02, XB = X1E - 0.05;
   const surf = (z) => { const f = clamp01((z - Z0) / (Z1 - Z0)) * (NZ - 1), i = Math.min(NZ - 2, Math.floor(f)), q = f - i; return ys[i] * (1 - q) + ys[i + 1] * q; };
@@ -191,6 +193,7 @@ export function createE4(engine, section) {
     const a = anchors;
     a.topo.set(XP, nat(ZCR) + 0.5, ZCR); a.natural.set(XP, nat(17) + 0.05, 17); a.corte.set(XP, fin(26) + 0.05, 26); a.aterro.set(XP, fin(39.2) + 0.05, 39.2); a.plat.set(XP, YG + 0.05, 33.5); a.valeta.set(XP, YG - 0.3, 27.6); a.solo.set(X1E, -15, 32);
     a.escav.set(excW.position.x, excW.position.y + 3.6, excW.position.z); a.dozer.set(dozer.position.x, dozer.position.y + 3.4, dozer.position.z); a.cam.set(truck.position.x, truck.position.y + 3.9, truck.position.z); a.rolo.set(roller.position.x, roller.position.y + 3.2, roller.position.z); a.ensaio.set(tech.group.position.x, tech.group.position.y + 2.0, tech.group.position.z); a.moto.set(grader.position.x, grader.position.y + 3.4, grader.position.z); a.hidro.set(tanker.position.x, tanker.position.y + 3.6, tanker.position.z);
+    for (const k in a) { const [wx, wz] = xfPt(E_XF, a[k].x, a[k].z); a[k].x = wx; a[k].z = wz; }
     void label;
   }
   const VIS = {

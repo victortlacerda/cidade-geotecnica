@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { COL, ZONE_POS, PLOT, rng, REMOTE_DZ } from '../config.js';
-import { H, DAM, PIT, PORTAL } from '../scene/terrain.js';
+import { COL, rng, REMOTE_DZ, E_XF, xfPt } from '../config.js';
+import { H, DAM, PIT, PORTAL, D_PLAT } from '../scene/terrain.js';
 import { box, cyl, sph, cone, grp, bar, mat } from '../kit/primitives.js';
 import * as M from '../kit/machines.js';
 import { follower } from '../kit/paths.js';
@@ -205,7 +205,9 @@ export function buildZones(ctx) {
   // ===================================================== E — Vias e pavimentos
   {
     const z = 32, w = 12;
-    const eg = new THREE.Group(); eg.name = 'e-road'; add(eg);
+    // modelada ao longo de x no antigo lote de E; o grupo gira para a avenida central (E_XF)
+    const eg = new THREE.Group(); eg.name = 'e-road'; eg.rotation.y = E_XF.rot; eg.position.set(E_XF.ox, 0, E_XF.oz); add(eg);
+    const wE = (x, z, x2, z2) => { const [a, b] = xfPt(E_XF, x, z), [c, d] = xfPt(E_XF, x2, z2); worker(a, b, c, d); };
     const seg = (x0, x1, c, y = 0.07, hh = 0.14) => eg.add(box(x1 - x0, hh, w, c, (x0 + x1) / 2, y, z));
     seg(4, 17, 0x6c7077); seg(17, 24, 0x948a7d, 0.05, 0.1); seg(24, 50, 0x34363b, 0.09, 0.18);
     for (let x = 6; x < 17; x += 4) eg.add(box(2, 0.02, 0.2, 0xf4f1ea, x, 0.16, z));
@@ -219,9 +221,8 @@ export function buildZones(ctx) {
     // bloco de camadas do pavimento (corte didático)
     const ly = [[0.55, 0x2d2f33], [0.7, 0x777b82], [0.9, 0xc9b48a], [1.1, 0x8d6a4d]];
     let yb = 0;
-    for (let i = ly.length - 1; i >= 0; i--) { eg.add(box(8, ly[i][0], 6, ly[i][1], 44, yb + ly[i][0] / 2 + 0.15, 48)); yb += ly[i][0]; }
-    worker(28, z - 9, 36, z - 9); worker(30, z + 9, 38, z + 9); worker(14, z + 9, 22, z + 9);
-    reserve(5, 50, 7, 57);
+    for (let i = ly.length - 1; i >= 0; i--) { eg.add(box(5, ly[i][0], 4, ly[i][1], 46, yb + ly[i][0] / 2 + 0.15, 42.5)); yb += ly[i][0]; }
+    wE(28, z - 6.5, 36, z - 6.5); wE(30, z + 6.5, 38, z + 6.5);
   }
 
   // ===================================================== G — Investigação e ensaios
@@ -260,5 +261,79 @@ export function buildZones(ctx) {
     put(cone(3.9, 1.6, COL.orange, 0, 0, 0, 4), 66, 22, Math.PI / 4, 3.2);
     worker(94, 52, 100, 52); worker(60, 40, 64, 46);
     reserve(59, 103, 7, 57);
+  }
+
+  // ===================================================== C ampliada — canteiro de fundações profundas (antigo lote de F)
+  {
+    // prédio alto em estrutura, com grua; estacas pré-moldadas sendo cravadas; hélice contínua com betoneira; tubulão
+    const cr = M.towerCrane(34); put(cr.group, -44, -50); upd((d, t) => cr.update(t + 3));
+    for (let f = 0; f < 6; f++) {
+      add(box(18, 0.35, 12, 0xbab6ad, -22, 1.2 + f * 3.2, -48));
+      for (const dx of [-8.5, -2.8, 2.8, 8.5]) for (const dz of [-5.5, 5.5]) add(box(0.6, 3.2, 0.6, 0x9a968e, -22 + dx, f * 3.2 + 2.9, -48 + dz));
+    }
+    add(box(18.6, 1.2, 12.6, 0x8f8b84, -22, 0.6, -48));
+    const rig1 = M.pilingRig(); put(rig1.group, -40, -27, 0.3); upd((d, t) => rig1.update(t + 1.1));
+    const piles = new THREE.Group(); for (let i = 0; i < 6; i++) piles.add(box(9, 0.5, 0.5, 0xcfcac0, 0, 0.25 + (i % 3) * 0.5, -0.6 + Math.floor(i / 3) * 0.6 + (i % 3) * 0.02)); put(piles, -30, -33);
+    for (let i = 0; i < 9; i++) add(cyl(0.3, 0.3, 0.6, 0x9a968e, -42 + (i % 3) * 2.2, 0.3, -20 + Math.floor(i / 3) * 2.2, 8));
+    const rig2 = M.pilingRig(); put(rig2.group, -18, -22, -0.4); upd((d, t) => rig2.update(t + 2.4));
+    const mx = M.mixerTruck(); put(mx, -12, -29, Math.PI / 2);
+    // tubulão: boca circular com guincho
+    add(cyl(1.3, 1.3, 0.25, 0x17181c, -14, 0.13, -14, 16)); add(cyl(1.6, 1.6, 0.4, CONC, -14, 0.2, -14, 16));
+    add(bar(-15.4, 0, -14, -14, 3.2, -14, 0.14, 0x5a5e66)); add(bar(-12.6, 0, -14, -14, 3.2, -14, 0.14, 0x5a5e66)); { const w = cyl(0.3, 0.3, 1.6, COL.orange, -14, 3.2, -14, 8); w.rotation.z = Math.PI / 2; add(w); }
+    worker(-36, -30, -33, -30); worker(-16, -18, -12, -18); worker(-26, -40, -18, -40);
+  }
+
+  // ===================================================== D ampliada — contenções (antigo lote de H)
+  {
+    // platô alto no fundo (terreno), contido por uma cortina atirantada; na frente, ensecadeira de estacas-prancha com ponteiras filtrantes
+    const { x0, x1, zf, hp } = D_PLAT;
+    add(box(x1 - x0, hp + 1.2, 0.6, 0xbab6ad, (x0 + x1) / 2, (hp + 1.2) / 2 - 0.6, zf + 0.25));
+    for (let x = x0 + 2; x < x1 - 1; x += 3) for (const y of [1.4, 3.3]) { add(box(0.7, 0.7, 0.3, 0x7d8087, x, y, zf + 0.65)); }
+    for (let x = x0 + 3.5; x < x1 - 1; x += 6) { const dr = cyl(0.12, 0.12, 0.5, 0x2f3237, x, 0.5, zf + 0.7, 6); dr.rotation.x = Math.PI / 2; add(dr); }
+    add(box(x1 - x0, 0.25, 1.2, 0x9aa0a6, (x0 + x1) / 2, 0.12, zf + 1.3));
+    const ex = M.excavator(0.8); put(ex.group, 40, zf + 6, -2.4); upd((d, t) => ex.update(t + 0.7));
+    // ensecadeira: anel de estacas-prancha (perfil corrugado) com rebaixamento por ponteiras
+    const cx = 22, cz = -20, hx = 7, hz = 5;
+    for (let x = -hx; x <= hx; x += 0.8) for (const s of [-1, 1]) add(box(0.8, 2.2, 0.16, (Math.round(x / 0.8) % 2) ? 0x6f757d : 0x5a6068, cx + x, 1.0, cz + s * hz + ((Math.round(x / 0.8) % 2) ? 0.12 : -0.12)));
+    for (let z = -hz; z <= hz; z += 0.8) for (const s of [-1, 1]) add(box(0.16, 2.2, 0.8, (Math.round(z / 0.8) % 2) ? 0x6f757d : 0x5a6068, cx + s * hx + ((Math.round(z / 0.8) % 2) ? 0.12 : -0.12), 1.0, cz + z));
+    add(box(2 * hx - 0.4, 0.05, 2 * hz - 0.4, 0x6b5536, cx, 0.03, cz));
+    for (let x = -hx + 1; x < hx; x += 2) for (const s of [-1, 1]) add(cyl(0.07, 0.07, 1.2, 0x2f78c4, cx + x, 0.6, cz + s * (hz + 1.1), 6));
+    add(box(2 * hx, 0.18, 0.18, 0x2f78c4, cx, 1.15, cz - hz - 1.1)); add(box(2 * hx, 0.18, 0.18, 0x2f78c4, cx, 1.15, cz + hz + 1.1));
+    add(box(1.6, 1.1, 1.0, COL.orange, cx + hx + 2.5, 0.55, cz - hz - 1.1));
+    const vib = M.pilingRig(); put(vib.group, cx + hx + 5, cz + 2, Math.PI); upd((d, t) => vib.update(t + 3.3));
+    worker(cx - 3, cz - hz - 2.2, cx + 3, cz - hz - 2.2); worker(14, zf + 3, 22, zf + 3);
+  }
+
+  // ===================================================== I — Geotecnia ambiental: aterro sanitário (canto esquerdo da área afastada)
+  // Fica na metade de trás do lote, ao lado da rua que sai do portal do túnel: os caminhões de lixo vêm da cidade pelo túnel.
+  {
+    const cx = -71, cz = -138;
+    add(box(27, 0.25, 23, 0x1d1f23, cx, 0.12, cz));                                   // manta de fundo aparente na borda
+    [[25, 21, 2.2], [20, 16, 2.2], [15, 11, 2.0]].forEach(([w, d, h], i) => {
+      const y0 = 0.25 + i * 2.2; add(box(w, h, d, i % 2 ? 0x8f8368 : 0x9a8d74, cx + i * 0.8, y0 + h / 2, cz - i * 0.6));
+      add(box(w - 1.2, 0.3, 0.7, 0x6f9c50, cx + i * 0.8, y0 + h + 0.15, cz - i * 0.6 + d / 2 - 0.5));
+    });
+    // célula em operação no topo: lixo espalhado e compactado, com cobertura diária ao lado
+    const top = 0.25 + 6.4, ccx = cx + 0.6, ccz = cz - 1.5;
+    const R2 = rng(77), trash = [0xc9b48a, 0x7ea58a, 0xc86a5a, 0x6fa3c7, 0xd9d4c8, 0x4d5560];
+    for (let i = 0; i < 46; i++) add(box(0.4 + R2() * 0.8, 0.3 + R2() * 0.3, 0.4 + R2() * 0.8, trash[i % 6], ccx - 6 + R2() * 7, top + 0.2, ccz - 4 + R2() * 7));
+    add(box(5, 0.3, 9.5, 0x9b7650, ccx + 4.5, top + 0.15, ccz));
+    const comp = M.roller(); add(comp); upd(follower(comp, [[ccx - 5, top + 0.05, ccz - 2.5], [ccx, top + 0.05, ccz - 2.5], [ccx, top + 0.05, ccz + 1.8], [ccx - 5, top + 0.05, ccz + 1.8]], 1.4, { yOff: 0.2 }));
+    // drenos de gás e queimador
+    for (const [x, z, y] of [[cx - 8, cz - 7, 4.65], [cx + 8, cz - 7, 4.65], [cx - 8, cz + 6, 4.65], [cx + 8, cz + 6, 4.65], [cx - 3, cz + 2, 6.65]]) {
+      add(cyl(0.22, 0.22, 2.6, 0x7d8087, x, y + 1.3, z, 8)); add(cyl(0.4, 0.4, 0.35, 0x3a3e45, x, y + 2.7, z, 8));
+    }
+    const fx = cx + 11, fz = -121.5;
+    const flare = sph(0.5, 0xffa13a, fx, 4.2, fz, 8); flare.material.emissive = new THREE.Color(0xff7a1a); add(flare); add(cyl(0.28, 0.32, 3.4, 0x5a5e66, fx, 1.7, fz, 8));
+    upd((d, t) => { const k = 0.85 + 0.25 * Math.sin(t * 9) * Math.sin(t * 3.3); flare.scale.setScalar(k); flare.material.emissiveIntensity = 1.2 + 0.6 * k; });
+    // lagoa de chorume (com manta), na frente do aterro
+    add(box(10, 0.2, 6, 0x1d1f23, cx + 3, 0.1, -121.5)); add(box(9, 0.12, 5, 0x5d5236, cx + 3, 0.26, -121.5));
+    // acesso a partir da rua do túnel e caminhão de lixo
+    add(box(4, 0.13, 6, COL.road, -86, 0.07, -131));
+    const tk1 = M.dumpTruck(0x2f9c5a); add(tk1); upd(follower(tk1, [[-91.8, -124], [-91.8, -131], [-84.5, -131]], 3.2, { loop: false }));
+    // cerca
+    for (let x = cx - 14; x <= cx + 13; x += 2.2) for (const z of [cz - 13, -125.5]) add(box(0.1, 1.6, 0.1, 0x5a5e66, x, 0.8, z));
+    for (let z = cz - 13; z <= -125.5; z += 2.2) for (const x of [cx - 14, cx + 13]) if (!(x === cx - 14 && Math.abs(z + 131) < 2.5)) add(box(0.1, 1.6, 0.1, 0x5a5e66, x, 0.8, z));
+    worker(cx + 6, -124.5, cx + 1, -124.5);
   }
 }

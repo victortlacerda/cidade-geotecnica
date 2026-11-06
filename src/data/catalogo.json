@@ -703,5 +703,61 @@
     "p": 3
    }
   ]
+ },
+ {
+  "id": "I",
+  "nome": "Geotecnia ambiental",
+  "obras": [
+   {
+    "id": "I1",
+    "nome": "Aterro sanitário",
+    "origem": "💡",
+    "contexto": "",
+    "ideia": "Células de lixo compactado, caminhões, trator e cobertura diária",
+    "corte": "Impermeabilização de fundo (argila + geomembrana), drenagem de chorume e de gases, células e cobertura",
+    "p": 1
+   },
+   {
+    "id": "I2",
+    "nome": "Remediação de área contaminada",
+    "origem": "💡",
+    "contexto": "",
+    "ideia": "Pluma de contaminação no lençol, poços de extração e tratamento",
+    "corte": "Pluma, poços e barreira no aquífero",
+    "p": 2
+   },
+   {
+    "id": "I3",
+    "nome": "Poços de monitoramento da água subterrânea",
+    "origem": "💡",
+    "contexto": "",
+    "ideia": "Técnico coletando amostra no poço",
+    "corte": "Poço com filtro e selo, nível d'água e fluxo",
+    "p": 2
+   },
+   {
+    "id": "I4",
+    "nome": "Cobertura final e encerramento de aterro",
+    "origem": "💡",
+    "contexto": "",
+    "ideia": "Camadas de cobertura, grama e drenos de gás",
+    "corte": "Cobertura final, drenagem superficial e de gases",
+    "p": 3
+   },
+   {
+    "id": "I5",
+    "nome": "Tratamento de chorume",
+    "origem": "💡",
+    "contexto": "",
+    "ideia": "Lagoas e estação de tratamento ao lado do aterro",
+    "corte": "Caminho do chorume até o tratamento",
+    "p": 3
+   }
+  ]
+ },
+ {
+  "id": "J",
+  "nome": "Área reservada",
+  "obras": []
  }
 ]

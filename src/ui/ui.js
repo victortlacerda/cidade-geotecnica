@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import './style.css';
-import { ZONE_POS, ZONE_INFO, TOUR_ORDER, PLOT, REMOTE_DZ, isRemote } from '../config.js';
+import { ZONE_POS, ZONE_INFO, TOUR_ORDER, ZONE_LIST, ZONE_RECT, REMOTE_DZ, isRemote, E_XF, xfPt } from '../config.js';
 import { H } from '../scene/terrain.js';
 import catalogo from '../data/catalogo.json';
 import { TBM, TBM_STEPS, TBM_LABELS, TBM_STEP_STARTS } from '../zones/tbm.js';
@@ -108,6 +108,14 @@ for (const [id, c] of Object.entries(CORTE)) {
   c.box = { ...c.box, z0: c.box.z0 + REMOTE_DZ, z1: c.box.z1 + REMOTE_DZ };
   c.cam = { ...c.cam, tz: c.cam.tz + REMOTE_DZ }; if (c.mcam) c.mcam = { ...c.mcam, tz: c.mcam.tz + REMOTE_DZ };
 }
+// obras da Zona E: giram 90° para a avenida central; o corte vira uma face em z constante
+for (const [id, c] of Object.entries(CORTE)) {
+  if (id[0] !== 'E') continue;
+  const b = c.box, s = Math.sin(E_XF.rot), co = Math.cos(E_XF.rot); void s; void co;
+  c.box = { x0: b.z0 + E_XF.ox, x1: b.z1 + E_XF.ox, z0: -b.x1 + E_XF.oz, z1: 500, face: 'z0' };
+  const tf = (k) => { const [x, z] = xfPt(E_XF, k.tx, k.tz); return { ...k, tx: x, tz: z, yaw: k.yaw + E_XF.rot }; };
+  c.cam = tf(c.cam); if (c.mcam) c.mcam = tf(c.mcam);
+}
 
 const SVG = {
   sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
@@ -142,12 +150,15 @@ export function initUI({ engine, controls, dn, section, works }) {
 
   // ---------- rótulos ----------
   const anchors = {}, labels = {};
-  for (const id of TOUR_ORDER) {
+  for (const id of ZONE_LIST) {
     const [cx, cz] = ZONE_POS[id];
-    anchors[id] = new THREE.Vector3(cx, Math.max(13, H(cx, cz) + 11), cz + (id === 'A' || id === 'F' || id === 'H' || id === 'D' ? 4 : 0));
+    // cantos da área afastada: rótulo puxado para a frente e para fora, para não encostar no de F e H
+    const off = { I: [-16, 18], J: [6, 14] }[id] || [0, id === 'A' || id === 'F' || id === 'H' || id === 'D' ? 4 : 0];
+    anchors[id] = new THREE.Vector3(cx + off[0], Math.max(13, H(cx, cz) + 11), cz + off[1]);
     const b = document.createElement('button');
     b.className = 'zl'; b.setAttribute('aria-label', `Zona ${id}, ${zonas[id].nome}`);
     b.innerHTML = `<span class="L">${id}</span><span class="n">${zonas[id].nome.replace(' e disposição de rejeitos', ' e rejeitos')}</span>`;
+    if (!zonas[id].obras.length) b.classList.add('empty');
     b.addEventListener('click', () => selectZone(id));
     b.addEventListener('pointerenter', () => setHover(id));
     b.addEventListener('pointerleave', () => setHover(null));
@@ -157,21 +168,22 @@ export function initUI({ engine, controls, dn, section, works }) {
   // ---------- realce no chão ----------
   const rings = {};
   const ringMat = new THREE.MeshBasicMaterial({ color: 0xf2b705, transparent: true, opacity: 0.0, depthWrite: false });
-  for (const id of TOUR_ORDER) {
-    const [cx, cz] = ZONE_POS[id];
+  for (const id of ZONE_LIST) {
+    const r = ZONE_RECT[id], cx = (r.x0 + r.x1) / 2, cz = (r.z0 + r.z1) / 2, w = r.x1 - r.x0, d = r.z1 - r.z0;
     const g = new THREE.Group();
     const t = 0.9, y = 0.5;
     const mk = (w, d, x, z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, 0.3, d), ringMat); m.position.set(x, y, z); g.add(m); };
-    mk(PLOT.w + 1.6, t, cx, cz - PLOT.d / 2); mk(PLOT.w + 1.6, t, cx, cz + PLOT.d / 2);
-    mk(t, PLOT.d, cx - PLOT.w / 2, cz); mk(t, PLOT.d, cx + PLOT.w / 2, cz);
+    mk(w + 1.6, t, cx, r.z0); mk(w + 1.6, t, cx, r.z1);
+    mk(t, d, r.x0, cz); mk(t, d, r.x1, cz);
     g.visible = false; engine.scene.add(g); rings[id] = g;
   }
 
   let hover = null, selected = null, tourOn = false, tourIdx = 0;
   function zoneAt(x, z) {
-    for (const id of TOUR_ORDER) {
-      const [cx, cz] = ZONE_POS[id];
-      if (Math.abs(x - cx) <= PLOT.w / 2 + 2 && Math.abs(z - cz) <= PLOT.d / 2 + 2) return id;
+    // a avenida (E) é testada antes, porque fica entre C e D
+    for (const id of ['E', ...ZONE_LIST.filter((k) => k !== 'E')]) {
+      const r = ZONE_RECT[id];
+      if (x >= r.x0 - 2 && x <= r.x1 + 2 && z >= r.z0 - 2 && z <= r.z1 + 2) return id;
     }
     return null;
   }
@@ -191,7 +203,7 @@ export function initUI({ engine, controls, dn, section, works }) {
   }
   function setHover(id) {
     hover = id;
-    for (const k of TOUR_ORDER) labels[k].classList.toggle('hot', k === id);
+    for (const k of ZONE_LIST) labels[k].classList.toggle('hot', k === id);
     engine.renderer.domElement.style.cursor = id ? 'pointer' : 'grab';
   }
   controls.on('move', (e) => { if (!work && e.buttons === 0 && e.pointerType === 'mouse') setHover(pick(e)); });
@@ -268,12 +280,12 @@ export function initUI({ engine, controls, dn, section, works }) {
   }
 
   function frame(id) {
-    const [cx, cz] = ZONE_POS[id];
+    const [cx, cz] = ZONE_POS[id], r = ZONE_RECT[id], big = Math.max((r.x1 - r.x0) / 46, (r.z1 - r.z0) / 52, 1);
     const ty = id === 'D' ? -2 : id === 'A' || id === 'H' || id === 'F' ? 4 : 1;
-    controls.flyTo({ tx: cx, ty, tz: cz + 2, yaw: 0.42, pitch: 0.82, dist: 118 });
+    controls.flyTo({ tx: cx, ty, tz: cz + 2, yaw: 0.42, pitch: 0.82, dist: 118 * (0.55 + 0.45 * big) });
   }
   function highlight(id) {
-    for (const k of TOUR_ORDER) {
+    for (const k of ZONE_LIST) {
       rings[k].visible = k === id;
       labels[k].classList.toggle('dim', !!id && k !== id);
     }
@@ -373,7 +385,7 @@ export function initUI({ engine, controls, dn, section, works }) {
   const v = new THREE.Vector3();
   engine.onUpdate((dt, t) => {
     const w = innerWidth, h = innerHeight;
-    for (const id of TOUR_ORDER) {
+    for (const id of ZONE_LIST) {
       v.copy(anchors[id]).project(engine.camera);
       const el = labels[id];
       const behind = v.z > 1;

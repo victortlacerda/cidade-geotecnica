@@ -7,13 +7,38 @@ export const BRIDGE = { x: 81, z0: -62, z1: -94, deck: 1.4 };
 export const TUNNEL = { x: -90, zIn: -27, zOut: -122 };
 export const WORLD = { w: 230, z0: -164, z1: 70, d: 234, bottom: -28 };
 export const isRemote = (id) => id[0] === 'F' || id[0] === 'H';
+// Zona E na avenida central (x = 0): as obras de vias foram modeladas ao longo de x, no antigo lote de E; giram 90° e
+// deslocam para correr ao longo da avenida, entre C e D. O corte passa a ser um plano z = constante.
+export const AVENUE_W = 16;
+export const E_XF = { rot: Math.PI / 2, ox: -32, oz: 0 };
+export const xfPt = (xf, x, z) => { const c = Math.cos(xf.rot), s = Math.sin(xf.rot); return [x * c + z * s + xf.ox, -x * s + z * c + xf.oz]; };
+export const xfRect = (xf, x0, x1, z0, z1) => { const P = [xfPt(xf, x0, z0), xfPt(xf, x1, z0), xfPt(xf, x0, z1), xfPt(xf, x1, z1)]; return [Math.min(...P.map((p) => p[0])), Math.max(...P.map((p) => p[0])), Math.min(...P.map((p) => p[1])), Math.max(...P.map((p) => p[1]))]; };
+// lotes (quadras) como retângulos: os vizinhos da avenida central ficam mais estreitos
+const lot = (cx, cz) => ({ x0: cx - 23 + (cx === 27 ? AVENUE_W / 2 - 4 : 0), x1: cx + 23 - (cx === -27 ? AVENUE_W / 2 - 4 : 0), z0: cz - 26, z1: cz + 26 });
+const L = (cx, cz) => lot(cx, cz), U = (a, b) => ({ x0: Math.min(a.x0, b.x0), x1: Math.max(a.x1, b.x1), z0: Math.min(a.z0, b.z0), z1: Math.max(a.z1, b.z1) });
+// C e D ampliadas viram uma quadra só cada: os lotes se juntam e a rua entre eles sai (ROAD_GAPS)
+const merged = [[[-27, -32], [-27, 32]], [[27, -32], [81, -32]]];
+const isMerged = (x, z) => merged.some((m) => m.some(([a, b]) => a === x && b === z));
+export const LOTS = [
+  ...[-81, -27, 27, 81].flatMap((x) => [-32, 32, -126].map((z) => [x, z])).filter(([x, z]) => !isMerged(x, z)).map(([x, z]) => lot(x, z)),
+  ...merged.map(([a, b]) => U(lot(...a), lot(...b))),
+];
+// trechos de rua removidos: { eixo da rua, posição, intervalo }
+export const ROAD_GAPS = [
+  { along: 'x', at: 0, from: -50, to: -AVENUE_W / 2 },   // rua transversal entre as duas metades da C
+  { along: 'z', at: 54, from: -59, to: -4 },             // rua entre as duas metades da D
+];
+// laços de trânsito das quadras juntadas (substituem os laços das quadras originais)
+export const LOOP_MERGE = [{ x0: -54, x1: 0, z0: -62, z1: 62 }, { x0: 0, x1: 109, z0: -62, z1: 0 }];
+// área de cada zona (para destaque, clique e câmera); C e D ocupam dois lotes; E é o trecho da avenida entre C e D
+export const ZONE_RECT = {
+  A: L(-81, -32), B: L(-81, 32), C: U(L(-27, -32), L(-27, 32)), D: U(L(27, -32), L(81, -32)),
+  E: { x0: -AVENUE_W / 2, x1: AVENUE_W / 2, z0: -58, z1: -6 }, G: L(81, 32),
+  F: L(-27, -126), H: L(27, -126), I: L(-81, -126), J: L(81, -126),
+};
 export const PLOT = { w: 46, d: 52 };
 
-// Centro de cada zona (bairro). Fundo: A F H D. Frente: B C E G.
-export const ZONE_POS = {
-  A: [-81, -32], F: [-27, -126], H: [27, -126], D: [81, -32],
-  B: [-81, 32], C: [-27, 32], E: [27, 32], G: [81, 32],
-};
+
 
 export const ROADS = {
   vx: [-109, -54, 0, 54, 109],
@@ -25,7 +50,7 @@ export const ROADS = {
 // malha de ruas da área afastada (do outro lado do rio)
 export const ROADS_REMOTE = { vx: [-109, -54, 0, 54, 109], hz: [-94, -156], inner: 8, outer: 6, zMin: -159, zMax: -91 };
 // quadras sem zona: os antigos lotes de F e H na cidade (agora quarteirões) e os cantos da área afastada (mata)
-export const EXTRA_LOTS = [[-27, -32], [27, -32]];
+export const EXTRA_LOTS = [];
 
 export const COL = {
   clay: 0xe9e3d6,
@@ -72,5 +97,10 @@ export const ZONE_INFO = {
   F: { curta: 'Cortes, aterros, compactação e taludes: o solo como material de construção e como risco.' },
   G: { curta: 'Sondagens, ensaios de campo e laboratório que dizem o que existe debaixo da obra.' },
   H: { curta: 'Barragens e pilhas de rejeito: grandes maciços de terra, água e segurança.' },
+  I: { curta: 'Geotecnia ambiental: aterro sanitário, proteção do solo e da água subterrânea e áreas contaminadas.' },
+  J: { curta: 'Área reservada para uma zona futura, na chegada da ponte.' },
 };
-export const TOUR_ORDER = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+export const TOUR_ORDER = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+export const ZONE_LIST = [...TOUR_ORDER, 'J'];
+// ponto de referência (rótulo e câmera) de cada zona: centro da área
+export const ZONE_POS = Object.fromEntries(Object.entries(ZONE_RECT).map(([k, r]) => [k, [(r.x0 + r.x1) / 2, (r.z0 + r.z1) / 2]]));
