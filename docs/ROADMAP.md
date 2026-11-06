@@ -174,7 +174,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [ ] G4 Ensaio CPTU (piezocone) | ✅ | Cravação com medida de poropressão | Resistência e poropressão por profundidade | 3 |
 | [x] G5 Vane test (ensaio de palheta) | ✅ | Palheta girando em argila mole | Resistência não drenada da argila | 3 |
 | [x] G6 Ensaio de placa | ✅ | Placa carregada no fundo da cava | Bulbo de tensões | 3 |
-| [ ] G7 Prova de carga estática (PCE) | ✅ | Macaco hidráulico, reação, relógios | Curva carga x recalque | 3 |
+| [x] G7 Prova de carga estática (PCE) | ✅ | Macaco hidráulico, reação, relógios | Curva carga x recalque | 3 |
 | [ ] G8 Ensaio dinâmico em estacas (PDA) | ✅ | Martelo e sensores na estaca | Ondas de tensão na estaca | 3 |
 | [ ] G9 Ensaio de integridade (PIT) | ✅ | Martelo leve e sensor na cabeça da estaca | Onda refletida em defeitos | 3 |
 | [ ] G10 Monitoramento de recalques de fundações | ✅ | Topógrafo lendo marcos, gráfico crescendo | Recalque ao longo do tempo | 3 |
@@ -483,7 +483,7 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.4): G1, G3, G5, G6 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.5): G1, G3, G5, G6, G7 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
@@ -499,6 +499,9 @@ Perguntas para você (responda "ok" se concordar):
 
 **G6 Ensaio de placa:** 1 Locação → 2 Escavadeira abre a cava (1 m) até a cota de apoio, a placa de aço é assentada, e sobre ela o macaco com célula de carga, a viga de reação e os tirantes com ancoragens a 4,5 m → 3 Oito estágios de 25 kPa (até 200 kPa), com relógios comparadores em viga de referência, o bulbo de tensões (isóbaras 0,8q, 0,5q, 0,2q e 0,1q) crescendo sob a placa e a curva carga x recalque se formando → 4 Descarregamento, com recuperação elástica (35% do recalque máximo) → 5 Interpretação: ruptura em torno de 300 kPa, tensão admissível de 100 kPa (FS = 3), recalque de 9 mm. O recalque da placa é ampliado 45 vezes na animação.
 - Pendente: tamanho da placa (aqui exagerada, 1,4 m, contra os 0,80 m normatizados), critério de interpretação (ruptura física ou convencional) e se quer também o ensaio de placa helicoidal (parafusada).
+
+**G7 Prova de carga estática em estaca:** 1 Estaca de prova de 10 m, instrumentada com extensômetros (5 profundidades), bloco de coroamento na cabeça → 2 Duas estacas de reação (tração) ligadas por tirantes à viga, macaco com célula de carga, relógios em viga de referência → 3 Dez estágios de 160 kN, até 1.600 kN (2x a carga de trabalho de 800 kN); o diagrama de transferência (à esquerda) mostra a carga caindo com a profundidade, com a resistência de ponta ao pé (10% a 22% da carga); a curva carga x recalque cresce → 4 Descarregamento com recuperação elástica → 5 Ruptura convencional (recalque de 18 mm) em torno de 1.500 kN, carga admissível de 750 kN (FS = 2). O recalque está ampliado 50 vezes na animação. Valores de exemplo.
+- Pendente: tipo da estaca (aqui, genérica), critério de ruptura (NBR 6122, Van der Veen ou Davisson) e se quer prova de carga dinâmica (G8) com a mesma estaca.
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -737,7 +740,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [x] G3 (CPT) e G11 (piezômetro) animados em corte (v3.2)
 - [x] G5 (vane test) animado em corte (v3.3)
 - [x] G6 (ensaio de placa) animado em corte (v3.4)
-- [ ] Prioridade 3 restante (G2, G4, G7 a G10, G12, G13), confirmar fichas e revisar
+- [x] G7 (prova de carga em estaca) animada em corte (v3.5)
+- [ ] Prioridade 3 restante (G2, G4, G8 a G10, G12, G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -869,3 +873,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 04/11/2026 | v3.2: **G3 (ensaio CPT, com curvas de qc e Rf) e G11 (piezômetro, com gráfico de chuva e nível d'água e diagrama de poropressão) animados em corte** | Aguardando suas correções; próximas: G2, G4 a G10 e demais prioridades 3 |
 | 05/11/2026 | v3.3: **G5 (vane test) animado em corte**, com curva su x rotação, resistência remoldada, sensibilidade e perfil de su | Aguardando suas correções; próximas: G2, G4, G6 a G10 |
 | 05/11/2026 | v3.4: **G6 (ensaio de placa) animado em corte**, com cava, tirantes, bulbo de tensões, curva carga x recalque e tensão admissível | Aguardando suas correções; próximas: G2, G4, G7 a G10 |
+| 05/11/2026 | v3.5: **G7 (prova de carga estática em estaca) animada em corte**, com estacas de reação, diagrama de transferência de carga e curva carga x recalque | Aguardando suas correções; próximas: G2, G4, G8 a G10 |
