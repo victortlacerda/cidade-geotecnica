@@ -169,7 +169,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | Obra | Origem | Ideia da animação | Corte (subsolo) | P |
 |------|--------|-------------------|-----------------|---|
 | [x] G1 Sondagem SPT | ✅ | Equipe com tripé e martelo | Perfil de sondagem e NSPT | 2 |
-| [ ] G2 Sondagem rotativa | 💡✔ | Sonda rotativa, testemunhos de rocha | Perfil de rocha e RQD | 3 |
+| [x] G2 Sondagem rotativa | 💡✔ | Sonda rotativa, testemunhos de rocha | Perfil de rocha e RQD | 3 |
 | [x] G3 Ensaio CPT | ✅ | Cravação hidráulica da ponteira | Curvas de resistência | 3 |
 | [x] G4 Ensaio CPTU (piezocone) | ✅ | Cravação com medida de poropressão | Resistência e poropressão por profundidade | 3 |
 | [x] G5 Vane test (ensaio de palheta) | ✅ | Palheta girando em argila mole | Resistência não drenada da argila | 3 |
@@ -483,7 +483,7 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.9): G1, G3, G4, G5, G6, G7, G8, G9, G10 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.10): G1, G2, G3, G4, G5, G6, G7, G8, G9, G10 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
@@ -514,6 +514,9 @@ Perguntas para você (responda "ok" se concordar):
 
 **G4 Ensaio CPTU (piezocone):** 1 Caminhão cravador chega e é calçado, como no CPT → 2 Piezocone (cone com filtro poroso atrás da ponta) cravado a 2 cm/s, uma haste de 1 m a cada metro → 3 Três gráficos crescendo juntos: qc (MPa), u2 (kPa) e Rf (%); na argila, qc baixo, Rf alto e u2 muito acima da hidrostática; na areia, u2 ≈ u0 → 4 Reta hidrostática u0 pontilhada, cruzando o nível d'água em 9,6 m, e linhas de limite das camadas → 5 Retirada das hastes e relatório com os três perfis.
 - Poropressão adotada (exemplo, não é de projeto): u2 na argila de 120 a 190 kPa (excesso por cravação, já que a camada está saturada), ≈ 0 na areia acima do nível d'água, hidrostática (9,81 kPa por metro abaixo de 9,6 m) mais um pequeno excesso na areia saturada e no silte. Pendente: ensaio de dissipação (pausa a 5 m, curva u2 x tempo e coeficiente de adensamento) e correção qt = qc + u2 (1 − a).
+
+**G2 Sondagem rotativa:** 1 Locação e sonda rotativa com tanque e bomba de água → 2 Solo até 7 m perfurado com revestimento cravado → 3 Barrilete duplo com coroa de diamante, cinco manobras de 1,4 m (7,0 a 14,0 m), com água circulando → 4 A cada manobra, o barrilete interno sobe por cabo (wireline) e o testemunho vai para a caixa (pedaços ≥ 10 cm em destaque, fragmentos e perdas marcados), com REC e RQD → 5 Boletim por manobra e média: REC 89%, RQD 58% (maciço regular).
+- Maciço adotado (exemplo, não é de projeto): rocha alterada de 7 a 10 m e rocha sã de 10 a 14 m, desenhada sobre a seção da cidade (que ali tem areia e silte). REC = 62, 86, 96, 100, 100%; RQD = 0, 32, 72, 90, 96%. Pendente: tipo de coroa e diâmetro (NX, HX), grau de alteração e de fraturamento (W/F) por manobra, e se quer a perda de água (ensaio de perda d'água) no mesmo furo.
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -757,7 +760,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [x] G9 (integridade PIT) animado em corte (v3.7)
 - [x] G10 (monitoramento de recalques) animado em corte (v3.8)
 - [x] G4 (CPTU) animado em corte (v3.9)
-- [ ] Prioridade 3 restante (G2, G12, G13), confirmar fichas e revisar
+- [x] G2 (sondagem rotativa) animado em corte (v3.10)
+- [ ] Prioridade 3 restante (G12, G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -894,3 +898,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 06/11/2026 | v3.7: **G9 (ensaio de integridade PIT) animado em corte**, com duas estacas (íntegra e com estrangulamento) e reflectogramas | Aguardando suas correções; próximas: G2, G4, G10, G12, G13 |
 | 06/11/2026 | v3.8: **G10 (monitoramento de recalques de fundações) animado em corte**, com sapatas, pinos, nível ótico, mira e gráfico recalque x tempo com recalque diferencial | Aguardando suas correções; próximas: G2, G4, G12, G13 |
 | 06/11/2026 | v3.9: **G4 (CPTU, piezocone) animado em corte**, com perfis de qc, u2 e Rf, reta hidrostática e nível d'água | Aguardando suas correções; próximas: G2, G12, G13 |
+| 06/11/2026 | v3.10: **G2 (sondagem rotativa) animado em corte**, com revestimento, barrilete duplo, caixa de testemunhos e boletim de REC e RQD | Aguardando suas correções; próximas: G12, G13 |
