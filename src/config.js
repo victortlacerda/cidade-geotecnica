@@ -16,24 +16,26 @@ export const xfRect = (xf, x0, x1, z0, z1) => { const P = [xfPt(xf, x0, z0), xfP
 // lotes (quadras) como retângulos: os vizinhos da avenida central ficam mais estreitos
 const lot = (cx, cz) => ({ x0: cx - 23 + (cx === 27 ? AVENUE_W / 2 - 4 : 0), x1: cx + 23 - (cx === -27 ? AVENUE_W / 2 - 4 : 0), z0: cz - 26, z1: cz + 26 });
 const L = (cx, cz) => lot(cx, cz), U = (a, b) => ({ x0: Math.min(a.x0, b.x0), x1: Math.max(a.x1, b.x1), z0: Math.min(a.z0, b.z0), z1: Math.max(a.z1, b.z1) });
-// C e D ampliadas viram uma quadra só cada: os lotes se juntam e a rua entre eles sai (ROAD_GAPS)
-const merged = [[[-27, -32], [-27, 32]], [[27, -32], [81, -32]]];
-const isMerged = (x, z) => merged.some((m) => m.some(([a, b]) => a === x && b === z));
+// Quadras juntadas: C deitada na frente (antigo lote de C + antigo lote de E), D dupla no fundo; A cresce para a direita
+// até x = -31 e o resto do antigo lote de trás da C vira uma faixa da Zona E, colada à avenida.
+const taken = [[-81, -32], [-27, -32], [-27, 32], [27, 32], [27, -32], [81, -32]];
+const A_LOT = { x0: -104, x1: -31, z0: -58, z1: -6 }, E_LOT = { x0: -29, x1: -AVENUE_W / 2, z0: -58, z1: -6 };
 export const LOTS = [
-  ...[-81, -27, 27, 81].flatMap((x) => [-32, 32, -126].map((z) => [x, z])).filter(([x, z]) => !isMerged(x, z)).map(([x, z]) => lot(x, z)),
-  ...merged.map(([a, b]) => U(lot(...a), lot(...b))),
+  ...[-81, -27, 27, 81].flatMap((x) => [-32, 32, -126].map((z) => [x, z])).filter(([x, z]) => !taken.some(([a, b]) => a === x && b === z)).map(([x, z]) => lot(x, z)),
+  U(lot(-27, 32), lot(27, 32)), U(lot(27, -32), lot(81, -32)), A_LOT, E_LOT,
 ];
 // trechos de rua removidos: { eixo da rua, posição, intervalo }
 export const ROAD_GAPS = [
-  { along: 'x', at: 0, from: -50, to: -AVENUE_W / 2 },   // rua transversal entre as duas metades da C
-  { along: 'z', at: 54, from: -59, to: -4 },             // rua entre as duas metades da D
+  { along: 'z', at: 0, from: 4, to: 59 },        // metade da frente da avenida central: termina em T na rua do meio
+  { along: 'z', at: -54, from: -59, to: -4 },    // rua entre a A e a sua parte nova
+  { along: 'z', at: 54, from: -59, to: -4 },     // rua entre as duas metades da D
 ];
 // laços de trânsito das quadras juntadas (substituem os laços das quadras originais)
-export const LOOP_MERGE = [{ x0: -54, x1: 0, z0: -62, z1: 62 }, { x0: 0, x1: 109, z0: -62, z1: 0 }];
-// área de cada zona (para destaque, clique e câmera); C e D ocupam dois lotes; E é o trecho da avenida entre C e D
+export const LOOP_MERGE = [{ x0: -109, x1: 0, z0: -62, z1: 0 }, { x0: -54, x1: 54, z0: 0, z1: 62 }, { x0: 0, x1: 109, z0: -62, z1: 0 }];
+// área de cada zona (para destaque, clique e câmera); C e D ocupam dois lotes; E é o trecho de trás da avenida mais a faixa ao lado
 export const ZONE_RECT = {
-  A: L(-81, -32), B: L(-81, 32), C: U(L(-27, -32), L(-27, 32)), D: U(L(27, -32), L(81, -32)),
-  E: { x0: -AVENUE_W / 2, x1: AVENUE_W / 2, z0: -58, z1: -6 }, G: L(81, 32),
+  A: A_LOT, B: L(-81, 32), C: U(L(-27, 32), L(27, 32)), D: U(L(27, -32), L(81, -32)),
+  E: { x0: E_LOT.x0, x1: AVENUE_W / 2, z0: -58, z1: -6 }, G: L(81, 32),
   F: L(-27, -126), H: L(27, -126), I: L(-81, -126), J: L(81, -126),
 };
 export const PLOT = { w: 46, d: 52 };

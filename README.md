@@ -22,7 +22,7 @@ A cidade tem oito zonas temáticas. Clique numa zona para ver o catálogo de obr
 
 ## Zonas e obras
 
-Um rio corre atrás da cidade. Do outro lado fica uma área afastada com as zonas F, H e I (geotecnia ambiental, com aterro sanitário), ligada à cidade por um túnel que sai da Zona A e passa por baixo do rio, e por uma ponte perto da Zona D. A Zona E fica na avenida central da cidade, entre as zonas C e D, que ocupam quadras duplas.
+Um rio corre atrás da cidade. Do outro lado fica uma área afastada com as zonas F, H e I (geotecnia ambiental, com aterro sanitário), ligada à cidade por um túnel que sai da Zona A e passa por baixo do rio, e por uma ponte perto da Zona D. A Zona E fica na avenida central, entre as zonas A e D; a Zona C ocupa toda a frente do meio da cidade.
 
 | Zona | Tema | Obras animadas em corte |
 |------|------|-------------------------|

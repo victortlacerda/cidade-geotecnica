@@ -30,8 +30,8 @@ export function createRoads(engine) {
       for (const [p, q] of pieces('z', x, zMin, zMax, R)) asphalt.push(boxGeo(w, 0.12, q - p, x, 0.06, (p + q) / 2));
       if (w >= 12) {
         // avenida: canteiro central e duas faixas tracejadas por sentido
-        for (let z = zMin + 3; z < zMax - 2; z += 6) if (!zs.some((zz) => Math.abs(z - zz) < 6)) for (const dx of [-w / 4, w / 4]) marks.push(boxGeo(0.25, 0.02, 3, x + dx, 0.13, z));
-        for (const [a, b] of [[zMin, zs[0] - 6], [zs[0] + 6, zs[1] - 6], [zs[1] + 6, zs[2] - 6], [zs[2] + 6, zMax]]) if (b > a) curbs.push(boxGeo(1.6, 0.3, b - a, x, 0.15, (a + b) / 2));
+        for (let z = zMin + 3; z < zMax - 2; z += 6) if (!zs.some((zz) => Math.abs(z - zz) < 6) && !inGap('z', x, z, R)) for (const dx of [-w / 4, w / 4]) marks.push(boxGeo(0.25, 0.02, 3, x + dx, 0.13, z));
+        for (const [a, b] of [[zMin, zs[0] - 6], [zs[0] + 6, zs[1] - 6], [zs[1] + 6, zs[2] - 6], [zs[2] + 6, zMax]]) if (b > a && !inGap('z', x, (a + b) / 2, R)) curbs.push(boxGeo(1.6, 0.3, b - a, x, 0.15, (a + b) / 2));
       } else for (let z = zMin + 3; z < zMax - 2; z += 6) if (!inGap('z', x, z, R)) marks.push(boxGeo(0.25, 0.02, 3, x, 0.13, z));
       const off = (w / 2) + 0.6;
       for (let z = zMin + 9; z <= zMax - 9; z += 14) if (!zs.some((zz) => Math.abs(z - zz) < 5) && !inGap('z', x, z, R)) { lampPts.push([x - off, z]); lampPts.push([x + off, z + 7]); }

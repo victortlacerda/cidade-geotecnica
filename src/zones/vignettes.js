@@ -263,8 +263,12 @@ export function buildZones(ctx) {
     reserve(59, 103, 7, 57);
   }
 
-  // ===================================================== C ampliada — canteiro de fundações profundas (antigo lote de F)
+  // ===================================================== C deitada — canteiro de fundações profundas (antigo lote de E)
   {
+    // modelado no antigo lote de trás da C; o grupo desloca a cena para o antigo lote de E
+    const OX = 58, OZ = 64, cg = new THREE.Group(); cg.position.set(OX, 0, OZ); ctx.add(cg);
+    const add = (o) => cg.add(o), put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, H(x + OX, z + OZ) + dy, z); obj.rotation.y = ry; cg.add(obj); return obj; };
+    const worker = (x, z, x2, z2) => people.push({ x: x + OX, z: z + OZ, x2: x2 + OX, z2: z2 + OZ, kind: 'work' });
     // prédio alto em estrutura, com grua; estacas pré-moldadas sendo cravadas; hélice contínua com betoneira; tubulão
     const cr = M.towerCrane(34); put(cr.group, -44, -50); upd((d, t) => cr.update(t + 3));
     for (let f = 0; f < 6; f++) {
@@ -335,5 +339,32 @@ export function buildZones(ctx) {
     for (let x = cx - 14; x <= cx + 13; x += 2.2) for (const z of [cz - 13, -125.5]) add(box(0.1, 1.6, 0.1, 0x5a5e66, x, 0.8, z));
     for (let z = cz - 13; z <= -125.5; z += 2.2) for (const x of [cx - 14, cx + 13]) if (!(x === cx - 14 && Math.abs(z + 131) < 2.5)) add(box(0.1, 1.6, 0.1, 0x5a5e66, x, 0.8, z));
     worker(cx + 6, -124.5, cx + 1, -124.5);
+  }
+
+  // ===================================================== A ampliada — pátio de aduelas e poço de um segundo túnel
+  {
+    // anéis de aduelas empilhados (arcos de concreto), poço circular com guindaste e pilha de bota-fora
+    const segG = new THREE.TorusGeometry(2.6, 0.28, 6, 10, Math.PI / 2.4);
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) for (let h = 0; h < 2; h++) {
+      const m = new THREE.Mesh(segG, mat(0xbab6ad)); m.rotation.set(0, Math.PI / 2, Math.PI / 2 - Math.PI / 4.8); m.position.set(-48 + c * 3.2, 0.35 + h * 0.62, -52 + r * 4.2); m.castShadow = true; add(m);
+    }
+    const shaft = grp(cyl(4.2, 4.4, 0.9, CONC, 0, 0.45, 0, 24), cyl(3.4, 3.4, 0.2, 0x17181c, 0, 0.92, 0, 24)); put(shaft, -40, -24);
+    const cr = M.towerCrane(22); put(cr.group, -46, -14); upd((d, t) => cr.update(t + 5));
+    put(cone(4.5, 2.6, 0x8a6f52, 0, 0, 0, 10), -36, -40, 0, 1.3);
+    const ld = M.dumpTruck(); add(ld); upd(follower(ld, [[-33, -12], [-33, -46], [-36, -46], [-36, -12]], 4));
+    worker(-44, -30, -38, -30); worker(-46, -46, -44, -40);
+  }
+
+  // ===================================================== E — usina de asfalto e pátio de agregados (faixa ao lado da avenida)
+  {
+    // tambor secador, silos de massa quente, filtro e chaminé; pilhas de brita e areia; pá carregadeira
+    const drum = cyl(1.3, 1.3, 9, 0x7d8087, 0, 0, 0, 16); drum.rotation.z = Math.PI / 2 - 0.08; drum.position.set(-19, 2.2, -46); add(drum);
+    for (const x of [-25, -13]) add(box(0.4, 2.0, 0.4, 0x5a5e66, x, 1.0, -46));
+    for (let i = 0; i < 3; i++) { add(cyl(1.4, 1.4, 6, 0xc9c4b8, -24 + i * 3.2, 4.8, -53, 14)); add(cone(1.45, 1.2, 0xa9a49a, -24 + i * 3.2, 1.2, -53, 14)); add(box(0.3, 2.4, 0.3, 0x5a5e66, -24 + i * 3.2, 1.2, -53)); }
+    add(box(3.2, 3.6, 3.2, 0x6f757d, -12, 1.8, -53)); add(cyl(0.5, 0.6, 9, 0x8a8f96, -12, 8, -53, 10));
+    [[0x8f8b84, -24, -36], [0xa6a197, -18, -36], [0xd8c48e, -12, -36], [0x8f8b84, -24, -28], [0xbab4a8, -18, -28]].forEach(([c, x, z]) => put(cone(3.0, 2.2, c, 0, 0, 0, 10), x, z, 0, 1.1));
+    const ld = M.excavator(0.7); put(ld.group, -14, -22, 2.6); upd((d, t) => ld.update(t + 1.9));
+    const tk = M.dumpTruck(0x34363b); add(tk); upd(follower(tk, [[-10.5, -14], [-10.5, -50], [-14, -50], [-14, -14]], 3.6));
+    worker(-20, -42, -16, -42);
   }
 }

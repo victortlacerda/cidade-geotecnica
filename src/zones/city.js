@@ -24,9 +24,6 @@ export function buildCity(engine, dn) {
     // D (vizinhos da escavação)
     [100, -50, 7, 7, 13], [100, -33, 7, 8, 9],
     // E
-    // antigo lote de E (a zona foi para a avenida central): quarteirão de prédios
-    [13, 14, 8, 8, 12], [26, 14, 9, 8, 16], [39, 14, 8, 8, 10], [13, 51, 8, 8, 14], [26, 52, 9, 7, 9], [38, 53, 7, 6, 12],
-    [13, 29, 7, 8, 18], [13, 40, 7, 7, 9], [45, 30, 7, 9, 21], [45, 42, 7, 7, 11],
   ];
   for (const [x, z, w, d, h] of B) bld.add(x, H(x, z), z, w, h, d);
   root.add(bld.finish());
@@ -53,8 +50,6 @@ export function buildCity(engine, dn) {
   hill(-103, -77, -57, -24, 40, 1.5, (x, z) => !(Math.abs(x + 90) < 14 && z > -34.5));
   hill(-48, -7, -57 + REMOTE_DZ, -22 + REMOTE_DZ, 10, 1.2);
   hill(6, 48, -57 + REMOTE_DZ, -30 + REMOTE_DZ, 36, 8);
-  // pracinha no meio do antigo lote de E
-  for (let x = 0; x < 3; x++) for (let z = 0; z < 2; z++) pushT(23 + x * 6 + R() * 1.5, 31 + z * 7 + R() * 1.5);
   // mata nos cantos da área afastada e nas margens do rio
   const flat = () => true;
   // canto esquerdo: saída do túnel e aterro sanitário (Zona I) — mata só fora do aterro
