@@ -173,7 +173,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [x] G3 Ensaio CPT | ✅ | Cravação hidráulica da ponteira | Curvas de resistência | 3 |
 | [ ] G4 Ensaio CPTU (piezocone) | ✅ | Cravação com medida de poropressão | Resistência e poropressão por profundidade | 3 |
 | [x] G5 Vane test (ensaio de palheta) | ✅ | Palheta girando em argila mole | Resistência não drenada da argila | 3 |
-| [ ] G6 Ensaio de placa | ✅ | Placa carregada no fundo da cava | Bulbo de tensões | 3 |
+| [x] G6 Ensaio de placa | ✅ | Placa carregada no fundo da cava | Bulbo de tensões | 3 |
 | [ ] G7 Prova de carga estática (PCE) | ✅ | Macaco hidráulico, reação, relógios | Curva carga x recalque | 3 |
 | [ ] G8 Ensaio dinâmico em estacas (PDA) | ✅ | Martelo e sensores na estaca | Ondas de tensão na estaca | 3 |
 | [ ] G9 Ensaio de integridade (PIT) | ✅ | Martelo leve e sensor na cabeça da estaca | Onda refletida em defeitos | 3 |
@@ -483,7 +483,7 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.3): G1, G3, G5 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.4): G1, G3, G5, G6 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
@@ -496,6 +496,9 @@ Perguntas para você (responda "ok" se concordar):
 
 **G5 Vane test (palheta):** 1 Locação e pré-furo de 2 m → 2 Palheta de quatro lâminas cravada até 3, 4, 5 e 6 m, na argila mole → 3 Rotação lenta, com a curva su x rotação crescendo até o pico (e a legenda mostrando o valor) → 4 Dez voltas rápidas e nova rotação, resistência remoldada (curva tracejada), com a sensibilidade St = su/sur → 5 Perfil de su com a profundidade (barras de pico e remoldada). Valores de exemplo: su de pico 12, 14, 17 e 21 kPa; remoldada 3,0, 3,7, 4,2 e 5,0 kPa.
 - Pendente: se quer mostrar também a correção de Bjerrum e a fórmula do torque com as dimensões da palheta.
+
+**G6 Ensaio de placa:** 1 Locação → 2 Escavadeira abre a cava (1 m) até a cota de apoio, a placa de aço é assentada, e sobre ela o macaco com célula de carga, a viga de reação e os tirantes com ancoragens a 4,5 m → 3 Oito estágios de 25 kPa (até 200 kPa), com relógios comparadores em viga de referência, o bulbo de tensões (isóbaras 0,8q, 0,5q, 0,2q e 0,1q) crescendo sob a placa e a curva carga x recalque se formando → 4 Descarregamento, com recuperação elástica (35% do recalque máximo) → 5 Interpretação: ruptura em torno de 300 kPa, tensão admissível de 100 kPa (FS = 3), recalque de 9 mm. O recalque da placa é ampliado 45 vezes na animação.
+- Pendente: tamanho da placa (aqui exagerada, 1,4 m, contra os 0,80 m normatizados), critério de interpretação (ruptura física ou convencional) e se quer também o ensaio de placa helicoidal (parafusada).
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -733,7 +736,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [x] G1 (sondagem SPT) animada em corte (v3.1)
 - [x] G3 (CPT) e G11 (piezômetro) animados em corte (v3.2)
 - [x] G5 (vane test) animado em corte (v3.3)
-- [ ] Prioridade 3 restante (G2, G4, G6 a G10, G12, G13), confirmar fichas e revisar
+- [x] G6 (ensaio de placa) animado em corte (v3.4)
+- [ ] Prioridade 3 restante (G2, G4, G7 a G10, G12, G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -864,3 +868,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 04/11/2026 | v3.1: **G1 (sondagem SPT) animada em corte**, com tripé, martelo, contagem de golpes por trecho, gráfico e tabela de NSPT, amostras e nível d'água | Aguardando suas correções; próximas: prioridade 3 das zonas C, D, E, F, G e H |
 | 04/11/2026 | v3.2: **G3 (ensaio CPT, com curvas de qc e Rf) e G11 (piezômetro, com gráfico de chuva e nível d'água e diagrama de poropressão) animados em corte** | Aguardando suas correções; próximas: G2, G4 a G10 e demais prioridades 3 |
 | 05/11/2026 | v3.3: **G5 (vane test) animado em corte**, com curva su x rotação, resistência remoldada, sensibilidade e perfil de su | Aguardando suas correções; próximas: G2, G4, G6 a G10 |
+| 05/11/2026 | v3.4: **G6 (ensaio de placa) animado em corte**, com cava, tirantes, bulbo de tensões, curva carga x recalque e tensão admissível | Aguardando suas correções; próximas: G2, G4, G7 a G10 |
