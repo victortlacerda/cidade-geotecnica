@@ -17,6 +17,7 @@ import { D2, D3, D2_STEPS, D2_LABELS, D2_STEP_STARTS, D3_STEPS, D3_LABELS, D3_ST
 import { D4, D4_STEPS, D4_LABELS, D4_STEP_STARTS, D4_CAM, D4_MCAM } from '../zones/d4.js';
 import { DW, DW_CAM, DW_MCAM, D8_STEPS, D10_STEPS, D11_STEPS, D8_LABELS, D10_LABELS, D11_LABELS, DW_STEP_STARTS } from '../zones/dwall.js';
 import { E_BOX, E_CAM, E_MCAM, E_SPECS } from '../zones/eroad.js';
+import { G10, G10_CAM, G10_MCAM, G10_STEPS, G10_STARTS, G10_LABELS } from '../zones/gsettle.js';
 import { G9, G9_CAM, G9_MCAM, G9_STEPS, G9_STARTS, G9_LABELS } from '../zones/gpit.js';
 import { G8, G8_CAM, G8_MCAM, G8_STEPS, G8_STARTS, G8_LABELS } from '../zones/gpda.js';
 import { G7, G7_CAM, G7_MCAM, G7_STEPS, G7_STARTS, G7_LABELS } from '../zones/gpile.js';
@@ -66,6 +67,7 @@ const CORTE = {
   D11: { box: DW.box, cam: DW_CAM, steps: D11_STEPS, starts: DW_STEP_STARTS.D11, labels: D11_LABELS, sub: 'Vista em corte · sequência da obra', nome: 'Muro de gabião', tit: 'Etapas da obra', note: true, mcam: DW_MCAM },
   E2: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E2.steps, starts: E_SPECS.E2.starts, labels: E_SPECS.E2.labels, sub: 'Vista em corte · sequência da obra', nome: 'Pavimento de concreto (rígido)', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
   E5: { box: E_BOX, cam: E_CAM, steps: E_SPECS.E5.steps, starts: E_SPECS.E5.starts, labels: E_SPECS.E5.labels, sub: 'Vista em corte · sequência da obra', nome: 'Reforço de pavimentos', tit: 'Etapas da obra', note: true, mcam: E_MCAM },
+  G10: { box: G10.box, cam: G10_CAM, steps: G10_STEPS, starts: G10_STARTS, labels: G10_LABELS, sub: 'Vista em corte · sequência do monitoramento', nome: 'Monitoramento de recalques', tit: 'Etapas do monitoramento', note: true, mcam: G10_MCAM },
   G9: { box: G9.box, cam: G9_CAM, steps: G9_STEPS, starts: G9_STARTS, labels: G9_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Integridade de estaca (PIT)', tit: 'Etapas do ensaio', note: true, mcam: G9_MCAM },
   G8: { box: G8.box, cam: G8_CAM, steps: G8_STEPS, starts: G8_STARTS, labels: G8_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Ensaio dinâmico (PDA)', tit: 'Etapas do ensaio', note: true, mcam: G8_MCAM },
   G7: { box: G7.box, cam: G7_CAM, steps: G7_STEPS, starts: G7_STARTS, labels: G7_LABELS, sub: 'Vista em corte · sequência do ensaio', nome: 'Prova de carga em estaca', tit: 'Etapas do ensaio', note: true, mcam: G7_MCAM },

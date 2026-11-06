@@ -177,7 +177,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [x] G7 Prova de carga estática (PCE) | ✅ | Macaco hidráulico, reação, relógios | Curva carga x recalque | 3 |
 | [x] G8 Ensaio dinâmico em estacas (PDA) | ✅ | Martelo e sensores na estaca | Ondas de tensão na estaca | 3 |
 | [x] G9 Ensaio de integridade (PIT) | ✅ | Martelo leve e sensor na cabeça da estaca | Onda refletida em defeitos | 3 |
-| [ ] G10 Monitoramento de recalques de fundações | ✅ | Topógrafo lendo marcos, gráfico crescendo | Recalque ao longo do tempo | 3 |
+| [x] G10 Monitoramento de recalques de fundações | ✅ | Topógrafo lendo marcos, gráfico crescendo | Recalque ao longo do tempo | 3 |
 | [x] G11 Piezômetros | ✅ | Técnico lendo o nível d'água | Poropressão e nível d'água no maciço | 3 |
 | [ ] G12 Inclinômetros e instrumentação geral | 💡✔ | Técnico descendo a sonda no tubo | Deslocamentos no maciço | 3 |
 | [ ] G13 Laboratório de geotecnia (edifício-ícone) | 💡✔ | Só um prédio pequeno com a placa "Laboratório", sem animação de obra; o clique abre o repositório de ensaios de laboratório | Sem corte (ensaios de laboratório, não de campo) | 3 |
@@ -483,7 +483,7 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.7): G1, G3, G5, G6, G7, G8, G9 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.8): G1, G3, G5, G6, G7, G8, G9, G10 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
@@ -508,6 +508,9 @@ Perguntas para você (responda "ok" se concordar):
 
 **G9 Ensaio de integridade (PIT):** 1 Equipe chega ao bloco de estacas → 2 Limpeza e nivelamento das cabeças, acelerômetro fixado, analisador PIT ligado → 3 Estaca 1 (íntegra): martelo manual leve, onda desce e volta, reflectograma com a reflexão do pé a 10 m → 4 Estaca 2, com estrangulamento a 4 m (seção de 0,45 m em vez de 0,9 m): reflexão negativa a 4 m e reflexão do pé menor → 5 Comparação dos dois reflectogramas e decisão (aceitar, nova prova ou reforço). Profundidade da reflexão x = c·t/2. Sinais sintéticos, didáticos.
 - Pendente: se quer outros defeitos além do estrangulamento (trinca, contaminação, emenda) em uma terceira estaca.
+
+**G10 Monitoramento de recalques de fundações:** 1 Equipe topográfica chega à obra: prédio de três pavimentos sobre sapatas → 2 Três sapatas (uma sobre solo firme, duas sobre argila mole), pinos de recalque nos pilares e referência de nível (RN) profunda fora da área de influência → 3 Leitura zero e construção dos três pavimentos: a carga cresce em etapas e as sapatas descem, com adensamento depois de cada etapa → 4 Nivelamento periódico com nível ótico e mira graduada sobre cada pino, durante 24 meses, com gráfico recalque x tempo crescendo (três curvas) → 5 Estabilização: assíntotas e recalque diferencial P3 − P1 ≈ 19 mm em 10 m, distorção angular ≈ 1/520, perto do limite usual de 1/500 para alvenaria.
+- Recalques finais adotados (exemplo, não é de projeto): P1 12 mm, P2 20 mm, P3 31 mm, em 24 meses. Pendente: critério de distorção angular (1/500, 1/300 ou outro), frequência das leituras e se quer incluir recalque por adensamento secundário.
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -749,7 +752,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [x] G7 (prova de carga em estaca) animada em corte (v3.5)
 - [x] G8 (ensaio dinâmico PDA) animado em corte (v3.6)
 - [x] G9 (integridade PIT) animado em corte (v3.7)
-- [ ] Prioridade 3 restante (G2, G4, G10, G12, G13), confirmar fichas e revisar
+- [x] G10 (monitoramento de recalques) animado em corte (v3.8)
+- [ ] Prioridade 3 restante (G2, G4, G12, G13), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -884,3 +888,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 05/11/2026 | v3.5: **G7 (prova de carga estática em estaca) animada em corte**, com estacas de reação, diagrama de transferência de carga e curva carga x recalque | Aguardando suas correções; próximas: G2, G4, G8 a G10 |
 | 05/11/2026 | v3.6: **G8 (ensaio dinâmico PDA) animado em corte**, com guindaste, sensores, onda de tensão e sinais de força e velocidade | Aguardando suas correções; próximas: G2, G4, G9, G10 |
 | 06/11/2026 | v3.7: **G9 (ensaio de integridade PIT) animado em corte**, com duas estacas (íntegra e com estrangulamento) e reflectogramas | Aguardando suas correções; próximas: G2, G4, G10, G12, G13 |
+| 06/11/2026 | v3.8: **G10 (monitoramento de recalques de fundações) animado em corte**, com sapatas, pinos, nível ótico, mira e gráfico recalque x tempo com recalque diferencial | Aguardando suas correções; próximas: G2, G4, G12, G13 |
