@@ -1,7 +1,8 @@
 # 🏗️ Cidade Geotécnica 3D — Roadmap e Planejamento
 
-> Nome provisório. Versão 2.9 · 03/11/2026
-> Status: **Fase 1a concluída**; **Fase 1b em andamento**: vista em corte, **A1 (TBM), A2 (NATM) e A5 (emboque) animadas**. Zona A completa na animação; **Zona B completa na animação (B1 a B6)**; **Zona C: C1, C2, C3, C4, C6, C7, C13 e C14 animadas em corte**; **Zona D: todas as de prioridade 2 animadas em corte (D1 a D8, D10, D11 e D14)**; **Zona E (P1 e P2) animada**; **Zona F completa nas de prioridade 1 e 2 (F1 a F5)**; falta você confirmar as sequências
+> Nome provisório. Versão 3.11 · 06/11/2026
+> Status: **Fase 1b em andamento**, com 52 obras animadas em corte: Zona A (A1, A2, A5), B (B1 a B6), C (C1, C2, C3, C4, C6, C7, C13, C14), D (D1 a D8, D10, D11, D14), E (E1, E2, E4, E5, E6), F (F1 a F5), **G (G1 a G12)** e H (H1, H4). Falta você confirmar as sequências e os valores de exemplo.
+> Publicação: site em https://victortlacerda.github.io/cidade-geotecnica/, atualizado sozinho a cada envio para a `main` (GitHub Actions).
 
 ---
 
@@ -179,7 +180,7 @@ Legenda. **Origem:** ✅ você citou (na conversa ou no checklist) · 💡✔ su
 | [x] G9 Ensaio de integridade (PIT) | ✅ | Martelo leve e sensor na cabeça da estaca | Onda refletida em defeitos | 3 |
 | [x] G10 Monitoramento de recalques de fundações | ✅ | Topógrafo lendo marcos, gráfico crescendo | Recalque ao longo do tempo | 3 |
 | [x] G11 Piezômetros | ✅ | Técnico lendo o nível d'água | Poropressão e nível d'água no maciço | 3 |
-| [ ] G12 Inclinômetros e instrumentação geral | 💡✔ | Técnico descendo a sonda no tubo | Deslocamentos no maciço | 3 |
+| [x] G12 Inclinômetros e instrumentação geral | 💡✔ | Técnico descendo a sonda no tubo | Deslocamentos no maciço | 3 |
 | [ ] G13 Laboratório de geotecnia (edifício-ícone) | 💡✔ | Só um prédio pequeno com a placa "Laboratório", sem animação de obra; o clique abre o repositório de ensaios de laboratório | Sem corte (ensaios de laboratório, não de campo) | 3 |
 
 **Zona H — Barragens e disposição de rejeitos** (zona nova)
@@ -483,7 +484,7 @@ Perguntas para você (responda "ok" se concordar):
 
 ## 4G. Zona G — Investigação e ensaios (rascunho para você corrigir)
 
-**Estado (v3.10): G1, G2, G3, G4, G5, G6, G7, G8, G9, G10 e G11 animadas em corte.** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
+**Estado (v3.11): G1 a G12 animadas em corte (falta só a G13, o laboratório, que não tem animação).** Seção em x = 57, mostrando as camadas reais da cidade (solo superficial, argila, areia, nível d'água, areia saturada, silte); o laboratório e as outras vinhetas da zona somem enquanto a obra está aberta.
 
 **G1 Sondagem SPT:** 1 Locação: o topógrafo crava a estaca, a equipe chega e monta o tripé com roldana → 2 Perfuração metro a metro (trado manual no 1º metro, lavagem abaixo do nível d'água) → 3 Ensaio: amostrador padrão descido, martelo de 65 kg com queda de 75 cm, contagem dos golpes em três trechos de 15 cm (NSPT = últimos 30 cm), com o texto "Prof. X m: 2º trecho de 15 cm, N golpes" → 4 A cada metro, uma barra no gráfico de NSPT (verde para solo mole, vermelho para solo compacto), uma linha na tabela (litologia e consistência) e um frasco de amostra na mesa; o nível d'água aparece em 9,6 m → 5 Sondagem encerrada a 13 m: impenetrável (50 golpes para 8 cm).
 - Perfil de NSPT adotado (exemplo, não é de projeto): 6, 5, 3, 2, 2, 3, 7, 10, 13, 17, 23, 32, >50. Pendente de sua confirmação: se prefere valores diferentes, a profundidade final e a ordem das etapas.
@@ -517,6 +518,9 @@ Perguntas para você (responda "ok" se concordar):
 
 **G2 Sondagem rotativa:** 1 Locação e sonda rotativa com tanque e bomba de água → 2 Solo até 7 m perfurado com revestimento cravado → 3 Barrilete duplo com coroa de diamante, cinco manobras de 1,4 m (7,0 a 14,0 m), com água circulando → 4 A cada manobra, o barrilete interno sobe por cabo (wireline) e o testemunho vai para a caixa (pedaços ≥ 10 cm em destaque, fragmentos e perdas marcados), com REC e RQD → 5 Boletim por manobra e média: REC 89%, RQD 58% (maciço regular).
 - Maciço adotado (exemplo, não é de projeto): rocha alterada de 7 a 10 m e rocha sã de 10 a 14 m, desenhada sobre a seção da cidade (que ali tem areia e silte). REC = 62, 86, 96, 100, 100%; RQD = 0, 32, 72, 90, 96%. Pendente: tipo de coroa e diâmetro (NX, HX), grau de alteração e de fraturamento (W/F) por manobra, e se quer a perda de água (ensaio de perda d'água) no mesmo furo.
+
+**G12 Inclinômetro:** 1 Locação ao pé do futuro aterro → 2 Furo de 14 m até o silte, tubo-guia com quatro ranhuras (uma alinhada para fora do aterro) e calda de cimento e bentonita, de baixo para cima → 3 Leitura zero: torpedo desce até o fundo e sobe parando a cada 0,5 m, unidade de leitura registra → 4 Aterro em três etapas (1,4, 2,7 e 4,0 m) com caminhão e rolo; a argila é empurrada para o lado (setas), o tubo se deforma (ampliado 45 vezes) e uma leitura após cada etapa acrescenta uma curva ao gráfico deslocamento x profundidade → 5 Leitura final após 30 dias e interpretação: máximo na argila, pé fixo, deslocamento que quase para entre as etapas (aterro estável); o texto explica o que indicaria ruptura.
+- Valores adotados (exemplo, não é de projeto): deslocamentos máximos de 7, 16, 27 e 30 mm, todos a 4,6 m de profundidade (forma de sino centrada na argila, zero abaixo de 10 m); aterro com taludes 1:2 (lado do tubo) e 1:1,75. Pendente: se prefere o inclinômetro numa encosta (F1) ou numa escavação (D) em vez do aterro, se quer também a velocidade de deslocamento (mm/dia) com limites de alerta, e se a G12 deve incluir outros instrumentos (marcos superficiais, extensômetro magnético, piezômetro elétrico).
 
 ## 4H. Zona H — Barragens e rejeitos (rascunho para você corrigir)
 
@@ -761,7 +765,8 @@ O "handle" da pasta-biblioteca fica no IndexedDB, não no JSON (não é exportá
 - [x] G10 (monitoramento de recalques) animado em corte (v3.8)
 - [x] G4 (CPTU) animado em corte (v3.9)
 - [x] G2 (sondagem rotativa) animado em corte (v3.10)
-- [ ] Prioridade 3 restante (G12, G13), confirmar fichas e revisar
+- [x] G12 (inclinômetro) animado em corte (v3.11)
+- [ ] G13 (laboratório, edifício-ícone sem animação), confirmar fichas e revisar
 
 ### Fase 8 — Zona H (Barragens e disposição de rejeitos)
 - [x] H1 (barragem de terra zonada) e H4 (pilha de rejeitos) animadas em corte (v3.0)
@@ -899,3 +904,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 06/11/2026 | v3.8: **G10 (monitoramento de recalques de fundações) animado em corte**, com sapatas, pinos, nível ótico, mira e gráfico recalque x tempo com recalque diferencial | Aguardando suas correções; próximas: G2, G4, G12, G13 |
 | 06/11/2026 | v3.9: **G4 (CPTU, piezocone) animado em corte**, com perfis de qc, u2 e Rf, reta hidrostática e nível d'água | Aguardando suas correções; próximas: G2, G12, G13 |
 | 06/11/2026 | v3.10: **G2 (sondagem rotativa) animado em corte**, com revestimento, barrilete duplo, caixa de testemunhos e boletim de REC e RQD | Aguardando suas correções; próximas: G12, G13 |
+| 06/11/2026 | v3.11: **G12 (inclinômetro) animado em corte**, ao pé de um aterro em três etapas sobre a argila, com tubo-guia, calda, torpedo, leituras e gráfico deslocamento x profundidade. Site publicado no GitHub Pages e README com prints | Aguardando suas correções; próxima: G13 (laboratório) ou as P3 da Zona H (H2, H3, H5, H6) |
