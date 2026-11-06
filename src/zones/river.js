@@ -99,24 +99,25 @@ export function buildRiver(ctx) {
 
   // Zona J: ensecadeira de estacas-prancha no rio, com a água bombeada para fora e o bloco de um novo pilar a seco
   {
+    const cg = new THREE.Group(); cg.name = 'j-coffer'; root.add(cg);   // escondido durante a J2 (que anima a ensecadeira)
     const C = COFFER, top = RIVER.water + 1.4, bot = RIVER.bed - 0.2, sp = [], cxm = (C.x0 + C.x1) / 2, czm = (C.z0 + C.z1) / 2;
     for (let x = C.x0; x < C.x1 - 0.01; x += 0.6) for (const [z, s] of [[C.z0, -1], [C.z1, 1]]) sp.push(boxG(0.6, top - bot, 0.14, x + 0.3, (top + bot) / 2, z + s * ((Math.round((x - C.x0) / 0.6) % 2) ? 0.1 : -0.1)));
     for (let z = C.z0; z < C.z1 - 0.01; z += 0.6) for (const [x, s] of [[C.x0, -1], [C.x1, 1]]) sp.push(boxG(0.14, top - bot, 0.6, x + s * ((Math.round((z - C.z0) / 0.6) % 2) ? 0.1 : -0.1), (top + bot) / 2, z + 0.3));
-    const spm = new THREE.Mesh(mergeGeometries(sp), mat(0x5f666e, { m: 0.3 })); spm.castShadow = true; root.add(spm);
+    const spm = new THREE.Mesh(mergeGeometries(sp), mat(0x5f666e, { m: 0.3 })); spm.castShadow = true; cg.add(spm);
     // escoras internas (quadros) e fundo seco com o bloco do pilar
     const fr = [];
     for (const y of [RIVER.water + 0.6, RIVER.bed + 1.6]) { fr.push(boxG(C.x1 - C.x0, 0.3, 0.3, cxm, y, C.z0 + 0.35), boxG(C.x1 - C.x0, 0.3, 0.3, cxm, y, C.z1 - 0.35), boxG(0.3, 0.3, C.z1 - C.z0, C.x0 + 0.35, y, czm), boxG(0.3, 0.3, C.z1 - C.z0, C.x1 - 0.35, y, czm), boxG(0.25, 0.25, C.z1 - C.z0, cxm, y, czm)); }
-    root.add(new THREE.Mesh(mergeGeometries(fr), mat(COL.orange)));
-    root.add(new THREE.Mesh(boxG(C.x1 - C.x0 - 0.3, 0.1, C.z1 - C.z0 - 0.3, cxm, RIVER.bed + 0.05, czm), mat(0x6b5536)));
-    const blk = new THREE.Mesh(boxG(6, 1.2, 3.2, cxm, RIVER.bed + 0.7, czm), mat(0xc9c4b8)); blk.castShadow = true; root.add(blk);
-    for (const dx of [-1.8, 1.8]) root.add(new THREE.Mesh(boxG(0.2, 1.6, 0.2, cxm + dx, RIVER.bed + 2.0, czm), mat(0x4b4f55)));   // arranques do pilar
+    cg.add(new THREE.Mesh(mergeGeometries(fr), mat(COL.orange)));
+    cg.add(new THREE.Mesh(boxG(C.x1 - C.x0 - 0.3, 0.1, C.z1 - C.z0 - 0.3, cxm, RIVER.bed + 0.05, czm), mat(0x6b5536)));
+    const blk = new THREE.Mesh(boxG(6, 1.2, 3.2, cxm, RIVER.bed + 0.7, czm), mat(0xc9c4b8)); blk.castShadow = true; cg.add(blk);
+    for (const dx of [-1.8, 1.8]) cg.add(new THREE.Mesh(boxG(0.2, 1.6, 0.2, cxm + dx, RIVER.bed + 2.0, czm), mat(0x4b4f55)));   // arranques do pilar
     // bomba na borda e tubo de recalque devolvendo a água ao rio
-    root.add(new THREE.Mesh(boxG(1.2, 0.8, 0.9, C.x1 - 0.8, top + 0.4, C.z0 + 0.9), mat(COL.orange)));
-    root.add(new THREE.Mesh(boxG(0.25, 0.25, 3.2, C.x1 + 0.6, top - 0.2, C.z0 - 0.8), mat(0x2f78c4)));
+    cg.add(new THREE.Mesh(boxG(1.2, 0.8, 0.9, C.x1 - 0.8, top + 0.4, C.z0 + 0.9), mat(COL.orange)));
+    cg.add(new THREE.Mesh(boxG(0.25, 0.25, 3.2, C.x1 + 0.6, top - 0.2, C.z0 - 0.8), mat(0x2f78c4)));
     // guindaste sobre esteiras na margem de lá
     const crane = new THREE.Group(); { const b = new THREE.Mesh(new THREE.BoxGeometry(4, 1.2, 3), mat(0xe8b300)); b.position.y = 0.9; crane.add(b); const tr = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.7, 3.4), mat(0x2f3237)); tr.position.y = 0.35; crane.add(tr); const bm = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 13), mat(0xe8b300)); bm.position.set(0, 5.6, 5.0); bm.rotation.x = 0.75; crane.add(bm); }
-    crane.position.set(cxm, H(cxm, RIVER.z0 - 4), RIVER.z0 - 4.5); root.add(crane);
-    const hook = new THREE.Mesh(new THREE.BoxGeometry(0.05, 6, 0.05), mat(0x222222)); hook.position.set(cxm, 4.6, czm + 1.2); root.add(hook);
+    crane.position.set(cxm, H(cxm, RIVER.z0 - 4), RIVER.z0 - 4.5); cg.add(crane);
+    const hook = new THREE.Mesh(new THREE.BoxGeometry(0.05, 6, 0.05), mat(0x222222)); hook.position.set(cxm, 4.6, czm + 1.2); cg.add(hook);
     upd((dt, t) => { crane.rotation.y = 0.12 * Math.sin(t * 0.3); });
   }
 

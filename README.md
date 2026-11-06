@@ -6,7 +6,7 @@ Uma cidade 3D interativa onde cada obra de engenharia geotécnica pode ser abert
 
 ![Visão geral da Cidade Geotécnica](docs/img/cidade.jpg)
 
-## 52 obras animadas em corte
+## 53 obras animadas em corte
 
 A cidade tem oito zonas temáticas. Clique numa zona para ver o catálogo de obras e escolha **Ver em corte**: a câmera entra na seção do terreno e a obra é executada etapa por etapa. O painel lateral explica cada fase, e dá para pausar, mudar a velocidade e ligar ou desligar os rótulos.
 
@@ -35,7 +35,7 @@ Um rio corre atrás da cidade. Do outro lado fica uma área afastada com as zona
 | G | Investigação e ensaios | G1 SPT, G2 sondagem rotativa, G3 CPT, G4 CPTU, G5 vane, G6 placa, G7 prova de carga, G8 PDA, G9 PIT, G10 recalques, G11 piezômetros, G12 inclinômetro |
 | H | Barragens e rejeitos | H1 barragem de terra, H4 pilha de rejeitos |
 | I | Geotecnia ambiental | em breve (aterro sanitário modelado na cidade) |
-| J | Pontes e obras em rio | em breve (ponte e ensecadeira modeladas no rio) |
+| J | Pontes e obras em rio | J2 ensecadeira |
 
 ![Zona D, escavações e contenções, com o catálogo de obras](docs/img/zona-d.jpg)
 
