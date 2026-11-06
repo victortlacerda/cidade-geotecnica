@@ -1,6 +1,6 @@
 import { H } from '../scene/terrain.js';
 
-export function follower(obj, pts, speed, { loop = true, yOff = 0.05 } = {}) {
+export function follower(obj, pts, speed, { loop = true, yOff = 0.05, hFn = H } = {}) {
   const P = pts.map((p) => (p.length === 3 ? p : [p[0], null, p[1]]));
   const n = P.length, segs = [];
   let total = 0;
@@ -11,7 +11,7 @@ export function follower(obj, pts, speed, { loop = true, yOff = 0.05 } = {}) {
     segs.push({ a, b, l, s0: total }); total += l;
   }
   let s = Math.random() * total, dir = 1;
-  const yAt = (p, x, z) => (p[1] === null ? H(x, z) : p[1]);
+  const yAt = (p, x, z) => (p[1] === null ? hFn(x, z) : p[1]);
   let hdg = null;
   function place(dt) {
     s += speed * dt * dir;
@@ -22,7 +22,7 @@ export function follower(obj, pts, speed, { loop = true, yOff = 0.05 } = {}) {
     const g = segs[i], f = g.l ? (s - g.s0) / g.l : 0;
     const x = g.a[0] + (g.b[0] - g.a[0]) * f, z = g.a[2] + (g.b[2] - g.a[2]) * f;
     const ya = yAt(g.a, g.a[0], g.a[2]), yb = yAt(g.b, g.b[0], g.b[2]);
-    const y = g.a[1] === null && g.b[1] === null ? H(x, z) : ya + (yb - ya) * f;
+    const y = g.a[1] === null && g.b[1] === null ? hFn(x, z) : ya + (yb - ya) * f;
     obj.position.set(x, y + yOff, z);
     const th = Math.atan2(-(g.b[2] - g.a[2]) * dir, (g.b[0] - g.a[0]) * dir);
     if (hdg === null) hdg = th;

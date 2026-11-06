@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { WORLD, STRATA, COL } from '../config.js';
+import { WORLD, STRATA, COL, REMOTE_DZ, RIVER, TUNNEL } from '../config.js';
 
 export const sstep = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -61,21 +61,36 @@ function portalCut(x, z) {
 export const PIT = { cx: 81, cz: -30, hx: 13, hz: 11, depth: 8 };
 export const DAM = { cx: 27, zc: -36, x0: 10, x1: 44, crest: 8, water: 6.3 };
 
+// Saída do túnel na área afastada: colina na margem norte, com o portal na face voltada para o fundo (z menor).
+export const EXIT = { x: TUNNEL.x, zp: TUNNEL.zOut, hw: 6, cz: TUNNEL.zOut + 13 };
+const exitCut = (x, z) => { const s = z - EXIT.zp, d = Math.max(Math.abs(x - EXIT.x) - EXIT.hw, 0); return s <= 0 ? 0 : s * 1.6 + d * 1.2; };
+// perfil do rio (0 fora, 1 no leito), ao longo de z
+export const riverF = (z) => sstep(RIVER.z1, RIVER.z1 - RIVER.bank, z) * sstep(RIVER.z0, RIVER.z0 + RIVER.bank, z);
+
 export function Hraw(x, z) {
   let h = 0;
   // Zona A: colina do emboque
   h += bump(x, z, -90, -38, 14, 20, 18) + bump(x, z, -99, -47, 6, 8, 5);
+  // área afastada: as zonas F e H foram deslocadas de REMOTE_DZ; o relevo delas é avaliado em zr
+  const zr = z - REMOTE_DZ;
+  // colina da saída do túnel (área afastada, à esquerda) e morros nos cantos
+  h += Math.min(bump(x, z, EXIT.x, EXIT.cz, 15, 12, 11), exitCut(x, z) + 0.0) + bump(x, z, -100, -140, 10, 9, 6) + bump(x, z, 97, -134, 11, 12, 8);
   // Zona F: encosta em bancadas
-  h += terrace(bump(x, z, -27, -38, 20, 20, 12.6), 2.4);
+  h += terrace(bump(x, zr, -27, -38, 20, 20, 12.6), 2.4);
   // Zona H: vale da barragem
   {
+    z = zr;
     const a = Math.abs(x - DAM.cx);
     const m = sstep(-28, -40, z);
     const side = sstep(5, 13, a) * (1 - sstep(19, 24, a)) * 13;
     const rise = Math.max(0, -36 - z) * 0.1 * (1 - sstep(4, 10, a));
     const back = sstep(-46, -52, z) * (1 - sstep(-54, -58, z)) * 13 * (1 - sstep(19, 24, a));
     h += (rise + side) * m + back;
+    z = zr + REMOTE_DZ;
   }
+  // rio atrás da cidade
+  const f = riverF(z);
+  if (f > 0) h = h * (1 - f) + RIVER.bed * f;
   return h;
 }
 export function H(x, z) {
@@ -142,7 +157,7 @@ function withHoles(m, key) {
 
 export function createTerrain() {
   const group = new THREE.Group();
-  const W = WORLD.w, D = WORLD.d;
+  const W = WORLD.w, D = WORLD.d, ZA = WORLD.z0;
   const nx = W, nzc = D;
   const verts = (nx + 1) * (nzc + 1);
   const pos = new Float32Array(verts * 3), col = new Float32Array(verts * 3);
@@ -150,7 +165,7 @@ export function createTerrain() {
   const c = new THREE.Color();
   for (let j = 0; j <= nzc; j++) {
     for (let i = 0; i <= nx; i++) {
-      const x = -W / 2 + i, z = -D / 2 + j, y = H(x, z);
+      const x = -W / 2 + i, z = ZA + j, y = H(x, z);
       const k = j * (nx + 1) + i;
       pos[k * 3] = x; pos[k * 3 + 1] = y; pos[k * 3 + 2] = z;
       colorOf(x, y, z, c);
@@ -176,10 +191,10 @@ export function createTerrain() {
 
   // paredes laterais com as camadas de solo (o "corte" do diorama)
   const edges = [
-    { pts: (t) => [-W / 2 + t, D / 2], n: W }, // frente, x crescente
-    { pts: (t) => [W / 2 - t, -D / 2], n: W }, // fundo, x decrescente
-    { pts: (t) => [-W / 2, -D / 2 + t], n: D }, // esquerda, z crescente
-    { pts: (t) => [W / 2, D / 2 - t], n: D }, // direita, z decrescente
+    { pts: (t) => [-W / 2 + t, WORLD.z1], n: W }, // frente, x crescente
+    { pts: (t) => [W / 2 - t, WORLD.z0], n: W }, // fundo, x decrescente
+    { pts: (t) => [-W / 2, WORLD.z0 + t], n: D }, // esquerda, z crescente
+    { pts: (t) => [W / 2, WORLD.z1 - t], n: D }, // direita, z decrescente
   ];
   const wpos = [], wcol = [], widx = [];
   let vi = 0;
@@ -222,7 +237,7 @@ export function createTerrain() {
     new THREE.PlaneGeometry(W * 1.5, D * 1.9),
     new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false })
   );
-  sh.rotation.x = -Math.PI / 2; sh.position.y = WORLD.bottom - 0.5;
+  sh.rotation.x = -Math.PI / 2; sh.position.set(0, WORLD.bottom - 0.5, (WORLD.z0 + WORLD.z1) / 2);
   group.add(sh);
   return group;
 }

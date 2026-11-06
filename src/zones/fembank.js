@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REMOTE_DZ } from '../config.js';
 import * as M from '../kit/machines.js';
 import { createProfile, col, XP, XEP, ZCF, ease, clamp01, win, mat, noclip, person } from './fprofile.js';
 import { X1F, F_BOX } from './fterra.js';
@@ -35,7 +36,7 @@ const slopeY = (d) => (BASE - d) / SW;
 const K = { org: col(0x3b2a1a), grass: col(0x6f9c50), dirt: col(0x8a6a44), a: col(0x8f6a45), b: col(0x9b7650), loose: col(0xc19a6a), seed: col(0x7dbb5c), grave: col(0xb9b6ab) };
 
 export function createF3(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'F3', labels: F3_LABELS, starts: F3_STARTS, END: END3, yb: -0.4,
     build(H) {
       const { root, surf, place, dash, tree, stake, bar2 } = H;
@@ -179,7 +180,7 @@ function drawPanel4(ctx, W, Hh, t) {
 }
 
 export function createF4(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'F4', labels: F4_LABELS, starts: F4_STARTS, END: END4, yb: -8,
     build(H) {
       const { root, surf, place, tree, bar2 } = H;

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { COL, ZONE_POS, PLOT, rng } from '../config.js';
+import { COL, ZONE_POS, PLOT, rng, REMOTE_DZ } from '../config.js';
 import { H, DAM, PIT, PORTAL } from '../scene/terrain.js';
 import { box, cyl, sph, cone, grp, bar, mat } from '../kit/primitives.js';
 import * as M from '../kit/machines.js';
@@ -60,27 +60,29 @@ export function buildZones(ctx) {
     reserve(-73, -57, -58, -10);
   }
 
+  // zonas F e H: ficam na área afastada, do outro lado do rio; o grupo é deslocado de REMOTE_DZ e as alturas vêm do terreno deslocado
+  const HL = (x, z) => H(x, z + REMOTE_DZ);
   // ===================================================== F — Obras de terra e encostas
   {
-    const fg = new THREE.Group(); fg.name = 'f-terra'; ctx.add(fg);
+    const fg = new THREE.Group(); fg.name = 'f-terra'; fg.position.z = REMOTE_DZ; ctx.add(fg);
     const add = (o) => fg.add(o);
-    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, H(x, z) + dy, z); obj.rotation.y = ry; fg.add(obj); return obj; };
+    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, HL(x, z) + dy, z); obj.rotation.y = ry; fg.add(obj); return obj; };
     const ro = M.roller(); add(ro);
-    upd(follower(ro, [[-44, -11.5], [-22, -11.5]], 3, { loop: false }));
+    upd(follower(ro, [[-44, -11.5], [-22, -11.5]], 3, { loop: false, hFn: HL }));
     const ex = M.excavator(0.9); put(ex.group, -17.5, -22, 3.3); upd((d, t) => ex.update(t));
     const tk = M.dumpTruck(); add(tk);
-    upd(follower(tk, [[-47, -8], [-8, -8], [-8, -15], [-47, -15]], 7));
+    upd(follower(tk, [[-47, -8], [-8, -8], [-8, -15], [-47, -15]], 7, { hFn: HL }));
     // muro de gabião no pé da encosta
     for (let i = 0; i < 9; i++) put(box(3.6, 1.5, 1.4, 0xcbbfa6), -39 + i * 3.7, -18.5, 0, 0.75);
-    worker(-30, -13, -26, -11); worker(-14, -12, -12, -10);
-    reserve(-49, -5, -58, -6);
+    worker(-30, -13 + REMOTE_DZ, -26, -11 + REMOTE_DZ); worker(-14, -12 + REMOTE_DZ, -12, -10 + REMOTE_DZ);
+    reserve(-49, -5, -58 + REMOTE_DZ, -6 + REMOTE_DZ);
   }
 
   // ===================================================== H — Barragens e rejeitos
   {
-    const hg = new THREE.Group(); hg.name = 'h-dam'; ctx.add(hg);
+    const hg = new THREE.Group(); hg.name = 'h-dam'; hg.position.z = REMOTE_DZ; ctx.add(hg);
     const add = (o) => hg.add(o);
-    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, H(x, z) + dy, z); obj.rotation.y = ry; hg.add(obj); return obj; };
+    const put = (obj, x, z, ry = 0, dy = 0) => { obj.position.set(x, HL(x, z) + dy, z); obj.rotation.y = ry; hg.add(obj); return obj; };
     // barragem de terra (seção trapezoidal com bermas)
     const prof = new THREE.Shape();
     const pts = [[16, -0.5], [11.5, 2.7], [9, 2.7], [4.6, 5.4], [2.6, 5.4], [1.5, DAM.crest], [-1.5, DAM.crest], [-15.5, -0.5]];
@@ -94,7 +96,7 @@ export function buildZones(ctx) {
     const wp = [];
     const x0 = 8, x1 = 46, zA = -62, zB = DAM.zc - 3.8, st = 0.5;
     for (let x = x0; x < x1; x += st) for (let z = zA; z < zB; z += st) {
-      const hc = H(x + st / 2, z + st / 2);
+      const hc = HL(x + st / 2, z + st / 2);
       if (hc < DAM.water - 0.1) {
         wp.push(x, DAM.water, z, x, DAM.water, z + st, x + st, DAM.water, z, x + st, DAM.water, z, x, DAM.water, z + st, x + st, DAM.water, z + st);
       }
@@ -105,7 +107,7 @@ export function buildZones(ctx) {
     // vertedouro (canal) ao lado
     put(box(5, 0.5, 14, 0xdad6cc), DAM.x0 + 4, DAM.zc + 7, 0, 3.4).rotation.x = 0.2;
     const tk = M.dumpTruck(); add(tk);
-    upd(follower(tk, [[DAM.x0 + 5, DAM.crest + 0.15, DAM.zc], [DAM.x1 - 5, DAM.crest + 0.15, DAM.zc]], 4, { loop: false, yOff: 0.0 }));
+    upd(follower(tk, [[DAM.x0 + 5, DAM.crest + 0.15, DAM.zc], [DAM.x1 - 5, DAM.crest + 0.15, DAM.zc]], 4, { loop: false, yOff: 0.0, hFn: HL }));
     // pilha de rejeitos em bancadas
     const pile = new THREE.Group();
     [[6.2, 1.5], [5, 1.5], [3.8, 1.5], [2.6, 1.5]].forEach(([r, h], i) => {
@@ -114,9 +116,9 @@ export function buildZones(ctx) {
     put(pile, 41, -11.2);
     const dz = M.excavator(0.7); put(dz.group, 31, -12, 0.2); upd((d, t) => dz.update(t));
     const t3 = M.dumpTruck(); add(t3);
-    upd(follower(t3, [[34, -9], [49, -9], [49, -15], [34, -15]], 5));
-    worker(14, -12, 20, -10);
-    reserve(-0.5 + 4, 50, -58, -6);
+    upd(follower(t3, [[34, -9], [49, -9], [49, -15], [34, -15]], 5, { hFn: HL }));
+    worker(14, -12 + REMOTE_DZ, 20, -10 + REMOTE_DZ);
+    reserve(-0.5 + 4, 50, -58 + REMOTE_DZ, -6 + REMOTE_DZ);
   }
 
   // ===================================================== D — Escavações e contenções

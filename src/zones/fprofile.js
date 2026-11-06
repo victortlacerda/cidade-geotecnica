@@ -17,6 +17,7 @@ export function createProfile(engine, section, cfg) {
   const geo = cfg.geo || { x1: X1F, xe: XEP, hole: HOLE_F };
   const X1 = geo.x1, XE = geo.xe, HOLE = geo.hole, XB = X1 - 0.05, XC = X1 - 0.02, XP = X1 - 0.045;
   const root = new THREE.Group(); root.visible = false;
+  const DZR = cfg.dz || 0; root.position.z = DZR;            // obras da área afastada: tudo desloca em z
   const YB = cfg.yb ?? 0, zo = cfg.zo || 0;   // zo: deslocamento do perfil em z (zona G fica em z > 0)
   const ZS = Array.from({ length: NZ }, (_, i) => Z0 + zo + i * DZ), ys = new Float32Array(NZ);
   const surf = (z) => { const f = clamp01((z - zo - Z0) / (Z1 - Z0)) * (NZ - 1), i = Math.min(NZ - 2, Math.floor(f)), q = f - i; return ys[i] * (1 - q) + ys[i + 1] * q; };
@@ -69,7 +70,7 @@ export function createProfile(engine, section, cfg) {
     if (st.hold > 0) { st.hold -= k; if (st.hold <= 0) st.tc = 0; } else st.tc += k;
     if (st.tc >= cfg.END && st.hold <= 0) { st.tc = cfg.END - 0.001; st.hold = 3.5; }
     const t = st.tc;
-    terrainHoles[0].set(HOLE[0], HOLE[1], HOLE[2], HOLE[3]); section.setBand(0, 0, 0, 0, 0);
+    terrainHoles[0].set(HOLE[0], HOLE[1], HOLE[2] + DZR, HOLE[3] + DZR); section.setBand(0, 0, 0, 0, 0);
     for (let i = 0; i < NZ; i++) {
       const z = ZS[i]; o.lo.fill(0); o.hi.fill(0); o.top = 0;
       W.column(z, t, o);
@@ -88,6 +89,7 @@ export function createProfile(engine, section, cfg) {
     st.step = step; st.progress = win(t, S[step], S[step + 1] ?? cfg.END);
     st.note = c.note || (W.idle ? W.idle(t) : '');
     W.anchors(anchors, t);
+    if (DZR) for (const k in anchors) anchors[k].z += DZR;
   }
   const labelVis = (kx, t = st.tc) => { const f = W.vis[kx]; return f ? f(t) : true; };
   const hideName = cfg.hide || 'f-terra';

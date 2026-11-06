@@ -1,6 +1,6 @@
 # 🏗️ Cidade Geotécnica 3D — Roadmap e Planejamento
 
-> Nome provisório. Versão 3.11 · 06/11/2026
+> Nome provisório. Versão 3.12 · 06/11/2026
 > Status: **Fase 1b em andamento**, com 52 obras animadas em corte: Zona A (A1, A2, A5), B (B1 a B6), C (C1, C2, C3, C4, C6, C7, C13, C14), D (D1 a D8, D10, D11, D14), E (E1, E2, E4, E5, E6), F (F1 a F5), **G (G1 a G12)** e H (H1, H4). Falta você confirmar as sequências e os valores de exemplo.
 > Publicação: site em https://victortlacerda.github.io/cidade-geotecnica/, atualizado sozinho a cada envio para a `main` (GitHub Actions).
 
@@ -60,6 +60,11 @@ As oito zonas: **A Túneis · B Fundação direta · C Fundação profunda · D 
 - Cada **obra** é uma variante específica (ex.: "Sapata corrida") e tem seu próprio repositório.
 - Cada **zona** tem também um **repositório geral** (ex.: referências de "fundação profunda" valem para todas as estacas).
 - **Casa x prédio deixou de ser zona e virou contexto.** Como as zonas agora são por tipo de fundação, a mesma obra pode aparecer com uma casa ou com um prédio em cima. A coluna **Contexto** mostra isso (DEC16).
+
+**Mapa da cidade (v3.12).** Um rio corre atrás da cidade, ao longo de toda a borda do fundo. Do lado de cá ficam A, D (fundo) e B, C, E, G (frente); os antigos lotes de F e H viraram quarteirões de prédios e uma praça. Do outro lado do rio fica a **área afastada**, com as zonas **F** (encosta) e **H** (vale da barragem e pilha de rejeitos), mais mata e morros nos cantos. Dois acessos ligam as margens:
+- **Túnel** (Zona A): o NATM do emboque segue para o norte, passa por baixo da rua do fundo e do rio (traçado tracejado sobre a água e poços de ventilação nas margens) e sai num portal na face norte de uma colina, na área afastada, com acesso até a rua do fundo.
+- **Ponte** (perto da Zona D): tabuleiro com rampas, dois pilares duplos sobre blocos no leito do rio, encontros nas margens, guarda-corpo, postes e trânsito em mão dupla. É a ponte da futura obra **C17 (fundação de ponte em rio)**.
+- Pendente: se a ponte deve ser mais alta (hoje o tabuleiro fica a 1,4 m da rua, para caber no diorama), se o túnel deve aparecer em corte sob o rio, e se a C17 entra agora (fundação de um dos pilares sendo executada na água).
 
 ### 2.2 Termos que entendi (confirme, pois veio de áudio)
 
@@ -905,3 +910,4 @@ Vi só as imagens do vídeo, sem áudio. Parece um site WebGL; não consigo conf
 | 06/11/2026 | v3.9: **G4 (CPTU, piezocone) animado em corte**, com perfis de qc, u2 e Rf, reta hidrostática e nível d'água | Aguardando suas correções; próximas: G2, G12, G13 |
 | 06/11/2026 | v3.10: **G2 (sondagem rotativa) animado em corte**, com revestimento, barrilete duplo, caixa de testemunhos e boletim de REC e RQD | Aguardando suas correções; próximas: G12, G13 |
 | 06/11/2026 | v3.11: **G12 (inclinômetro) animado em corte**, ao pé de um aterro em três etapas sobre a argila, com tubo-guia, calda, torpedo, leituras e gráfico deslocamento x profundidade. Site publicado no GitHub Pages e README com prints | Aguardando suas correções; próxima: G13 (laboratório) ou as P3 da Zona H (H2, H3, H5, H6) |
+| 06/11/2026 | v3.12: **novo mapa**: rio atrás da cidade, **área afastada** do outro lado com as zonas F e H (todas as obras F1 a F5, H1 e H4 deslocadas e testadas em corte), **túnel** saindo da Zona A por baixo do rio até um portal na área afastada, e **ponte** perto da Zona D; antigos lotes de F e H viram quarteirão e praça | Aguardando sua avaliação do mapa; próxima: C17 na ponte, G13 ou as P3 da Zona H |

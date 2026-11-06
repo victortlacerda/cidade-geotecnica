@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REMOTE_DZ } from '../config.js';
 import * as M from '../kit/machines.js';
 import { createProfile, col, ease, clamp01, win, mat, noclip, person } from './fprofile.js';
 import { GEO_H, H_BOX, X1H } from './hdam.js';
@@ -35,7 +36,7 @@ const NLIFT = 6, HL = 1.0, T0 = 30, PER = 10.5, END4 = 135;
 const K = { found: col(0x8f7a54), blan: col(0xa7b0b8), drain: col(0xd9dde0), a: col(0xb5a48a), b: col(0xa8977c), loose: col(0xd2c4ab), conc: col(0xc4c0b6), seed: col(0x7dbb5c), grass: col(0x6f9c50), dirt: col(0x8a6a44) };
 
 export function createH4(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'H4', labels: H4_LABELS, starts: H4_STARTS, END: END4, yb: -1.5, geo: GEO_H, hide: 'h-dam',
     build(H) {
       const { root, surf, place, dash, bar2, tree, stake, X1, XE, XP } = H;

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { WORLD } from '../config.js';
 
 const K = {
   day: { sky: 0xdde8ee, hemiSky: 0xcfe6ff, hemiGround: 0xd9cbb4, hemiI: 1.05, sun: 0xfff0d8, sunI: 2.7, az: 40, el: 52, exp: 1.0, glow: 0 },
@@ -24,9 +25,10 @@ export function createDayNight(engine) {
   const hemi = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
   const sun = new THREE.DirectionalLight(0xffffff, 2);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(3072, 3072);
   const sc = sun.shadow.camera;
-  sc.left = -150; sc.right = 150; sc.top = 110; sc.bottom = -110; sc.near = 10; sc.far = 620;
+  sc.left = -165; sc.right = 165; sc.top = 165; sc.bottom = -165; sc.near = 10; sc.far = 700;
+  const WC = (WORLD.z0 + WORLD.z1) / 2; sun.target.position.set(0, 0, WC);
   sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.35;
   scene.add(hemi, sun, sun.target);
   scene.fog = new THREE.Fog(0xdde8ee, 420, 900);
@@ -41,7 +43,7 @@ export function createDayNight(engine) {
     const a = p < 0.5 ? dir(K.day.az, K.day.el).lerp(dir(K.dusk.az, K.dusk.el), p / 0.5)
       : dir(K.dusk.az, K.dusk.el).lerp(dir(K.night.az, K.night.el), (p - 0.5) / 0.5);
     a.normalize();
-    sun.position.copy(a).multiplyScalar(300);
+    sun.position.copy(a).multiplyScalar(300); sun.position.z += WC;
     renderer.toneMappingExposure = k.exp;
     state.glow = k.glow;
     for (const l of state.listeners) l(k.glow, p);

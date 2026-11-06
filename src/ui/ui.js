@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import './style.css';
-import { ZONE_POS, ZONE_INFO, TOUR_ORDER, PLOT } from '../config.js';
+import { ZONE_POS, ZONE_INFO, TOUR_ORDER, PLOT, REMOTE_DZ, isRemote } from '../config.js';
 import { H } from '../scene/terrain.js';
 import catalogo from '../data/catalogo.json';
 import { TBM, TBM_STEPS, TBM_LABELS, TBM_STEP_STARTS } from '../zones/tbm.js';
@@ -102,6 +102,12 @@ const CORTE = {
   C6: { box: DRIVEN_BOX, cam: DRIVEN_CAM, steps: C6_CFG.steps, starts: DRIVEN_STEP_STARTS, labels: C6_CFG.labels, sub: 'Vista em corte · sequência da obra', nome: 'Estaca pré-moldada', tit: 'Etapas da obra', note: true, mcam: DRIVEN_MCAM },
   C7: { box: DRIVEN_BOX, cam: DRIVEN_CAM, steps: C7_CFG.steps, starts: DRIVEN_STEP_STARTS, labels: C7_CFG.labels, sub: 'Vista em corte · sequência da obra', nome: 'Estaca metálica', tit: 'Etapas da obra', note: true, mcam: DRIVEN_MCAM },
 };
+// obras da área afastada (zonas F e H): a caixa do corte e as câmeras deslocam junto com a zona
+for (const [id, c] of Object.entries(CORTE)) {
+  if (!isRemote(id)) continue;
+  c.box = { ...c.box, z0: c.box.z0 + REMOTE_DZ, z1: c.box.z1 + REMOTE_DZ };
+  c.cam = { ...c.cam, tz: c.cam.tz + REMOTE_DZ }; if (c.mcam) c.mcam = { ...c.mcam, tz: c.mcam.tz + REMOTE_DZ };
+}
 
 const SVG = {
   sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',

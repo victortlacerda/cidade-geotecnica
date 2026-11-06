@@ -22,6 +22,8 @@ A cidade tem oito zonas temáticas. Clique numa zona para ver o catálogo de obr
 
 ## Zonas e obras
 
+Um rio corre atrás da cidade. Do outro lado fica uma área afastada com as zonas F e H, ligada à cidade por um túnel que sai da Zona A e passa por baixo do rio, e por uma ponte perto da Zona D.
+
 | Zona | Tema | Obras animadas em corte |
 |------|------|-------------------------|
 | A | Túneis | A1 TBM, A2 NATM, A5 emboque em encosta |

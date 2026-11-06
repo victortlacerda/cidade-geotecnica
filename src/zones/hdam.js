@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REMOTE_DZ } from '../config.js';
 import * as M from '../kit/machines.js';
 import { createProfile, col, ease, clamp01, win, mat, noclip, person } from './fprofile.js';
 import { makeTanker } from './eroad.js';
@@ -40,7 +41,7 @@ const HW0 = HC0 + KC * CT;                                               // meia
 const K = { rock: col(0x7f8389), found: col(0x8f7a54), core: col(0x9a5f3c), sand: col(0xe6d6a8), toe: col(0x9aa0a6), shM: col(0xa8906a), shJ: col(0xb59c72), rip: col(0x8a8f96), water: col(0x3d8fd1), grass: col(0x6f9c50), dirt: col(0x8a6a44), seed: col(0x7dbb5c), loose: col(0xc7a679), cres: col(0xb9b6ab) };
 
 export function createH1(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'H1', labels: H1_LABELS, starts: H1_STARTS, END: END1, yb: -6, geo: GEO_H, hide: 'h-dam',
     build(H) {
       const { root, surf, place, dash, bar2, tree, stake, X1, XE, XP } = H;

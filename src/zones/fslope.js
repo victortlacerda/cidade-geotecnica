@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REMOTE_DZ } from '../config.js';
 import * as M from '../kit/machines.js';
 import { createProfile, col, XP, XEP, ZCF, ease, clamp01, win, mat, noclip, person } from './fprofile.js';
 import { X1F, F_BOX } from './fterra.js';
@@ -59,7 +60,7 @@ function drawFS(ctx, W, H, t) {
 }
 
 export function createF1(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'F1', labels: F1_LABELS, starts: F1_STARTS, END: 136, yb: 0,
     build(H) {
       const { root, surf, place, dash, bar2, tree, stake } = H;

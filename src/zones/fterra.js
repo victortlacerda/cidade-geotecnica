@@ -1,4 +1,5 @@
 import { createRoad, registerSpec } from './eroad.js';
+import { REMOTE_DZ } from '../config.js';
 
 // ---------------------------------------------------------------------------
 // Zona F — Obras de terra e encostas. Plano de corte em x = X1F (a oeste do lote); as obras correm ao longo de x.
@@ -23,6 +24,7 @@ const F5_LABELS = [
   { k: 'rolo', t: 'Rolo compactador' }, { k: 'ensaio', t: 'Ensaio de densidade' }, { k: 'painel', t: 'Curva de compactação' }, { k: 'solo', t: 'Camadas do solo', fixed: [0, 0] },
 ];
 registerSpec('F5', {
+  dz: REMOTE_DZ,
   steps: F5_STEPS, labels: F5_LABELS, nome: 'Compactação de solos', flat: true, hole: HOLE_F, geo: GEO_F, hide: 'f-terra', idle: 'Aterro em obra',
   panel: { pos: [-37, 3.3, -23.6], w: 7.2, h: 4.05 },
   T: { cones: [1, 4], dig: [-20, -19], haul: [-20, -19], trim: [-20, -19], comp0: [-20, -19], END: 98 },

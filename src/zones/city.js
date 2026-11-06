@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { ZONE_POS, PLOT, rng } from '../config.js';
+import { ZONE_POS, PLOT, rng, REMOTE_DZ, EXTRA_LOTS, RIVER } from '../config.js';
+import { buildRiver } from './river.js';
 import { H } from '../scene/terrain.js';
 import { createBuildings } from '../kit/buildings.js';
 import { buildZones } from './vignettes.js';
@@ -14,6 +15,7 @@ export function buildCity(engine, dn) {
     add: (o) => root.add(o), upd: (f) => engine.onUpdate(f), bld, people, keep,
   };
   buildZones(ctx);
+  buildRiver(ctx);
 
   // prédios genéricos ao redor
   const B = [
@@ -23,6 +25,9 @@ export function buildCity(engine, dn) {
     [100, -50, 7, 7, 13], [100, -33, 7, 8, 9],
     // E
     [10, 14, 8, 8, 12], [24, 14, 9, 8, 16], [38, 14, 8, 8, 10], [10, 51, 8, 8, 14], [24, 52, 9, 7, 9], [36, 53, 7, 6, 12],
+    // antigos lotes de F e H (as zonas foram para a área afastada): quarteirão de prédios e uma praça
+    [-43, -50, 7, 7, 14], [-31, -50, 8, 7, 22], [-19, -50, 7, 7, 11], [-43, -36, 7, 8, 9], [-43, -21, 7, 7, 17], [-11, -14, 8, 7, 10], [-27, -12, 9, 6, 8],
+    [10, -50, 8, 7, 12], [24, -51, 9, 7, 19], [40, -50, 8, 7, 10], [44, -34, 7, 8, 15], [44, -19, 7, 8, 8], [10, -12, 7, 6, 11],
   ];
   for (const [x, z, w, d, h] of B) bld.add(x, H(x, z), z, w, h, d);
   root.add(bld.finish());
@@ -30,12 +35,12 @@ export function buildCity(engine, dn) {
   const bldD = createBuildings(engine);
   for (const [x, z, w, d, h] of [[64, -51, 7, 7, 10], [64, -12, 7, 7, 9], [76, -52, 8, 6, 8], [89, -52, 8, 6, 11]]) bldD.add(x, H(x, z), z, w, h, d);
   const gnb = bldD.finish(); gnb.name = 'd-nb'; root.add(gnb);
-  dn.onChange((g) => { bld.facadeMat.emissiveIntensity = g * 1.7; bldD.facadeMat.emissiveIntensity = g * 1.7; });
+  dn.onChange((g) => { bld.facadeMat.emissiveIntensity = g * 1.7; bldD.facadeMat.emissiveIntensity = g * 1.7; if (ctx.bridgeLamp) ctx.bridgeLamp.emissiveIntensity = g * 1.6; });
 
   // árvores
   const T = [];
   const pushT = (x, z) => T.push([x, z]);
-  for (const [, [cx, cz]] of Object.entries(ZONE_POS)) {
+  for (const [cx, cz] of [...Object.values(ZONE_POS), ...EXTRA_LOTS]) {
     const hw = PLOT.w / 2 - 2.2, hd = PLOT.d / 2 - 2.2;
     for (let x = -hw; x <= hw; x += 9.5) { pushT(cx + x + R() * 2, cz + hd + (R() - 0.5)); pushT(cx + x + R() * 2, cz - hd + (R() - 0.5)); }
     for (let z = -hd + 6; z <= hd - 6; z += 11) { pushT(cx + hw + (R() - 0.5), cz + z); pushT(cx - hw + (R() - 0.5), cz + z); }
@@ -47,8 +52,17 @@ export function buildCity(engine, dn) {
     }
   };
   hill(-103, -77, -57, -24, 40, 1.5, (x, z) => !(Math.abs(x + 90) < 14 && z > -34.5));
-  hill(-48, -7, -57, -22, 10, 1.2);
-  hill(6, 48, -57, -30, 36, 8);
+  hill(-48, -7, -57 + REMOTE_DZ, -22 + REMOTE_DZ, 10, 1.2);
+  hill(6, 48, -57 + REMOTE_DZ, -30 + REMOTE_DZ, 36, 8);
+  // praça no antigo lote de H e árvores soltas no antigo lote de F
+  for (let x = 0; x < 4; x++) for (let z = 0; z < 3; z++) pushT(14 + x * 7 + R() * 2, -38 + z * 7 + R() * 2);
+  for (let i = 0; i < 6; i++) pushT(-36 + R() * 20, -40 + R() * 22);
+  // mata nos cantos da área afastada e nas margens do rio
+  const flat = () => true;
+  hill(-105, -60, -150, -98, 34, -0.5, (x, z) => !(Math.abs(x + 90) < 6 && z < -110) && !(Math.abs(x + 90) < 9 && z > -124 && z < -118));
+  hill(60, 106, -150, -98, 30, -0.5, (x, z) => Math.abs(x - 81) > 7 || z < -104);
+  for (let x = -108; x <= 108; x += 7) { if (Math.abs(x - 81) > 8 && Math.abs(x + 86) > 6) { pushT(x + R() * 2, RIVER.z1 + 2.6 + R()); pushT(x + R() * 2, RIVER.z0 - 2.6 - R()); } }
+  void flat;
   const trees = createTrees(T.filter(([x, z]) => {
     // evita estradas, fosso e o miolo das obras mais ocupadas
     if (x > 69 && x < 95 && z > -42 && z < -19) return false;
@@ -58,7 +72,7 @@ export function buildCity(engine, dn) {
 
   // pessoas: pedestres no meio-fio + trabalhadores das vinhetas
   const walkers = [];
-  for (const [, [cx, cz]] of Object.entries(ZONE_POS)) {
+  for (const [cx, cz] of [...Object.values(ZONE_POS), ...EXTRA_LOTS]) {
     const hw = PLOT.w / 2, hd = PLOT.d / 2;
     walkers.push({ x: cx - 18, z: cz + hd, x2: cx + 6, z2: cz + hd, kind: 'walk', y: 0.28 });
     walkers.push({ x: cx + 10, z: cz - hd, x2: cx - 12, z2: cz - hd, kind: 'walk', y: 0.28 });

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REMOTE_DZ } from '../config.js';
 import * as M from '../kit/machines.js';
 import { createProfile, col, XP, XEP, ZCF, ease, clamp01, win, mat, noclip, person } from './fprofile.js';
 import { X1F, F_BOX } from './fterra.js';
@@ -39,7 +40,7 @@ const C = { grass: col(0x6f9c50), dirt: col(0x8a6a44), soil: col(0x8c6c48), sapr
 let dInt = 0; for (let d = 0; d < 26; d += 0.05) if (Fd(d) < G(ZC + d)) dInt = d;      // onde o projeto encontra o terreno
 
 export function createF2(engine, section) {
-  return createProfile(engine, section, {
+  return createProfile(engine, section, { dz: REMOTE_DZ,
     key: 'F2', labels: F2_LABELS, starts: F2_STARTS, END: T.END, yb: 0,
     build(H) {
       const { root, surf, place, dash, bar2, tree, stake } = H;

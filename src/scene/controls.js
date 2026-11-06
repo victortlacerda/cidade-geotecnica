@@ -5,7 +5,7 @@ const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
 export function createControls(engine, dom) {
   const { camera } = engine;
-  const HOME = { tx: 0, ty: 0, tz: 4, yaw: 0.52, pitch: 0.7, dist: 330 };
+  const HOME = { tx: 0, ty: 0, tz: -40, yaw: 0.52, pitch: 0.72, dist: 410 };
   const cur = { ...HOME }, goal = { ...HOME };
   let flying = false, flyRate = 3.2;
   const keys = new Set();
@@ -14,13 +14,13 @@ export function createControls(engine, dom) {
   const listeners = { click: [], move: [], interact: [] };
   const emit = (n, a) => listeners[n].forEach((f) => f(a));
 
-  const LIM = { minDist: 10, maxDist: 360, minPitch: 0.2, maxPitch: 1.42 };
+  const LIM = { minDist: 10, maxDist: 460, minPitch: 0.2, maxPitch: 1.42 };
 
   function clampGoal() {
     goal.dist = clamp(goal.dist, LIM.minDist, LIM.maxDist);
     goal.pitch = clamp(goal.pitch, LIM.minPitch, LIM.maxPitch);
     goal.tx = clamp(goal.tx, -WORLD.w / 2 + 6, WORLD.w / 2 - 6);
-    goal.tz = clamp(goal.tz, -WORLD.d / 2 + 4, WORLD.d / 2 - 4);
+    goal.tz = clamp(goal.tz, WORLD.z0 + 4, WORLD.z1 - 4);
   }
   function panBy(dxPx, dyPx) {
     const k = cur.dist * 0.0021;

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { ROADS, rng } from '../config.js';
+import { ROADS, ROADS_REMOTE, rng } from '../config.js';
 import { H } from '../scene/terrain.js';
 
 // ---------- trânsito: laços ao redor de cada quadra, mão direita ----------
@@ -48,10 +48,10 @@ function carGeometry() {
 }
 
 export function createTraffic(engine) {
-  const xs = ROADS.vx, zs = ROADS.hz;
   const loops = [];
-  for (let i = 0; i < xs.length - 1; i++) for (let j = 0; j < zs.length - 1; j++) {
-    loops.push(roundedLoop(xs[i], xs[i + 1], zs[j], zs[j + 1], 7, 1.9));
+  for (const RG of [ROADS, ROADS_REMOTE]) {
+    const xs = RG.vx, zs = RG.hz;
+    for (let i = 0; i < xs.length - 1; i++) for (let j = 0; j < zs.length - 1; j++) loops.push(roundedLoop(xs[i], xs[i + 1], zs[j], zs[j + 1], 7, 1.9));
   }
   const R = rng(11);
   const palette = [0xe9a23b, 0x6fa3c7, 0xd9d4c8, 0xc86a5a, 0x7ea58a, 0xf0ede6, 0x4d5560, 0xb98fb3];
