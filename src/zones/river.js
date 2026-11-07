@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { WORLD, RIVER, BRIDGE, COL, ROADS_REMOTE, COFFER } from '../config.js';
+import { WORLD, RIVER, BRIDGE, COL, ROADS_REMOTE, COFFER, PIERS } from '../config.js';
 import { H, EXIT } from '../scene/terrain.js';
 import { follower } from '../kit/paths.js';
 import * as M from '../kit/machines.js';
@@ -52,26 +52,32 @@ export function buildRiver(ctx) {
 
   // ponte (perto da Zona D): tabuleiro, rampas, pilares no rio, encontros e guarda-corpo
   {
+    const bg = new THREE.Group(); bg.name = 'j-bridge'; root.add(bg);   // escondido durante a J1 (que anima a construção da ponte)
     const { x, deck } = BRIDGE, bw = 10, zA = -65, zB = -91, zr0 = RIVER.z1 + 1, zr1 = RIVER.z0 - 1, th = 0.8;
     const conc = mat(0xc9c4b8), asph = mat(COL.road, { r: 0.95 });
     const deckG = [], ramp = (za, zb, ya, yb) => { const L = Math.hypot(zb - za, yb - ya), g = new THREE.BoxGeometry(bw, th, L); g.rotateX(Math.atan2(yb - ya, za - zb)); g.translate(x, (ya + yb) / 2 - th / 2, (za + zb) / 2); return g; };
     deckG.push(ramp(zA, zr0, 0.12, deck), boxG(bw, th, zr0 - zr1, x, deck - th / 2, (zr0 + zr1) / 2), ramp(zr1, zB, deck, 0.12));
-    const dk = new THREE.Mesh(mergeGeometries(deckG), conc); dk.castShadow = dk.receiveShadow = true; root.add(dk);
+    const dk = new THREE.Mesh(mergeGeometries(deckG), conc); dk.castShadow = dk.receiveShadow = true; bg.add(dk);
     const top = []; const rampT = (za, zb, ya, yb) => { const L = Math.hypot(zb - za, yb - ya), g = new THREE.BoxGeometry(bw - 2.2, 0.06, L); g.rotateX(Math.atan2(yb - ya, za - zb)); g.translate(x, (ya + yb) / 2 + 0.03, (za + zb) / 2); return g; };
     top.push(rampT(zA, zr0, 0.12, deck), boxG(bw - 2.2, 0.06, zr0 - zr1, x, deck + 0.03, (zr0 + zr1) / 2), rampT(zr1, zB, deck, 0.12));
-    root.add(new THREE.Mesh(mergeGeometries(top), asph));
+    bg.add(new THREE.Mesh(mergeGeometries(top), asph));
     const mk = []; for (let z = zr0 - 1; z > zr1 + 0.5; z -= 3) mk.push(boxG(0.22, 0.03, 1.5, x, deck + 0.08, z));
-    root.add(new THREE.Mesh(mergeGeometries(mk), mat(0xf4f1ea)));
-    // pilares: duas linhas no rio, cada uma com dois pilares sobre bloco
-    const piers = [];
-    for (const zp of [zc + 3.2, zc - 3.2]) {
-      piers.push(boxG(bw - 1, 0.9, 2.4, x, RIVER.bed + 0.45, zp));
-      for (const dx of [-2.7, 2.7]) { const c = new THREE.CylinderGeometry(0.7, 0.7, deck - th - RIVER.bed - 0.9, 12); c.translate(x + dx, RIVER.bed + 0.9 + (deck - th - RIVER.bed - 0.9) / 2, zp); piers.push(c); }
-      piers.push(boxG(bw - 1.4, 0.6, 1.6, x, deck - th - 0.3, zp));
+    bg.add(new THREE.Mesh(mergeGeometries(mk), mat(0xf4f1ea)));
+    // pilares: duas linhas no rio; estacas com camisa metálica aparente na água, bloco no nível d'água, pilar curto e vigas
+    const piers = [], steel = [];
+    for (const zp of PIERS.lines) {
+      for (const sx of [-1, 1]) {
+        const cs = new THREE.CylinderGeometry(PIERS.r, PIERS.r, PIERS.capB - RIVER.bed + 0.2, 14); cs.translate(x + sx * PIERS.dx, (PIERS.capB + RIVER.bed - 0.2) / 2, zp); steel.push(cs);
+        const c = new THREE.CylinderGeometry(0.55, 0.55, PIERS.colT - PIERS.capT, 12); c.translate(x + sx * PIERS.dx, (PIERS.capT + PIERS.colT) / 2, zp); piers.push(c);
+      }
+      piers.push(boxG(2 * PIERS.dx + 2.2, PIERS.capT - PIERS.capB, 2.4, x, (PIERS.capB + PIERS.capT) / 2, zp));
+      piers.push(boxG(bw - 1.4, 0.4, 1.4, x, PIERS.colT + 0.2 - 0.4, zp));
     }
-    const pm = new THREE.Mesh(mergeGeometries(piers.map((g) => (g.index ? g.toNonIndexed() : g))), conc); pm.castShadow = true; root.add(pm);
+    for (const bx of [-3.2, 0, 3.2]) piers.push(boxG(0.7, PIERS.beamT - PIERS.colT, zr0 - zr1, x + bx, (PIERS.colT + PIERS.beamT) / 2, (zr0 + zr1) / 2));
+    const pm = new THREE.Mesh(mergeGeometries(piers.map((g) => (g.index ? g.toNonIndexed() : g))), conc); pm.castShadow = true; bg.add(pm);
+    bg.add(new THREE.Mesh(mergeGeometries(steel), mat(0x4f565e, { m: 0.4, r: 0.5 })));
     // encontros nas margens
-    for (const [z, s] of [[zr0 + 0.4, 1], [zr1 - 0.4, -1]]) { const e = new THREE.Mesh(new THREE.BoxGeometry(bw + 0.6, deck + 1.6, 1.2), conc); e.position.set(x, deck / 2 - 0.8, z + s * 0.2); e.castShadow = true; root.add(e); }
+    for (const [z, s] of [[zr0 + 0.4, 1], [zr1 - 0.4, -1]]) { const e = new THREE.Mesh(new THREE.BoxGeometry(bw + 0.6, deck + 1.6, 1.2), conc); e.position.set(x, deck / 2 - 0.8, z + s * 0.2); e.castShadow = true; bg.add(e); }
     // guarda-corpo e postes
     const rail = [];
     for (const sx of [-1, 1]) {
@@ -79,11 +85,11 @@ export function buildRiver(ctx) {
       rail.push(boxG(0.18, 0.12, zr0 - zr1, xr, deck + 1.0, (zr0 + zr1) / 2));
       for (let z = zr0; z >= zr1; z -= 1.6) rail.push(boxG(0.14, 1.0, 0.14, xr, deck + 0.5, z));
     }
-    root.add(new THREE.Mesh(mergeGeometries(rail), mat(0x5a5e66, { m: 0.3 })));
+    bg.add(new THREE.Mesh(mergeGeometries(rail), mat(0x5a5e66, { m: 0.3 })));
     const lampM = new THREE.MeshStandardMaterial({ color: 0xfff1c9, emissive: 0xffd88a, emissiveIntensity: 0 });
     for (const z of [zr0 - 3, zc, zr1 + 3]) for (const sx of [-1, 1]) {
-      const p = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.13, 3.4, 6), mat(0x4a4e55)); p.position.set(x + sx * (bw / 2 - 0.3), deck + 1.7, z); root.add(p);
-      const b = new THREE.Mesh(new THREE.SphereGeometry(0.36, 8, 6), lampM); b.position.set(x + sx * (bw / 2 - 0.3), deck + 3.5, z); root.add(b);
+      const p = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.13, 3.4, 6), mat(0x4a4e55)); p.position.set(x + sx * (bw / 2 - 0.3), deck + 1.7, z); bg.add(p);
+      const b = new THREE.Mesh(new THREE.SphereGeometry(0.36, 8, 6), lampM); b.position.set(x + sx * (bw / 2 - 0.3), deck + 3.5, z); bg.add(b);
     }
     ctx.bridgeLamp = lampM;
     // trânsito na ponte (mão dupla)
@@ -92,9 +98,9 @@ export function buildRiver(ctx) {
     const carM = [0xe9a23b, 0x6fa3c7, 0xf0ede6];
     for (let i = 0; i < 3; i++) {
       const car = new THREE.Group(); const b = new THREE.Mesh(new THREE.BoxGeometry(3.8, 1.0, 1.8), mat(carM[i])); b.position.y = 0.8; car.add(b); const c = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.8, 1.6), mat(0x86b8d8)); c.position.set(-0.2, 1.6, 0); car.add(c);
-      car.castShadow = true; root.add(car); upd(follower(car, path, 6 + i, { yOff: 0.02 }));
+      car.castShadow = true; bg.add(car); upd(follower(car, path, 6 + i, { yOff: 0.02 }));
     }
-    const tk = M.dumpTruck(0xe8b300); tk.scale.setScalar(0.8); root.add(tk); upd(follower(tk, path, 4.5, { yOff: 0.05 }));
+    const tk = M.dumpTruck(0xe8b300); tk.scale.setScalar(0.8); bg.add(tk); upd(follower(tk, path, 4.5, { yOff: 0.05 }));
   }
 
   // Zona J: ensecadeira de estacas-prancha no rio, com a água bombeada para fora e o bloco de um novo pilar a seco

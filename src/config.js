@@ -4,6 +4,9 @@
 export const REMOTE_DZ = -94;
 export const RIVER = { z0: -86, z1: -70, bed: -4.2, water: -1.3, bank: 3.5 };
 export const BRIDGE = { x: 81, z0: -62, z1: -94, deck: 1.4 };
+// pilares da ponte (Zona J, obra J1): duas linhas no rio; em cada uma, duas estacas escavadas com camisa metálica (x = 81 ± 2,7),
+// bloco de coroamento no nível d'água, pilar curto, vigas e laje. Cotas em metros (o nível do rio é -1,3; o leito, -4,2).
+export const PIERS = { lines: [-74.8, -81.2], dx: 2.7, r: 0.6, casingTip: -11.0, toe: -19.5, capB: -2.2, capT: -1.0, colT: 0.0, beamT: 0.6 };
 // ensecadeira no rio, ao lado da ponte (Zona J): recinto de estacas-prancha com o bloco de um novo pilar
 export const COFFER = { x0: 90, x1: 100, z0: -81, z1: -75 };
 export const TUNNEL = { x: -90, zIn: -27, zOut: -122 };
